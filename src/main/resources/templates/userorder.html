@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::header}">
+</head>
+<body>
+	
+	<!--PreLoader-->
+	<div th:replace="~{fragments::loader}"></div>
+	<!--PreLoader Ends-->
+	
+	<!-- header -->
+	<div th:replace="~{fragments::headerNav}"></div>
+	<!-- end header -->
+
+	<!-- search area -->
+	<div class="search-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="close-btn"><i class="fas fa-window-close"></i></span>
+					<div class="search-bar">
+						<div class="search-bar-tablecell">
+							<h3>Search For:</h3>
+							<input type="text" placeholder="Keywords">
+							<button type="submit">Search <i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end search arewa -->
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Smartphones and Accessories</p>
+						<h1>My Orders</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- check out section -->
+<div class="checkout-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="order-table">
+                    <table class="table">
+						<thead>
+							<tr>
+								<th>Order ID</th>
+								<th>Order Date</th>
+								<th>Total Price</th>
+								<th>View detail</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>2024/05/18</td>
+								<td>$150.00</td>
+								<td><a class="btn btn-info" th:href="@{detail}">Details</a></td>
+								<td>
+									<button class="btn btn-danger cancel-order" data-order-id="1">Cancel</button>
+								</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>2024/05/07</td>
+								<td>$200.00</td>
+								<td><a class="btn btn-info" th:href="@{detail}">Details</a></td>
+								<td>
+									<button class="btn btn-danger cancel-order" data-order-id="2">Cancel</button>
+								</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>2024/05/01</td>
+								<td>$100.00</td>
+								<td><a class="btn btn-info" th:href="@{detail}">Details</a></td>
+								<td>
+									<button class="btn btn-danger cancel-order disabled" data-order-id="3" disabled>Cancel</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>					
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end check out section -->
+
+
+	<!-- footer -->
+	<div th:replace="~{fragments::footer}"></div>
+	<!-- end footer -->
+	
+	<!-- copyright -->
+	<div th:replace="~{fragments::copyright}"></div>
+	<!-- end copyright -->
+	
+	<!-- jquery -->
+	<div th:replace="~{fragments::script}"></div>
+
+</body>
+</html>

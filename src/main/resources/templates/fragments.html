@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<head th:fragment="header">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+    &lt;!&ndash; title &ndash;&gt;
+    <title>LKHT</title>
+
+    &lt;!&ndash; favicon &ndash;&gt;
+    <link rel="shortcut icon" type="image/png" th:href="@{/static/images/logo.png}">
+    &lt;!&ndash; google font &ndash;&gt;
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    &lt;!&ndash; fontawesome &ndash;&gt;
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    &lt;!&ndash; bootstrap &ndash;&gt;
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    &lt;!&ndash; owl carousel &ndash;&gt;
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
+    &lt;!&ndash; magnific popup &ndash;&gt;
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    &lt;!&ndash; animate css &ndash;&gt;
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    &lt;!&ndash; mean menu css &ndash;&gt;
+    <link rel="stylesheet" th:href="@{/css/meanmenu.min.css}">
+    &lt;!&ndash; main style &ndash;&gt;
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    &lt;!&ndash; responsive &ndash;&gt;
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>-->
+
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+
+    <!-- title -->
+    <title>LKHT</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" th:href="@{/static/images/logo.png}">
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+    <!-- fontawesome -->
+    <link rel="stylesheet" th:href="@{/css/all.min.css}">
+    <!-- bootstrap -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <!-- owl carousel -->
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.css}">
+    <!-- magnific popup -->
+    <link rel="stylesheet" th:href="@{/css/magnific-popup.css}">
+    <!-- animate css -->
+    <link rel="stylesheet" th:href="@{/css/animate.css}">
+    <!-- mean menu css -->
+    <link rel="stylesheet" th:href="@{/css/meanmenu.min.css}">
+    <!-- main style -->
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <!-- responsive -->
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+
+<!--
+        <link rel="stylesheet" th:href="@{/css/style.css}">
+-->
+</head>
+
+<!--loader-->
+<div class="loader" th:fragment="loader">
+    <div class="loader-inner">
+        <div class="circle"></div>
+    </div>
+</div>
+<!--endloader-->
+
+<!-- header -->
+<div class="top-header-area" id="sticker" th:fragment="headerNav">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 text-center">
+                <div class="main-menu-wrap">
+                    <!-- logo -->
+                    <div class="site-logo">
+                        <a th:href="@{/}">
+                            <img class="logo" th:src="@{/images/logo.png}" alt="">
+                        </a>
+                    </div>
+                    <!-- logo -->
+
+                    <!-- menu start -->
+                    <nav class="main-menu">
+                        <ul>
+                            <li class="current-list-item"><a th:href="@{/}">Home</a>
+                            </li>
+                            <li><a th:href="@{/about}">About</a></li>
+                            <li><a th:href="@{/shop}">Shop</a>
+                                <ul class="sub-menu">
+                                    <li><a th:href="@{/checkout}">Check Out</a></li>
+                                    <li><a th:href="@{/single-product}">Single Product</a></li>
+                                    <li><a th:href="@{/cart}">Cart</a></li>
+                                </ul>
+                            </li>
+                            <li><a th:if="${isLogin == false}" th:href="@{/page/login}">Login</a>
+                                <a th:if="${isLogin == true}" th:href="@{/logout}">Logout</a>
+                            </li>
+                            <li><a th:if="${isLogin == false}" th:href="@{/register}">Signup</a>
+                            </li>
+                            <li>
+                                <div class="header-icons">
+                                    <a class="shopping-cart" th:href="@{/cart}"><i class="fas fa-shopping-cart"></i></a>
+                                    <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                                    <a class="account-icon" th:text="${username}" th:href="@{/profile}"><i class="fas fa-user"></i></a>
+                                    <a th:href="@{/userorder}"><i class="fas fa-clipboard-list"></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                    <div class="mobile-menu"></div>
+                    <!-- menu end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end header -->
+<!-- footer -->
+<div class="footer-area" th:fragment="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-box about-widget">
+                    <h2 class="widget-title">About us</h2>
+                    <p>Shop will provide users with the best phone products at preferential prices with an extremely
+                        attractive warranty policy.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-box get-in-touch">
+                    <h2 class="widget-title">Get in Touch</h2>
+                    <ul>
+                        <li>Nguyen Sieu street, Hang Buom, Hoan Kiem, Ha Noi.</li>
+                        <li>support@LKHT.com</li>
+                        <li>0978262446</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-box pages">
+                    <h2 class="widget-title">Pages</h2>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="checkout.html">Checkout</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="footer-box subscribe">
+                    <h2 class="widget-title">Subscribe</h2>
+                    <p>Subscribe to our mailing list to get the latest updates.</p>
+                    <form action="index.html">
+                        <input type="email" placeholder="Email">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end footer -->
+
+<!--copyright-->
+<div class="copyright" th:fragment="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <p>Copyrights &copy; 2024 - <a href="">SWP391-SUMMER24</a>,  All Rights Reserved.</p>
+            </div>
+            <div class="col-lg-6 text-right col-md-12">
+                <div class="social-icons">
+                    <ul>
+                        <li><a href="https://www.facebook.com/profile.php?id=100009172256835" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.instagram.com/_.nkhanhh/" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end copyright-->
+
+<!--js-->
+<div th:fragment="script">
+    <!-- jquery -->
+    <script th:src="@{/js/jquery-1.11.3.min.js}"></script>
+    <!-- bootstrap -->
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- count down -->
+    <script th:src="@{/js/jquery.countdown.js}"></script>
+    <!-- isotope -->
+    <script th:src="@{/js/jquery.isotope-3.0.6.min.js}"></script>
+    <!-- waypoints -->
+    <script th:src="@{/js/waypoints.js}"></script>
+    <!-- owl carousel -->
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <!-- magnific popup -->
+    <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+    <!-- mean menu -->
+    <script th:src="@{/js/jquery.meanmenu.min.js}"></script>
+    <!-- sticker js -->
+    <script th:src="@{/js/sticker.js}"></script>
+    <!-- main js -->
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/login.js}"></script>
+</div>
+<!--end js-->
+</html>

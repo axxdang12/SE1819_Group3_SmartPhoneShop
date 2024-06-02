@@ -1,0 +1,21 @@
+{
+  "warnings": [
+    {
+      "FileName": "MainController.java",
+      "ErrorCode": "V6014",
+      "Message": "It\u0027s odd that this method always returns one and the same value.",
+      "CodePrev": 964444613,
+      "CodeCurrent": -108225270,
+      "CodeNext": -1297675539
+    },
+    {
+      "FileName": "MainController.java",
+      "ErrorCode": "V6014",
+      "Message": "It\u0027s odd that this method always returns one and the same value.",
+      "CodePrev": 120555877,
+      "CodeCurrent": 2134482266,
+      "CodeNext": -1297675539
+    }
+  ],
+  "version": 1
+}
