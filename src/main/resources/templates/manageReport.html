@@ -42,7 +42,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto h-100">
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{/manager}">
+                        <a class="nav-link" th:href="@{/manager}">
                             <i class="fas fa-tachometer-alt"></i>
                             Orders
                             <span class="sr-only">(current)</span>
@@ -57,7 +57,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/manageReport}">
+                        <a class="nav-link active" th:href="@{/manageReport}">
                             <i class="fas fa-file-alt"></i>
                             Reports
                         </a>
@@ -81,92 +81,44 @@
                 <p class="text-white mt-5 mb-5">Welcome back, <b>Manager</b></p>
             </div>
         </div>
-        <form th:action="@{/searchorder}" method="POST">
-            <div class="input-group">
-                <input class="form-control" type="search" name="userid" placeholder="Search by User ID" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </div>
+        <!-- Search Form -->
+        <form method="get" action="#" id="searchForm">
+            <div class="form-group">
+                <label for="userId">Search by User ID</label>
+                <input type="text" class="form-control" id="userId" name="userId">
             </div>
+            <div class="form-group">
+                <label for="orderId">Search by Order ID</label>
+                <input type="text" class="form-control" id="orderId" name="orderId">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
         </form>
+
         <!-- row -->
         <div class="row tm-content-row">
             <div class="col-12 tm-block-col">
                 <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-                    <h2 class="tm-block-title">Orders List</h2>
+                    <h2 class="tm-block-title">Reports List</h2>
+
                     <table class="table">
                         <thead>
                         <tr>
+                            <th>Report ID</th>
+                            <th>User ID</th>
                             <th>Order ID</th>
-                            <th>Order Date</th>
-                            <th>Total Price</th>
                             <th>View detail</th>
-                            <th>Status</th>
-                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        <!-- Default order list -->
-                        <tr th:if="${orderList != null}" th:each="order: ${orderList}">
-                            <td th:text="${order.orderId}"></td>
-                            <td th:text="${order.orderDate}"></td>
-                            <td th:text="${order.totalPrice}+'$'"></td>
-                            <td><a class="btn btn-info" th:href="@{order-detail-manager/{id}(id=${order.orderId})}">Details</a></td>
-                            <td>
-                                <a th:if="${order.status == 'Pending'}" class="tm-status-circle pending"></a>
-                                <a th:if="${order.status == 'Approved'}" class="tm-status-circle moving"></a>
-                                <a th:if="${order.status == 'Rejected'}" class="tm-status-circle cancelled"></a>
-                                <a th:if="${order.status == 'Completed'}" class="tm-status-circle completed"></a>
-                                <span th:text="${order.status}"></span>
-                            </td>
-                            <td>
-                                <div th:if="${order.status == 'Pending'}">
-                                    <form th:action="@{approve/{id}(id=${order.orderId})}" method="get">
-                                        <button type="submit" class="btn btn-success">Approve</button>
-                                    </form>
-                                    <form th:action="@{reject/{id}(id=${order.orderId})}" method="get">
-                                        <button type="submit" class="btn btn-danger">Reject</button>
-                                    </form>
-                                </div>
-                                <div th:if="${order.status == 'Approved'}">
-                                    <form th:action="@{complete/{id}(id=${order.orderId})}" method="get">
-                                        <button type="submit" class="btn btn-success">Complete</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
+                        <!-- Default report list -->
+                        <tr th:each="report: ${reportList}">
+                            <td th:text="${report.reportId}"></td>
+                            <td th:text="${report.userId}"></td>
+                            <td th:text="${report.orderId}"></td>
+                            <td><a th:href="@{/report/report-detail/{reportId}(reportId=${report.reportId})}" class="btn btn-info">Details</a></td>
 
-                        <!-- Search results by user ID -->
-                        <tr th:if="${listOrderByUser != null}" th:each="order: ${listOrderByUser}">
-                            <td th:text="${order.orderId}"></td>
-                            <td th:text="${order.orderDate}"></td>
-                            <td th:text="${order.totalPrice}+'$'"></td>
-                            <td><a class="btn btn-info" th:href="@{order-detail-manager/{id}(id=${order.orderId})}">Details</a></td>
-                            <td>
-                                <a th:if="${order.status == 'Pending'}" class="tm-status-circle pending"></a>
-                                <a th:if="${order.status == 'Approved'}" class="tm-status-circle moving"></a>
-                                <a th:if="${order.status == 'Rejected'}" class="tm-status-circle cancelled"></a>
-                                <a th:if="${order.status == 'Completed'}" class="tm-status-circle completed"></a>
-                                <span th:text="${order.status}"></span>
-                            </td>
-                            <td>
-                                <div th:if="${order.status == 'Pending'}">
-                                    <form th:action="@{approve/{id}(id=${order.orderId})}" method="get">
-                                        <button type="submit" class="btn btn-success">Approve</button>
-                                    </form>
-                                    <form th:action="@{reject/{id}(id=${order.orderId})}" method="get">
-                                        <button type="submit" class="btn btn-danger">Reject</button>
-                                    </form>
-                                </div>
-                                <div th:if="${order.status == 'Approved'}">
-                                    <form th:action="@{complete/{id}(id=${order.orderId})}" method="get">
-                                        <button type="submit" class="btn btn-success">Complete</button>
-                                    </form>
-                                </div>
-                            </td>
                         </tr>
-
                         </tbody>
                     </table>
                 </div>
