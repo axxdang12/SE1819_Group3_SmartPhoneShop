@@ -38,7 +38,7 @@ $(document).ready(function () {
                            </select></td>
                            <td><a class="btn btn-info" href="/user_detail/${value.userId}">Details</a></td>
                            <td>
-                                <button class="btn btn-danger cancel-order" data-order-id="1">Active</button>
+                                <button class="btn btnChange ${value.status === 'ACTIVE' ? 'btn-success' : 'btn-danger'}" data-id="${value.userId}" value="${value.status}">${value.status}</button>
                            </td>
                         </tr>
                     `);
@@ -46,10 +46,13 @@ $(document).ready(function () {
                 },
                 complete: function () {
                     saveRole();
+                    saveActive();
                 }
             })
         });
     }
+
+    saveRole();
 
     function saveActive() {
         $('.btnChange').on('click', function () {
@@ -97,11 +100,11 @@ $(document).ready(function () {
                 },
                 complete: function () {
                     saveActive();
+                    saveRole();
                 }
             })
         });
     }
 
-    saveRole();
     saveActive();
 });
