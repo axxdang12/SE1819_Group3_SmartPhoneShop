@@ -40,6 +40,7 @@ public class ManagerProduct {
         Page<Phone> list = phoneService.findPhonePage(page);
         model.addAttribute("listBrand", brandService.findAllBrand());
         if (name != null) {
+
             list = phoneService.searchPhone(name, page);
             model.addAttribute("keyword", name);
         }
@@ -53,7 +54,7 @@ public class ManagerProduct {
     @ResponseBody
     public Map<String, Object> viewProductJson(@RequestParam(name = "keyword", required = false) String name, @RequestParam(name = "pageNumber", defaultValue = "1") int page) {
         Page<Phone> list;
-        if (name != null && !name.isEmpty()) {
+        if (name != null && !name.isEmpty() ) {
             list = phoneService.searchPhone(name, page);
         } else {
             list = phoneService.findPhonePage(page);
@@ -64,6 +65,28 @@ public class ManagerProduct {
         response.put("currentPage", page);
         return response;
     }
+
+    @GetMapping("/searchStatus/json")
+    @ResponseBody
+    public Map<String, Object> viewProductByStatus(@RequestParam(name = "selectedValue") int selectedValue, @RequestParam(name = "pageNumber", defaultValue = "1") int page) {
+        Page<Phone> list = phoneService.findPhonePage(page);
+        boolean status;
+        if (selectedValue == 1 ) {
+            status = true;
+            list = phoneService.searchPhoneByStatus(status,page);
+        }
+        else if(selectedValue == 0) {
+            status = false;
+            list = phoneService.searchPhoneByStatus(status,page);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("htmlContent", generateHtmlContent(list.getContent()));
+        response.put("totalPages", list.getTotalPages());
+        response.put("currentPage", page);
+        return response;
+    }
+
 
     private String generateHtmlContent(List<Phone> phones) {
         StringBuilder htmlContent = new StringBuilder();
@@ -78,7 +101,7 @@ public class ManagerProduct {
                 htmlContent.append("<a onclick=\"changeStatus(this)\" class=\"stock active\" style=\"color: green;\" data-id=\"").append(phone.getPhoneId()).append("\">");
                 htmlContent.append("<i class=\"fas fa-check-circle\" data-toggle=\"tooltip\" title=\"In Stock\"></i></a>");
             } else {
-                htmlContent.append("<a onclick=\"changeStatus(this)\" class=\"stock inactive\" style=\"color: red;\" data-id=\"").append(phone.getPhoneId()).append("\">");
+                htmlContent.append("<a onclick=\"changeStatus(this)\" class=\"stock inactive\" style=\"color: gray;\" data-id=\"").append(phone.getPhoneId()).append("\">");
                 htmlContent.append("<i class=\"fas fa-times-circle\" data-toggle=\"tooltip\" title=\"Out of Stock\"></i></a>");
             }
             htmlContent.append("</td>");
@@ -130,7 +153,7 @@ public class ManagerProduct {
         Phone phone = new Phone();
         phone = Phone.builder().productName(productName).status(status).phoneId(pid).cpu(cpu).ram(ram).sim(sim).price(price).camera(camera).memory(memory).origin(origin).brand(b).picture(picture).releaseDate(date.toLocalDate()).display(dis).build();
         phoneService.editPhone(phone);
-        redirectAttributes.addFlashAttribute("message", "Chỉnh sửa sản phẩm thành công!");
+        redirectAttributes.addFlashAttribute("message", "Chỉnh sửa thành công sản phẩm "+phone.getProductName() + " có id: "+phone.getPhoneId()  +" !");
         return "redirect:/manageProduct";
     }
 
@@ -205,7 +228,7 @@ public class ManagerProduct {
         for (Phone p : lphone) {
             if (p.equals(phone)) {
                 model.addAttribute("listBrand", brandService.findAllBrand());
-                model.addAttribute("mess", "Thêm sản phẩm thành công");
+                model.addAttribute("mess", "Đã thêm thành công"+ phone.getProductName()+" có id: "+phone.getPhoneId()+" !");
                 return "add-product";
             }
         }
@@ -214,12 +237,5 @@ public class ManagerProduct {
         return "add-product";
     }
 
-//    @GetMapping("/Msearch")
-//    public String search(@RequestParam("name") String name, Model model){
-//        model.addAttribute("listPhone", phoneService.searchPhone(name));
-//
-//        model.addAttribute("listBrand", brandService.findAllBrand());
-//
-//        return"products";
-//    }
+
 }

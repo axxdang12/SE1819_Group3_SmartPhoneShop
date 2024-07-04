@@ -40,14 +40,15 @@ public class CartItemServiceImpl implements CartItemService {
         Cart cart = user.getCart();
         List<CartItem> ciList = cart.getItems();
         cartItemRepository.deletePhoneFromCart(cartId, phoneId);
-        for (CartItem item : ciList) {
-            item.setTotal(item.getTotalPrice());
-            quantity+=item.getQuantity();
-            total += item.getTotal();
-            //cartItemRepository.save(item);
-        }
-        cart.setQuantity(quantity);
-        cart.setTotal(total);
+//        for (CartItem item : ciList) {
+//            if (item.getPhone().getStatus()) {
+//                item.setTotal(item.getTotalPrice());
+//                quantity += item.getQuantity();
+//                total += item.getTotal();
+//            }
+//        }
+//        cart.setQuantity(quantity);
+//        cart.setTotal(total);
         cartRepository.save(cart);
     }
 
@@ -56,7 +57,7 @@ public class CartItemServiceImpl implements CartItemService {
         int quantity=0;
         double total = 0;
         Phone upd = phoneRepository.findById(phoneId).orElse(null);
-        if (upd == null) {
+        if (upd == null||!upd.getStatus()) {
             return;
         }
 
@@ -68,7 +69,6 @@ public class CartItemServiceImpl implements CartItemService {
         for (CartItem item : ciList) {
             if (item.getPhone().getPhoneId() == upd.getPhoneId()) {
                 item.setQuantity(item.getQuantity() + 1);
-                //cartItemRepository.save(item);
                 found = true;
                 break;
             }
@@ -76,14 +76,15 @@ public class CartItemServiceImpl implements CartItemService {
         if (!found) {
             ciList.add(CartItem.builder().phone(upd).cart(cart).quantity(1).build());
         }
-        for (CartItem item : ciList) {
-            item.setTotal(item.getTotalPrice());
-            total += item.getTotal();
-            quantity+=item.getQuantity();
-            //cartItemRepository.save(item);
-        }
-        cart.setQuantity(quantity);
-        cart.setTotal(total);
+//        for (CartItem item : ciList) {
+//            if (item.getPhone().getStatus()) {
+//                item.setTotal(item.getTotalPrice());
+//                total += item.getTotal();
+//                quantity += item.getQuantity();
+//            }
+//        }
+//        cart.setQuantity(quantity);
+//        cart.setTotal(total);
         cartRepository.save(cart);
     }
 
@@ -95,15 +96,17 @@ public class CartItemServiceImpl implements CartItemService {
         User user = userRepository.findByUsername(userName);
         Cart cart = user.getCart();
         List<CartItem> ciList = cart.getItems();
-        if (cartItem!=null){
+        if (cartItem!=null&&cartItem.getPhone().getStatus()){
             cartItem.setQuantity(quantity);
             cartItem.setTotal(cartItem.getTotalPrice());
-            for (CartItem item : ciList) {
-                total+=item.getTotal();
-                quantityCart+=item.getQuantity();
-            }
-           cart.setQuantity(quantityCart);
-            cart.setTotal(total);
+//            for (CartItem item : ciList) {
+//                if (item.getPhone().getStatus()) {
+//                    total += item.getTotal();
+//                    quantityCart += item.getQuantity();
+//                }
+//            }
+//           cart.setQuantity(quantityCart);
+//            cart.setTotal(total);
 //            cartItemRepository.save(cartItem);
             cartRepository.save(cart);
         }
@@ -146,9 +149,14 @@ public class CartItemServiceImpl implements CartItemService {
             // Update total quantity and total price in the cart
             int totalQuantity = cartItems.stream().mapToInt(CartItem::getQuantity).sum();
             double totalPrice = cartItems.stream().mapToDouble(item -> item.getQuantity() * item.getPhone().getPrice()).sum();
-
             cart.setQuantity(totalQuantity);
             cart.setTotal(totalPrice);
             cartRepository.save(cart); // Save updated cart
         }
+
+//    @Override
+//    public void addCartItem(Cart cart, CartItem cartItem) {
+//        cart.getItems().add(cartItem);
+//        cartItemRepository.save(cartItem);
+//    }
 }

@@ -65,7 +65,7 @@
   </div>
 </nav>
 <div class="container tm-mt-big tm-mb-big">
-  <div class="row">
+   <div class="row">
     <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
       <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
         <div class="row">
@@ -82,22 +82,22 @@
                 <input  name="pid" type="number" th:value="${phone.phoneId}"  class="form-control validate" readonly/>
               </div>
               <div class="form-group mb-3">
-                <label for="name">Product Name
+                <label >Product Name
                 </label>
-                <input  name="name" type="text" th:value="${phone.productName}" class="form-control validate" />
+                <input  name="name" type="text" th:value="${phone.productName}" class="form-control validate" required />
               </div>
               <div class="form-group mb-3">
-                <label for="name">CPU
+                <label >CPU
                 </label>
-                <input   name="cpu" type="text"  th:value="${phone.cpu}" class="form-control validate" />
+                <input   name="cpu" type="text"  th:value="${phone.cpu}" class="form-control validate" required />
               </div>
               <div class="form-group mb-3">
-                <label for="name">Camera
+                <label >Camera
                 </label>
-                <input   name="camera" type="number"  th:value="${phone.camera}" class="form-control validate" />
+                <input   name="camera" id="camera" type="number"  th:value="${phone.camera}" class="form-control validate" required />
               </div>
               <div class="form-group mb-3">
-                <label for="category">Memory</label>
+                <label >Memory</label>
                 <select class="custom-select tm-select-accounts" name="memory" >
                   <option  th:value="${phone.memory}" th:text="${phone.memory}" selected ></option>
                   <option value="64" >64</option>
@@ -106,23 +106,12 @@
                 </select>
               </div>
 
-<!--              <div class="form-group mb-3">-->
-<!--                <label for="category">Category</label>-->
-<!--                <select class="custom-select tm-select-accounts" name="category" >-->
-<!--                  <option th:value="${phone.category.categoryId}" th:text="${phone.category.categoryName}" selected></option>-->
-<!--                  <option th:each="category : ${listCategory}"-->
-<!--                          th:value="${category.categoryId}"-->
-<!--                          th:text="${category.categoryName}">-->
-<!--                  </option>-->
-<!--                </select>-->
-<!--              </div>-->
-
               <div class="row">
                  <div class="form-group mb-3 col-xs-12 col-sm-6">
-                 <label for="expire_date">Date
+                 <label >Date
                  </label>
                  <input  name="date" type="date" th:value="${phone.releaseDate}"
-                 class="form-control validate" data-large-mode="true" />
+                 class="form-control validate" data-large-mode="true" required />
                  </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label >Sim</label>
@@ -135,24 +124,24 @@
 
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Price
+                  <label >Price
                   </label>
-                  <input  name="price" type="number" th:value="${phone.price}" class="form-control validate" />
+                  <input  name="price" id="price" type="number" th:value="${phone.price}" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Ram
+                  <label >Ram
                   </label>
-                  <input  name="ram" type="number" th:value="${phone.ram}" class="form-control validate" />
+                  <input  name="ram" type="number" th:value="${phone.ram}" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Display
+                  <label >Display
                   </label>
-                  <input name="dis" type="number" th:value="${phone.display}" class="form-control validate" />
+                  <input name="dis" id="dis" type="number" th:value="${phone.display}" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Origin
+                  <label >Origin
                   </label>
-                  <input  name="origin" type="text" th:value="${phone.origin}" class="form-control validate" />
+                  <input  name="origin" type="text" th:value="${phone.origin}" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label >Brand</label>
@@ -165,36 +154,38 @@
                   </select>
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6" readonly>
-                  <label for="stock">Picture ID
+                  <label >Picture ID
                   </label>
                   <input  name="picid" type="number" th:value="${phone.picture.pictureId}" class="form-control validate" readonly />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Picture Main
+                  <label >Picture Main
                   </label>
-                  <input  name="pm" type="text" th:value="${phone.picture.main}" class="form-control validate" />
+                  <input  name="pm" type="text" th:value="${phone.picture.main}" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Picture Font
+                  <label >Picture Font
                   </label>
-                  <input  name="pf" type="text" th:value="${phone.picture.front}" class="form-control validate" />
+                  <input  name="pf" type="text" th:value="${phone.picture.front}" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Picture Back
+                  <label >Picture Back
                   </label>
-                  <input  name="pb" type="text" th:value="${phone.picture.back}" class="form-control validate" />
+                  <input  name="pb" type="text" th:value="${phone.picture.back}" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Picture Side
+                  <label >Picture Side
                   </label>
-                  <input  name="ps" type="text" th:value="${phone.picture.site}" class="form-control validate" />
+                  <input  name="ps" type="text" th:value="${phone.picture.site}" class="form-control validate" required />
                 </div>
 
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label >Status</label>
                   <select class="custom-select tm-select-accounts" name="status" >
-                    <option value="1" selected>In stock</option>
-                    <option value="0" >Out stock</option>
+                    <option th:if="phone.status" th:value="1">In-stock</option>
+                    <option th:if="phone.status == false" th:value="0">Out-stock</option>
+                    <option value="1" >In-stock</option>
+                    <option value="0" >Out-stock</option>
                   </select>
                 </div>
 
@@ -220,7 +211,7 @@
     </p>
   </div>
 </footer>
-
+</body>
 <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
 <!-- https://jquery.com/download/ -->
 <script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
@@ -233,7 +224,42 @@
       defaultDate: "10/22/2020"
     });
   });
+
+  document.getElementById('camera').addEventListener('input', function (e) {
+    let value = e.target.value;
+
+    // Kiểm tra nếu giá trị không phải là số hoặc là số nhưng không lớn hơn 0
+    if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
+        // Hiển thị thông báo lỗi (ví dụ: dùng console.log hoặc alert)
+       alert('Giá trị camera không hợp lệ.');
+
+        // Xóa bỏ các ký tự không phải số
+        e.target.value = value.replace(/\D/g, '');
+    }
+    document.getElementById('dis').addEventListener('input', function (e) {
+    let value = e.target.value;
+
+    // Kiểm tra nếu giá trị không phải là số hoặc là số nhưng không lớn hơn 0
+    if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
+        // Hiển thị thông báo lỗi (ví dụ: dùng console.log hoặc alert)
+       alert('Giá trị display không hợp lệ.');
+
+        // Xóa bỏ các ký tự không phải số
+        e.target.value = value.replace(/\D/g, '');
+    }
+
+    document.getElementById('price').addEventListener('input', function (e) {
+    let value = e.target.value;
+
+    // Kiểm tra nếu giá trị không phải là số hoặc là số nhưng không lớn hơn 0
+    if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
+        // Hiển thị thông báo lỗi (ví dụ: dùng console.log hoặc alert)
+       alert('Giá trị price không hợp lệ.');
+
+        // Xóa bỏ các ký tự không phải số
+        e.target.value = value.replace(/\D/g, '');
+    }
 </script>
-</body>
+
 
 </html>

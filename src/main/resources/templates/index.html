@@ -97,42 +97,20 @@
         </div>
 
         <div class="row">
-            <div class="col-lg-4 col-md-6 text-center">
+            <div th:each="phone: ${listPhone}" class="col-lg-4 col-md-6 text-center" >
                 <div class="single-product-item">
                     <div class="product-image">
-                        <a th:href="@{single-product}"><img
-                                src="https://images.samsung.com/vn/smartphones/galaxy-z-fold5/buy/product_color_icyBlue.png?imwidth=480"
+                        <a th:href="@{/single-product/{id}(id=${phone.phoneId})}"><img
+                                th:src="@{${phone.picture.main}}"
                                 alt=""></a>
                     </div>
-                    <h3>Z-Fold5</h3>
-                    <p class="product-price"><span></span> 1185$ </p>
-                    <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                    <h3 th:text="${phone.productName}"></h3>
+                    <p class="product-price" th:text="${phone.price} + '$'" ><span></span>  </p>
+                    <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 text-center">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="single-product.html"><img
-                                src="https://images.samsung.com/vn/smartphones/galaxy-z-flip5/buy/product_color_gray.png?imwidth=480"
-                                alt=""></a>
-                    </div>
-                    <h3>Z-Flip5</h3>
-                    <p class="product-price"><span></span> 570$ </p>
-                    <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="single-product.html"><img
-                                src="https://images.samsung.com/vn/smartphones/galaxy-s24-ultra/buy/product_color_blue.png?imwidth=480"
-                                alt=""></a>
-                    </div>
-                    <h3>S23 Ultra</h3>
-                    <p class="product-price"><span></span> 935$ </p>
-                    <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
+
+
         </div>
     </div>
 </div>

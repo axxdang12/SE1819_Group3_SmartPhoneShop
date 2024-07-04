@@ -35,7 +35,7 @@ public class CartItemController {
         }
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
-        Cart cart= cartService.getCart(userService.getUserId(authentication.getName()));
+        Cart cart= cartService.getCart(authentication.getName());
         cartItemService.removePhoneFromCart(authentication.getName(), cart.getCartId(),id);
         model.addAttribute("cartTotal", cart.getTotal());
         model.addAttribute("listPByC", cart.getItems());
@@ -52,7 +52,7 @@ public class CartItemController {
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
         cartItemService.addPhoneToCart(authentication.getName(),id);
-        Cart cart= cartService.getCart(userService.getUserId(authentication.getName()));
+        Cart cart= cartService.getCart(authentication.getName());
         model.addAttribute("listPByC", cart.getItems());
         model.addAttribute("cartTotal", cart.getTotal());
             return "redirect:/shop";
@@ -67,7 +67,7 @@ public class CartItemController {
         }
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
-        Cart cart= cartService.getCart(userService.getUserId(authentication.getName()));
+        Cart cart= cartService.getCart(authentication.getName());
         cartItemService.updatePhoneQuantity(authentication.getName(), cart.getCartId(), id, quantity);
         model.addAttribute("listPByC", cart.getItems());
         model.addAttribute("cartTotal", cart.getTotal());

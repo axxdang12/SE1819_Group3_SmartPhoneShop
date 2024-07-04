@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,7 +33,7 @@
 <!--PreLoader Ends-->
 <nav class="navbar navbar-expand-xl">
   <div class="container h-100">
-    <a class="navbar-brand" href="products.html">
+    <a class="navbar-brand" th:href="@{/manager}">
       <h1 class="tm-site-title mb-0">Product Manager</h1>
     </a>
     <button
@@ -51,7 +51,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mx-auto h-100">
         <li class="nav-item">
-          <a class="nav-link" href="manager.html">
+          <a class="nav-link" th:href="@{/manager}">
             <i class="fas fa-tachometer-alt"></i> Orders
             <span class="sr-only">(current)</span>
           </a>
@@ -81,7 +81,7 @@
             <h2 class="tm-block-title d-inline-block">Add Product</h2>
           </div>
           <div class="col-12">
-            <h2 class="tm-block-title d-inline-block" style="color: red" th:text="${mess}"></h2>
+            <h2 class="tm-block-title d-inline-block" style="color:white" th:text="${mess}"></h2>
           </div>
         </div>
         <div class="row tm-edit-product-row">
@@ -90,20 +90,20 @@
               <div class="form-group mb-3">
                 <label for="name">Product Name
                 </label>
-                <input  name="name" type="text" value="" class="form-control validate" />
+                <input  name="name" type="text" value="" class="form-control validate" required/>
               </div>
               <div class="form-group mb-3">
                 <label for="name">CPU
                 </label>
-                <input id="name" name="cpu" type="text" value="" class="form-control validate" />
+                <input id="name" name="cpu" type="text" value="" class="form-control validate" required />
               </div>
               <div class="form-group mb-3">
                 <label for="name">Memory</label>
                 <select class="custom-select tm-select-accounts" name="memory"  >
 
-                  <option value="64" selected>64</option>
-                  <option value="128">128</option>
-                  <option value="256">256</option>
+                  <option value="64" selected>64GB</option>
+                  <option value="128">128GB</option>
+                  <option value="256">256GB</option>
                 </select>
               </div>
 
@@ -122,7 +122,7 @@
                  <label for="expire_date">Date
                  </label>
                  <input id="expire_date" name="date" type="date" value=""
-                 class="form-control validate" data-large-mode="true" />
+                 class="form-control validate" data-large-mode="true" required />
                  </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="sim">Sim</label>
@@ -138,12 +138,13 @@
 
 
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Price
+                  <label >Price
                   </label>
-                  <input  name="price" type="number" value="" class="form-control validate" />
+
+                  <input  name="price" id="price" type="number" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Ram
+                  <label >Ram
                   </label>
                   <select class="custom-select tm-select-accounts" name="ram">
                     <option value="8" selected>8GB</option>
@@ -155,12 +156,12 @@
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Display
                   </label>
-                  <input  name="dis" type="number" value="" class="form-control validate" />
+                  <input  name="dis"  id="dis"  type="number" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Origin
                   </label>
-                  <input  name="origin" type="text" value="" class="form-control validate" />
+                  <input  name="origin" type="text" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="brand">Brand</label>
@@ -180,30 +181,30 @@
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Picture Main
                   </label>
-                  <input  name="pm" type="text" value="" class="form-control validate" />
+                  <input  name="pm" type="text" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Picture Font
                   </label>
-                  <input  name="pf" type="text" value="" class="form-control validate" />
+                  <input  name="pf" type="text" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Picture Back
                   </label>
-                  <input  name="pb" type="text" value="" class="form-control validate" />
+                  <input  name="pb" type="text" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label for="stock">Picture Side
                   </label>
-                  <input  name="ps" type="text" value="" class="form-control validate" />
+                  <input  name="ps" type="text" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Camera
+                  <label >Camera
                   </label>
-                  <input  name="camera" type="number" value="" class="form-control validate" />
+                  <input  name="camera" id="camera" type="number" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Status
+                  <label >Status
                   </label>
                   <select class="custom-select tm-select-accounts" name="status" required>
                     <option value="1" selected>In stock</option>
@@ -232,16 +233,56 @@
     </div>
   </footer>
 
-  <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-  <!-- https://jquery.com/download/ -->
-  <script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
-  <!-- https://jqueryui.com/download/ -->
-  <script th:src="@{/js/bootstrap.min.js}"></script>
-  <!-- https://getbootstrap.com/ -->
-  <script>
-    $(function() {
-      $("#expire_date").datepicker();
-    });
-  </script>
-</body>
+
+ </body>
+
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<!-- https://jquery.com/download/ -->
+<script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
+<!-- https://jqueryui.com/download/ -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!-- https://getbootstrap.com/ -->
+<script>
+  $(function() {
+    $("#expire_date").datepicker();
+});
+
+document.getElementById('camera').addEventListener('input', function (e) {
+    let value = e.target.value;
+
+    // Kiểm tra nếu giá trị không phải là số hoặc là số nhưng không lớn hơn 0
+    if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
+        // Hiển thị thông báo lỗi (ví dụ: dùng console.log hoặc alert)
+       alert('Giá trị camera không hợp lệ.');
+
+        // Xóa bỏ các ký tự không phải số
+        e.target.value = value.replace(/\D/g, '');
+    }
+    document.getElementById('dis').addEventListener('input', function (e) {
+    let value = e.target.value;
+
+    // Kiểm tra nếu giá trị không phải là số hoặc là số nhưng không lớn hơn 0
+    if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
+        // Hiển thị thông báo lỗi (ví dụ: dùng console.log hoặc alert)
+       alert('Giá trị display không hợp lệ.');
+
+        // Xóa bỏ các ký tự không phải số
+        e.target.value = value.replace(/\D/g, '');
+    }
+
+    document.getElementById('price').addEventListener('input', function (e) {
+    let value = e.target.value;
+
+    // Kiểm tra nếu giá trị không phải là số hoặc là số nhưng không lớn hơn 0
+    if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
+        // Hiển thị thông báo lỗi (ví dụ: dùng console.log hoặc alert)
+       alert('Giá trị price không hợp lệ.');
+
+        // Xóa bỏ các ký tự không phải số
+        e.target.value = value.replace(/\D/g, '');
+    }
+});
+
+
+</script>
 </html>

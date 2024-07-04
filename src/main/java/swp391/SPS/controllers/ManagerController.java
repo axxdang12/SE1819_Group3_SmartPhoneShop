@@ -38,7 +38,7 @@ public class ManagerController {
         return "manager";
     }
     @GetMapping("/order-detail-manager/{id}")
-    public String detailOrder(@PathVariable("id") int id, Model model) {
+    public String detailOrderManager(@PathVariable("id") int id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
@@ -52,6 +52,17 @@ public class ManagerController {
             return "order-detail";
     }
 
+    @GetMapping("/order-detail")
+    public String orderDetail(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "order-detail";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        return "order-detail";
+    }
     @GetMapping("/approve/{id}")
     public String approveOrder(@PathVariable int id, RedirectAttributes redirectAttributes) {
         orderService.updateOrderStatus(id, "Approved");

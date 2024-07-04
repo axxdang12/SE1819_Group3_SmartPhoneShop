@@ -71,28 +71,65 @@
 
                         <li class="nav-item dropdown position-static">
                             <a class="nav-link dropdown-toggle" href="" id="drop_down04" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">Ram</a>
+                               aria-haspopup="true" aria-expanded="false">Price</a>
                             <div class="dropdown-menu p-4" aria-labelledby="dropdown04">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a class="dropdown-item" href="#">Page 1</a>
+                                        <a class="dropdown-item price-link" href="/shop/price?minPrice=0&maxPrice=200">Under 200$</a>
                                     </div>
-
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=200&maxPrice=500}">200$ - 500$</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=500&maxPrice=1000}">500$ - 1000$</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=1000&maxPrice=1500}">1000$ - 1500$</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item price-link" href="/shop?minPrice=1500&maxPrice=10000">Over 1500$</a>
+                                    </div>
                                 </div>
                             </div>
-                        </li>
-                        <li class="nav-item dropdown position-static">
-                            <a class="nav-link dropdown-toggle" href="" id="drop_down04" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">Memory</a>
+
+
                             <div class="dropdown-menu p-4" aria-labelledby="dropdown04">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <a class="dropdown-item" href="">Page 1</a>
-
+                                        <a class="dropdown-item" href="#">Under 200$</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item" href="#">200$ - 500$</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item" href="#">500$ - 1000$</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item" href="#">1000$ - 1500$</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item" href="#">Over 1500$</a>
                                     </div>
                                 </div>
                             </div>
                         </li>
+
                     </ul>
                 </div>
             </div>
@@ -122,12 +159,28 @@
             <div class="col-lg-12 text-center">
                 <div class="pagination-wrap">
                     <ul>
-                        <li><a href="#">Prev</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a class="active" href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">Next</a></li>
+                        <li th:if="${currentPage > 1}">
+                            <a th:href="@{'/shop?'
+                      +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
+                      + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
+                      + 'pageNo=' + ${currentPage - 1}}">Prev</a>
+                        </li>
+                        <li th:each="pageNo : ${#numbers.sequence(1, totalPage)}">
+                            <a th:href="@{'/shop?'
+                      +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
+                      + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
+                      + 'pageNo=' + ${pageNo}}"
+                               th:classappend="${currentPage == pageNo} ? 'active' : ''"
+                               th:text="${pageNo}">Page</a>
+                        </li>
+                        <li th:if="${currentPage < totalPage}">
+                            <a th:href="@{'/shop?'
+                      +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
+                      + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
+                      + 'pageNo=' + ${currentPage + 1}}">Next</a>
+                        </li>
                     </ul>
+
                 </div>
             </div>
         </div>
