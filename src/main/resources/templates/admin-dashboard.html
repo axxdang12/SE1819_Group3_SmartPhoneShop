@@ -24,6 +24,25 @@
         background-color: #ddd;
         border-radius: 5px;
     }
+
+    .page-link {
+        color: #333;
+    }
+
+    .page-item.active .page-link {
+        background-color: #ffd200 !important;
+        border-color: #333;
+
+    }
+
+    .pagination_admin {
+        display: flex;
+    }
+
+    .member-page-item {
+        list-style: none;
+    }
+
 </style>
 <!--PreLoader-->
 <div th:replace="~{fragments::loader}"></div>
@@ -79,36 +98,72 @@
                             <th>User Name</th>
                             <th>User Role</th>
                             <th>View detail</th>
-<!--                            <th>Delete</th>-->
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody id="table">
                         <tr th:each="item: ${listFirstLoad}">
                             <td th:text="${item.userId}"></td>
                             <td th:text="${item.username}"></td>
-                            <td th:field="${item.userId}"><select class="role-select">
-                                <option th:each="role: ${listRole}" th:value="${role.roleName}" th:selected="${role.roleName == item.roles[0].roleName}" th:text="${role.roleName}"></option>
+                            <td><select class="role-select" th:attr="data-id=${item.userId}">
+                                <option th:each="role: ${listRole}" th:value="${role.roleName}"
+                                        th:selected="${role.roleName == item.roles[0].roleName}"
+                                        th:text="${role.roleName}"></option>
                             </select></td>
-                            <td><a class="btn btn-info" th:href="@{/user_detail/{id}(id=${item.userId})}">Details</a></td>
-<!--                            <td>-->
-<!--                                <button class="btn btn-danger cancel-order" data-order-id="1">Active</button>-->
-<!--                            </td>-->
+                            <td><a class="btn btn-info" th:href="@{/user_detail/{id}(id=${item.userId})}">Details</a>
+                            </td>
+                            <td>
+                                <button th:class="'btn btnChange ' + ${item.status == 'ACTIVE' ? 'btn-success' : 'btn-danger'}"
+                                        th:attr="data-id=${item.userId}"
+                                        th:value="${item.status}"
+                                        th:text="${item.status}"></button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
-                    <div th:if="${pageDto.totalPage > 0}" class="pagination"
-                         th:each="pageNumber : ${pageNumbers}">
-                        <a th:href="@{/admin-dashboard(page=${pageNumber})}"
-                           th:text="${pageNumber}"
-                           th:class="${pageNumber==pageDto.currentPage} ? active">&laquo;</a>
-                        <a th:href="@{/admin-dashboard(page=${pageNumber})}"
-                           th:text="${pageNumber}"
-                           th:class="${pageNumber==pageDto.currentPage} ? active"></a>
-                        <a th:href="@{/admin-dashboard(page=${pageNumber})}"
-                           th:text="${pageNumber}"
-                           th:class="${pageNumber==pageDto.currentPage} ? active">&raquo;122222222222222222222222222222222222222222222222222222222222`</a>
-                    </div>
-                    <button class="btn btn-primary update-users" style="float: right; margin-top: 20px; margin-right: 11.5%;">Update</button>
+
+                    <div id="test"></div>
+
+                    <ul class="pagination_admin">
+                        <th:block th:if="${pageDto.currentPage > 1}">
+                            <li class="page-item member-page-item">
+                                <a class="page-link" type="button"
+                                   th:href="@{/admin-dashboard(page=${pageDto.currentPage - 1})}">Previous</a>
+                            </li>
+                        </th:block>
+                        <th:block th:if="${pageDto.currentPage == 1}">
+                            <li class="page-item member-page-item disabled"
+                                th:attr="data-page=${pageDto.currentPage - 1}"><a class="page-link"
+                                                                                  type="button">Previous</a></li>
+                        </th:block>
+                        <div th:each="page: ${pageNumbers}">
+                            <th:block th:if="${page == pageDto.currentPage}">
+                                <li class="page-item member-page-item active"
+                                    th:attr="data-page=${page}" th:href="@{/admin-dashboard(page=${page})}"><a
+                                        class="page-link" type="button">[[${page}]]<span
+                                        class="sr-only"></span></a></li>
+                            </th:block>
+
+                            <th:block
+                                    th:if="${page != pageDto.currentPage && page >= pageDto.currentPage - 1 && page <= pageDto.currentPage + 2}">
+                                <li class="page-item member-page-item" th:attr="data-page=${page}"><a
+                                        class="page-link" type="button" th:href="@{/admin-dashboard(page=${page})}">[[${page}]]</a>
+                                </li>
+                            </th:block>
+
+                        </div>
+                        <th:block th:if="${pageDto.currentPage < pageDto.totalPage}">
+                            <li class="page-item member-page-item">
+                                <a class="page-link" type="button"
+                                   th:href="@{/admin-dashboard(page=${pageDto.currentPage + 1})}">Next</a>
+                            </li>
+                        </th:block>
+                        <th:block th:if="${pageDto.currentPage == pageDto.totalPage}">
+                            <li class="page-item member-page-item disabled">
+                                <a class="page-link" type="button">Next</a>
+                            </li>
+                        </th:block>
+                    </ul>
                 </div>
             </div>
         </div>

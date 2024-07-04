@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import swp391.SPS.entities.Role;
 
 import java.util.List;
 
@@ -16,4 +17,5 @@ public class PageDto {
     private int totalPage;
     private int currentPage;
     private int size;
+    private List<Role> roles;
 }

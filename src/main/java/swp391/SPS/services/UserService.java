@@ -37,5 +37,7 @@ public interface UserService {
 
     PageDto getListUserFirstLoad(int page, int size) throws NoDataInListException, OutOfPageException;
 
-    void saveUserRole(int userId, String roleName);
+    User saveUserRole(int userId, String roleName) throws UserNotFoundException;
+
+    void saveUserActive(int userId, String status) throws UserNotFoundException;
 }

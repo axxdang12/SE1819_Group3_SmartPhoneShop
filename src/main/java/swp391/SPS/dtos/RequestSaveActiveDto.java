@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Data
-public class RequestSaveUserRoleDto {
+@Builder
+public class RequestSaveActiveDto {
     private int userId;
-    private String roleName;
-    int page;
+    private String status;
+    private int page;
 }
