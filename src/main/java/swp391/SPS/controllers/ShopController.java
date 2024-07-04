@@ -1,5 +1,6 @@
 package swp391.SPS.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,9 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 //import swp391.SPS.services.AccessService;
+import swp391.SPS.entities.Phone;
 import swp391.SPS.services.BrandService;
 //import swp391.SPS.services.CategoryService;
 import swp391.SPS.services.PhoneService;
+
+import java.util.List;
 
 @Controller
 public class ShopController {
@@ -21,33 +25,82 @@ public class ShopController {
     BrandService brandService;
     @Autowired
     PhoneService phoneService;
-//    @Autowired
-//    CategoryService categoryService;
-//    @Autowired
-//    AccessService accessService;
 
     @GetMapping("/shop")
-    public String shop(Model model) {
+    public String shop(Model model,@RequestParam(name = "keyword", required = false) String name,
+                                    @RequestParam(name = "pageNo", defaultValue = "1") int page,
+                                    @RequestParam (name = "minPrice", required = false) String minPrice,
+                                    @RequestParam (name="maxPrice", required = false) String maxPrice) {
         model.addAttribute("listBrand", brandService.findAllBrand());
-//        model.addAttribute("listCategory", categoryService.findAllCategory());
-        model.addAttribute("listPhone", phoneService.findAllPhone());
-//        model.addAttribute("listA", accessService.findAllAccess());
+            Page<Phone> list = phoneService.viewphoneforshop(page);
+
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 model.addAttribute("isLogin", false);
                 return "shop";
             }
+            if(name !=null && !name.isEmpty()){
+                list = phoneService.searchPhoneforShop(name,page);
+                model.addAttribute("keyword", name);
+            }
+            else if (minPrice != null && maxPrice != null ) {
+                Double max = Double.parseDouble(maxPrice);
+                Double min = Double.parseDouble(minPrice);
+                list = phoneService.searchByPrice(min,max,page);
+                int TotalPage = list.getTotalPages();
+                if(list.isEmpty()) {
+                    TotalPage =1;
+                }
+                model.addAttribute("listPhone", list);
+                model.addAttribute("totalPage", TotalPage);
+                model.addAttribute("currentPage", page);
+                model.addAttribute("isLogin", true);
+                model.addAttribute("username", authentication.getName());
+                model.addAttribute("minPrice", min);
+                model.addAttribute("maxPrice", max);
+                return "shop";
+            }
+            model.addAttribute("listPhone", list);
+            model.addAttribute("totalPage", list.getTotalPages());
+            model.addAttribute("currentPage", page);
             model.addAttribute("isLogin", true);
             model.addAttribute("username", authentication.getName());
 
         return "shop";
 
         }
+
+//@GetMapping("/shop/price")
+//public String searchPrice( @RequestParam (name = "minPrice") double minPrice,
+//                           @RequestParam (name="maxPrice") double maxPrice,
+//                           @RequestParam(name = "pageNo",defaultValue = "1") int pageno,
+//                           Model model){
+//    model.addAttribute("listBrand", brandService.findAllBrand());
+//    Page<Phone> list = phoneService.searchByPrice(minPrice,maxPrice,pageno);
+//    model.addAttribute("listPhone", list);
+//    model.addAttribute("totalPage", list.getTotalPages());
+//    model.addAttribute("currentPage", pageno);
+//    model.addAttribute("minPrice",minPrice);
+//    model.addAttribute("maxPrice",maxPrice);
+//
+//    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//        model.addAttribute("isLogin", false);
+//        return "shop";
+//    }
+//    model.addAttribute("isLogin", true);
+//    model.addAttribute("username", authentication.getName());
+//    return "shop";
+//
+//}
+
     @GetMapping("/shop/brand/{idBrand}")
-    public String ProductByBrand(@PathVariable("idBrand") int id, Model model){
+    public String ProductByBrand(@PathVariable("idBrand") int id, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page){
         model.addAttribute("listBrand", brandService.findAllBrand());
-        model.addAttribute("listPhone", phoneService.getPhoneByBrand(id));
-//        model.addAttribute("listA", accessService.getAccessByBrand(id));
+        Page<Phone> list = phoneService.getPhoneBrandByPahination(id,page);
+        model.addAttribute("listPhone", list);
+        model.addAttribute("totalPage", list.getTotalPages());
+        model.addAttribute("currentPage", page);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
@@ -55,23 +108,10 @@ public class ShopController {
         }
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
-        model.addAttribute("listBrand", brandService.findAllBrand());
         return "shop";
     }
 
 //    }
-    @PostMapping("/search")
-    public String search(@RequestParam("name") String name, Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("isLogin", false);
-            return "shop";
-        }
-        model.addAttribute("isLogin", true);
-        model.addAttribute("username", authentication.getName());
-        model.addAttribute("listPhone", phoneService.searchPhone(name));
-        model.addAttribute("listBrand", brandService.findAllBrand());
-        return"shop";
-    }
+
 
 }

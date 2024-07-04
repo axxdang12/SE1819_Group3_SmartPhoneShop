@@ -1,4 +1,5 @@
 package swp391.SPS.services.impls;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -53,22 +54,12 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public List<Phone> getPhoneByBrand(int id) {
         Brand brand = brandRepository.getReferenceById(id);
-        List<Phone> l = new ArrayList<Phone>();
+        List<Phone> l = new ArrayList<>();
         for (int i = 0; i < findAllPhone().size(); i++) {
-            if(findAllPhone().get(i).getBrand().equals(brand)) l.add(findAllPhone().get(i));
+            if(findAllPhone().get(i).getBrand().equals(brand) && findAllPhone().get(i).getStatus() == true) l.add(findAllPhone().get(i));
         }
         return l;
     }
-
-//    @Override
-//    public List<Phone> getPhoneByCategory(int id) {
-//        Category category = categoryRepository.getReferenceById(id);
-//        List<Phone> l = new ArrayList<Phone>();
-//        for (int i = 0; i < findAllPhone().size(); i++) {
-//            if(findAllPhone().get(i).getCategory().equals(category)) l.add(findAllPhone().get(i));
-//        }
-//        return l;
-//    }
 
     @Override
     public void editPhone(Phone p) {
@@ -115,6 +106,7 @@ public class PhoneServiceImpl implements PhoneService {
 
     }
 
+
     @Override
     public Page<Phone> searchPhone(String name, int pageNo) {
         List<Phone> list = phoneRepository.SearchProduct(name);
@@ -125,43 +117,58 @@ public class PhoneServiceImpl implements PhoneService {
         return new PageImpl<>(list, pageable, phoneRepository.SearchProduct(name).size());
     }
 
+    @Override
+    public List<Phone> getbestsale() {
+        List<Integer> li = phoneRepository.getBestSale();
+        List<Phone> lp = new ArrayList<>();
+        for(Integer i : li){
+            lp.add(getPhoneByID(i));
+        }
+        return lp;
+    }
 
-//    @Override
-//    public PageDto getListProductFirstLoad(int page, int size) throws OutOfPageException {
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<Phone> userRequest = phoneRepository.findAllPhone(pageable);
-//        if (userRequest.getContent().isEmpty()) {
-//            try {
-//                throw new NoDataInListException("No phone");
-//            } catch (NoDataInListException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//        if (page > userRequest.getTotalPages() - 1) {
-//            throw new OutOfPageException("Out of page");
-//        }
-//        return PageDto.builder().resultList(userRequest.getContent()).currentPage(userRequest.getNumber() + 1).totalPage(userRequest.getTotalPages()).build();
-//
-//    }
-//
-//    @Override
-//    public ResponseEntity getListProduct(int page, int size) throws NoDataInListException {
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<Phone> userRequest = phoneRepository.findAllPhone(pageable);
-//        if (userRequest.getContent().isEmpty()) {
-//            throw new NoDataInListException("No phone");
-//        }
-//        if (page > userRequest.getTotalPages() - 1) {
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No phone");
-//        }
-//        return ResponseEntity.status(HttpStatus.OK).body(PageDto.builder().resultList(userRequest.getContent()).currentPage(userRequest.getNumber() + 1).totalPage(userRequest.getTotalPages()));
-//
-//    }
-//
-//    @Override
-//    public Page<Phone> Pagination(Pageable pageable) {
-//        return phoneRepository.findAllPhone(pageable);
-//    }
+    @Override
+    public Page<Phone> viewphoneforshop(int pageno) {
+        Pageable pageable = PageRequest.of(pageno - 1, 9);
+        return phoneRepository.ViewProductforShop(pageable);
+    }
+
+    @Override
+    public Page<Phone> searchPhoneforShop(String name, int pageNo) {
+        List<Phone> list = phoneRepository.SearchProductforShop(name);
+        Pageable pageable = PageRequest.of(pageNo - 1, 9);
+        int start = (int) pageable.getOffset();
+        int end = pageable.getOffset() + pageable.getPageSize() > list.size() ? list.size() : (int) (pageable.getOffset() + pageable.getPageSize());
+        list = list.subList(start, end);
+        return new PageImpl<>(list, pageable, phoneRepository.SearchProductforShop(name).size());
+    }
+
+
+    @Override
+    public Page<Phone> getPhoneBrandByPahination(int id, int pageNo) {
+        List<Phone> list = getPhoneByBrand(id);
+        Pageable pageable = PageRequest.of(pageNo-1,6);
+        int start = (int) pageable.getOffset();
+        int end = pageable.getOffset() + pageable.getPageSize() > list.size() ? list.size() : (int) (pageable.getOffset() + pageable.getPageSize());
+        list = list.subList(start, end);
+        return new PageImpl<>(list,pageable,getPhoneByBrand(id).size());
+    }
+
+    @Override
+    public Page<Phone> searchPhoneByStatus(boolean status, int pageNo) {
+        List<Phone> list = phoneRepository.searchPhoneByStatus(status);
+        Pageable pageable = PageRequest.of(pageNo-1,5);
+        int start = (int) pageable.getOffset();
+        int end = pageable.getOffset() + pageable.getPageSize() > list.size() ? list.size() : (int) (pageable.getOffset() + pageable.getPageSize());
+        list = list.subList(start, end);
+        return new PageImpl<>(list,pageable, phoneRepository.searchPhoneByStatus(status).size());
+    }
+
+    @Override
+    public Page<Phone> searchByPrice(double min, double max, int PageNo) {
+        Pageable pageable = PageRequest.of(PageNo-1,6);
+        return phoneRepository.findByPriceRangeAndStatus(min,max,pageable);
+    }
 
 
 }

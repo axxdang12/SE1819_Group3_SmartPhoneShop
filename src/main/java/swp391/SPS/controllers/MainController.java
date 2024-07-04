@@ -12,6 +12,7 @@ import swp391.SPS.dtos.PageDto;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
+import swp391.SPS.services.PhoneService;
 import swp391.SPS.services.RoleService;
 import swp391.SPS.services.UserDetailService;
 import swp391.SPS.services.UserService;
@@ -23,6 +24,9 @@ public class MainController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    PhoneService phoneService;
 
     @GetMapping("/page/login")
     @CrossOrigin
@@ -38,6 +42,7 @@ public class MainController {
             model.addAttribute("isLogin", false);
             return "index";
         }
+        model.addAttribute("listPhone",phoneService.getbestsale());
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
         return "index";
