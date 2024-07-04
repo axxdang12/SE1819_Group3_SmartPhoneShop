@@ -273,6 +273,11 @@ thead {
     margin-top: -3px;
 }
 
+.completed {
+    background-color: #4de694;  /* A different shade of green for completion */
+    box-shadow: 0 0 8px #4de694, inset 0 0 8px #4de694;
+}
+
 .moving {
     background-color: #9be64d;
     box-shadow: 0 0 8px #9be64d, inset 0 0 8px #9be64d;

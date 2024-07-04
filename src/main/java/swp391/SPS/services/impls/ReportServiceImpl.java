@@ -1,6 +1,7 @@
 package swp391.SPS.services.impls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import swp391.SPS.dtos.ReportDto;
 import swp391.SPS.entities.Order;
 import swp391.SPS.entities.Report;
 import swp391.SPS.entities.User;
@@ -9,6 +10,7 @@ import swp391.SPS.services.OrderService;
 import swp391.SPS.services.ReportService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ReportServiceImpl implements ReportService {
@@ -43,4 +45,40 @@ public class ReportServiceImpl implements ReportService {
     public Report getReport(int reportId) {
         return reportRepository.getReferenceById(reportId);
     }
+
+    @Override
+    public List<ReportDto> getAllReport() {
+        return reportRepository.findAll().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ReportDto convertToDTO(Report report) {
+        ReportDto dto = new ReportDto();
+        dto.setReportId(report.getReportId());
+        dto.setUserId(report.getUser().getUserId());
+        dto.setOrderId(report.getOrder().getOrderId());
+        dto.setDescription(report.getDescription());
+        dto.setStatus(report.getStatus());
+        return dto;
+    }
+
+    @Override
+    public List<ReportDto> searchReportByUserId(int userId) {
+        List<Report> reports = reportRepository.searchReportByUserId(userId);
+        return reports.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReportDto> searchReportByOrderId(int orderId) {
+        List<Report> reports = reportRepository.searchReportByOrderId(orderId);
+        return reports.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+
 }

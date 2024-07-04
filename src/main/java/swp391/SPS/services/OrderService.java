@@ -14,4 +14,5 @@ public interface OrderService {
     void placeOrder(String userName);
     void cancelOrder(int orderId);
     List<Order> searchOrderByUserId(int id);
+    void updateOrderStatus(int id, String status);
 }

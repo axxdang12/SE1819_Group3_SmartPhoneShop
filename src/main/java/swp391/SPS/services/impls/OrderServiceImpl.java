@@ -83,5 +83,13 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.searchOrderByUserId(id);
     }
 
+    @Transactional
+    public void updateOrderStatus(int id, String status) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid order ID: " + id));
+        order.setStatus(status);
+        orderRepository.save(order);
+    }
+
 
 }

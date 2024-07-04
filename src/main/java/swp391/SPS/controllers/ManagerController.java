@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp391.SPS.services.OrderItemService;
 import swp391.SPS.services.OrderService;
 import swp391.SPS.services.UserService;
@@ -62,5 +63,24 @@ public class ManagerController {
         model.addAttribute("username", authentication.getName());
         return "order-detail";
     }
+    @GetMapping("/approve/{id}")
+    public String approveOrder(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        orderService.updateOrderStatus(id, "Approved");
+        redirectAttributes.addFlashAttribute("message", "Order approved successfully");
+        return "redirect:/manager";
+    }
 
+    @GetMapping("/reject/{id}")
+    public String rejectOrder(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        orderService.updateOrderStatus(id, "Rejected");
+        redirectAttributes.addFlashAttribute("message", "Order rejected successfully");
+        return "redirect:/manager";
+    }
+
+    @GetMapping("/complete/{id}")
+    public String completeOrder(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        orderService.updateOrderStatus(id, "Completed");
+        redirectAttributes.addFlashAttribute("message", "Order completed successfully");
+        return "redirect:/manager";
+    }
 }
