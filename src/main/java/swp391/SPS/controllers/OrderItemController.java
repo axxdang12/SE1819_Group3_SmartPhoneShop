@@ -23,7 +23,7 @@ public class OrderItemController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/order-detail/{id}")
+    @GetMapping("/orderDetail/{id}")
     public String detailOrder(@PathVariable("id") int id, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {

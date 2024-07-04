@@ -6,6 +6,6 @@ import swp391.SPS.entities.Phone;
 import java.util.List;
 
 public interface CartService {
-    Cart getCart(int userId);
+    Cart getCart(String userName);
     void clearCart(Cart cart);
 }

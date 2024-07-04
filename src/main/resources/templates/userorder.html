@@ -53,7 +53,7 @@
 								<td th:text="${order.orderId}"></td>
 								<td th:text="${order.orderDate}"></td>
 								<td style="padding-left: 25px;" th:text="${order.totalPrice}+'$'"></td>
-								<td><a class="btn btn-info" th:href="@{/order-detail/{id}(id=${order.orderId})}">Details</a></td>
+								<td><a class="btn btn-info" th:href="@{/orderDetail/{id}(id=${order.orderId})}">Details</a></td>
 								<td th:text="${order.status}"></td>
 								<td>
 									<a th:if="${order.status == 'Pending'}"

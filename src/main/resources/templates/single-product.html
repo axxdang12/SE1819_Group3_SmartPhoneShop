@@ -43,22 +43,22 @@
             <div class="col-md-7">
                 <div class="single-product-content">
                     <h3 th:text="${product.productName}"></h3>
-                    <p class="single-product-pricing" th:text = "${product.price} + '$'"><span></span></p>
-                    <p th:text="${product.cpu}">CPU: </p>     <p th:text="${product.camera}">Camera: </p>
-                    <p th:text="${product.ram}">RAM: </p>     <p th:text="${product.origin}">Origin: </p>
-                    <p th:text="${product.memory}">Memory: </p>  <p th:text="${product.sim}">Sim: </p>
-                    <p th:text="${product.display}">Display: </p> <p th:text="${product.releaseDate}">Release Date: </p>
-
+                    <p class="single-product-pricing" th:text="${product.price + ' $'}"><span></span></p>
+                    <p th:text="'CPU: ' + ${product.cpu}">CPU: </p>
+                    <p th:text="'Camera: ' + ${product.camera}">Camera: </p>
+                    <p th:text="'RAM: ' + ${product.ram}">RAM: </p>
+                    <p th:text="'Origin: ' + ${product.origin}">Origin: </p>
+                    <p th:text="'Memory: ' + ${product.memory}">Memory: </p>
+                    <p th:text="'Sim: ' + ${product.sim}">Sim: </p>
+                    <p th:text="'Display: ' + ${product.display}">Display: </p>
+                    <p th:text="'Release Date: ' + ${product.releaseDate}">Release Date: </p>
+                    <p th:text="'Brand: ' + ${product.brand.brandName}">Brand: </p>
 
                     <div class="single-product-form">
                         <form th:action="@{/cart-single/phone/{id}(id=${product.phoneId})}" method="post" class="add-to-cart-form">
                             <input type="number" name="quantity" placeholder="0" min="1">
                             <button type="submit" class="cart-btn" id="bt" style="margin-left: 7%;"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </form>
-<!--                        <form action="index.html">-->
-<!--                            <input type="number" placeholder="0">-->
-<!--                        </form>-->
-<!--                        <a th:href="@{/cart/phone/{id}(id=${product.phoneId})}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>-->
                     </div>
                 </div>
             </div>
@@ -79,21 +79,21 @@
             <div class="col-lg-4 col-md-6 text-center">
                 <div class="single-product-item">
                     <div class="product-image">
-                        <a href="single-product.html"> <img th:src="@{${product.picture.front}}" alt=""> </a>
+                        <a> <img th:src="@{${product.picture.front}}" alt=""> </a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 text-center">
                 <div class="single-product-item">
                     <div class="product-image">
-                        <a href="single-product.html"> <img th:src="@{${product.picture.back}}" alt=""></a>
+                        <a> <img th:src="@{${product.picture.back}}" alt=""></a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3 text-center">
                 <div class="single-product-item">
                     <div class="product-image">
-                        <a href="single-product.html"> <img th:src="@{${product.picture.site}}" alt=""></a>
+                        <a> <img th:src="@{${product.picture.site}}" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -102,72 +102,11 @@
 </div>
 <!-- end more products -->
 <!-- footer -->
-<div class="footer-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box about-widget">
-                    <h2 class="widget-title">About us</h2>
-                    <p>Shop will provide users with the best phone products at preferential prices with an extremely attractive warranty policy.</p>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box get-in-touch">
-                    <h2 class="widget-title">Get in Touch</h2>
-                    <ul>
-                        <li>Nguyen Sieu street, Hang Buom, Hoan Kiem, Ha Noi.</li>
-                        <li>support@LKHT.com</li>
-                        <li>0978262446</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box pages">
-                    <h2 class="widget-title">Pages</h2>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="shop.html">Shop</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box subscribe">
-                    <h2 class="widget-title">Subscribe</h2>
-                    <p>Subscribe to our mailing list to get the latest updates.</p>
-                    <form action="index.html">
-                        <input type="email" placeholder="Email">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:replace="~{fragments::footer}"></div>
 <!-- end footer -->
 
 <!-- copyright -->
-<div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12">
-                <p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.</p>
-            </div>
-            <div class="col-lg-6 text-right col-md-12">
-                <div class="social-icons">
-                    <ul>
-                        <li><a href="https://www.facebook.com/profile.php?id=100009172256835" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="https://www.instagram.com/_.nkhanhh/" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div th:replace="~{fragments::copyright}"></div>
 <!-- end copyright -->
 
 <!-- jquery -->

@@ -5,11 +5,14 @@ import org.springframework.stereotype.Service;
 import swp391.SPS.entities.Cart;
 import swp391.SPS.entities.CartItem;
 import swp391.SPS.entities.Phone;
+import swp391.SPS.entities.User;
 import swp391.SPS.repositories.CartItemRepository;
 import swp391.SPS.repositories.CartRepository;
+import swp391.SPS.repositories.UserRepository;
 import swp391.SPS.services.CartService;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -19,10 +22,27 @@ public class CartServiceImpl implements CartService {
     private CartRepository cartRepository;
     @Autowired
     private CartItemRepository cartItemRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
-    public Cart getCart(int userId) {
-        return cartRepository.getCartByUserId(userId);
+    public Cart getCart(String userName) {
+        int quantity=0;
+        double total=0;
+        User user = userRepository.findByUsername(userName);
+        Cart cart = user.getCart();
+        List<CartItem> ciList = cart.getItems();
+        for (CartItem item : ciList) {
+            if (item.getPhone().getStatus()) {
+                item.setTotal(item.getTotalPrice());
+                quantity += item.getQuantity();
+                total += item.getTotal();
+            }
+        }
+        cart.setQuantity(quantity);
+        cart.setTotal(total);
+        cartRepository.save(cart);
+        return cart;
     }
 
     @Override
@@ -34,20 +54,5 @@ public class CartServiceImpl implements CartService {
         cartRepository.save(cart);
     }
 
-//    @Override
-//    public List<Phone> getProductByCartId(int id) {
-//        return cartRepository.findPhonesByCartId(id);
-//    }
-//
-//    @Override
-//    public void removePhoneFromCart(int cartId, int phoneId) {
-//        cartRepository.deletePhoneFromCart(cartId, phoneId);
-//    }
-//
-//
-//    @Override
-//    public void addPhoneFromCart(int id, int phoneId) {
-//        cartRepository.InsertPhoneFromCart(id,phoneId);
-//    }
 
 }

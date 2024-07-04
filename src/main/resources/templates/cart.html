@@ -51,12 +51,7 @@
 
 						<tbody>
 						<tr class="table-body-row" th:each="items : ${listPByC}">
-<!--							<form th:action="@{/cart/delete-phone}" method="POST">-->
-<!--								<input th:name="phoneId" th:value="${phone.phoneId}" hidden="hidden"/>-->
-<!--								<td class="product-remove">-->
-<!--									<button type="submit"><i class="far fa-window-close"></i></button>-->
-<!--								</td>-->
-								<td class="product-remove"><a th:href="@{/cart/delete-phone/{id}(id=${items.phone.phoneId})}" onclick="return confirmDeleteP()"><i class="far fa-window-close"></i></a></td>
+								<td class="product-remove"><a th:href="@{/cart/delete-phone/{id}(id=${items.phone.phoneId})}"><i class="far fa-window-close"></i></a></td>
 								<td class="product-image">
 									<img th:src="@{${items.phone.picture.main}}" alt="">
 								</td>
@@ -64,11 +59,11 @@
 								<td class="product-price" th:text="${items.phone.price}"></td>
 								<td class="product-quantity">
 									<form th:action="@{/cart/update-quantity/{id}(id=${items.phone.phoneId})}" method="post">
-										<input type="number" name="quantity" placeholder="0" th:value="${items.quantity}" min="1" onchange="validateQuantity(this)">
+										<input type="number" name="quantity" placeholder="0" th:value="${items.quantity}" min="1"
+											   th:disabled="${!items.phone.status}" onchange="validateQuantity(this)">
 									</form>
 								</td>
-								<td class="product-total" th:text="${items.total} + '$'"></td>
-<!--							</form>-->
+							<td class="product-total" th:text="${items.phone.status == true} ? ${items.total} + '$' : 'InActive'"></td>
 						</tr>
 						</tbody>
 					</table>
