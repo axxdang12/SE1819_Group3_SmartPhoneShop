@@ -41,31 +41,7 @@ public class CRUDproductAjax {
     }
 
 
-
-
-
-    @PostMapping("/api/edit-product")
-    public ResponseEntity<Map<String, Object>> getPhoneById( @RequestBody String request) {
-
-
-        Phone phone = phoneService.getPhoneByID((Integer.parseInt(request)));
-        if (phone != null) {
-            Map<String, Object> response = new HashMap<>();
-            response.put("listBrand", brandService.findAllBrand());
-            response.put("phone", phone);
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-    @PostMapping("/api/update-product")
-    public ResponseEntity<String> updatePhone(@RequestBody Phone phone, Model model){
-        model.addAttribute("listBrand", brandService.findAllBrand());
-        phoneService.editPhone(phone);
-        return ResponseEntity.ok("Product has id is "+ phone.getPhoneId() +"updated sucessfully");
-    }
-
-        @PostMapping("/api/change-status")
+    @PostMapping("/api/change-status")
         public ResponseEntity<Map<String, Object>> deletePhone(@RequestBody Map<String, Integer> request) {
             int id = request.get("id");
 
@@ -74,7 +50,7 @@ public class CRUDproductAjax {
             if (phone != null) {
                 phoneService.changeStatus(phone);
                 response.put("status", "success");
-                response.put("message", "Phone deleted successfully.");
+                response.put("message", "Phone updated status successfully.");
             } else {
                 response.put("status", "error");
                 response.put("message", "Phone not found.");

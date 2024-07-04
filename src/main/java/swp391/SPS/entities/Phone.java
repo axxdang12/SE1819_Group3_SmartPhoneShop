@@ -4,6 +4,7 @@ package swp391.SPS.entities;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -27,21 +28,26 @@ public class Phone {
   private String productName;
 
   @Column(name = "price")
+
   private double price;
 
   @Column(name = "cpu")
   private String cpu;
 
   @Column(name = "ram")
+
   private int ram;
 
   @Column(name = "memory")
+
   private double memory;
 
   @Column(name = "display")
+
   private double display;
 
   @Column(name = "camera")
+
   private double camera;
 
   @Column(name = "origin")

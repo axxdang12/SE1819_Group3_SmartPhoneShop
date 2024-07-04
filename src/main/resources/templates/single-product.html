@@ -2,6 +2,222 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments::header}"></head>
 
+<style>
+    @import "bourbon@5.*";
+
+// Breakpoints
+$bp-maggie: 15em;
+$bp-lisa: 30em;
+$bp-bart: 48em;
+$bp-marge: 62em;
+$bp-homer: 75em;
+
+
+
+.container {
+  margin: 5% 3%;
+
+  @media (min-width: $bp-bart) {
+    margin: 2%;
+  }
+
+  @media (min-width: $bp-homer) {
+    margin: 2em auto;
+    max-width: $bp-homer;
+  }
+}
+td{
+    text-align: center;
+}
+.responsive-table {
+  width: 100%;
+  margin-bottom: 1.5em;
+  border-spacing: 0;
+
+  @media (min-width: $bp-bart) {
+    font-size: .9em;
+  }
+
+  @media (min-width: $bp-marge) {
+    font-size: 1em;
+  }
+
+  thead {
+    // Accessibly hide <thead> on narrow viewports
+    position: absolute;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+
+    @media (min-width: $bp-bart) {
+      // Unhide <thead> on wide viewports
+      position: relative;
+      clip: auto;
+      height: auto;
+      width: auto;
+      overflow: auto;
+    }
+
+    th {
+      background-color: rgb(5,25,34);
+      border: 1px solid rgb(5,25,34);
+      font-weight: normal;
+      text-align: center;
+      color: white;
+
+      &:first-of-type {
+        text-align: left;
+      }
+    }
+  }
+
+  // Set these items to display: block for narrow viewports
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+    padding: 0;
+    text-align: center;
+    white-space: normal;
+  }
+
+  tr {
+    @media (min-width: $bp-bart) {
+      // Undo display: block
+      display: table-row;
+    }
+  }
+
+  th,
+  td {
+    padding: .5em;
+    vertical-align: middle;
+
+    @media (min-width: $bp-lisa) {
+      padding: .75em .5em;
+    }
+
+    @media (min-width: $bp-bart) {
+      // Undo display: block
+      display: table-cell;
+      padding: .5em;
+    }
+
+    @media (min-width: $bp-marge) {
+      padding: .75em .5em;
+    }
+
+    @media (min-width: $bp-homer) {
+      padding: .75em;
+    }
+  }
+
+  caption {
+    margin-bottom: 1em;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+
+    @media (min-width: $bp-bart) {
+      font-size: 1.5em;
+    }
+  }
+
+  tfoot {
+    font-size: .8em;
+    font-style: italic;
+
+    @media (min-width: $bp-marge) {
+      font-size: .9em;
+    }
+  }
+
+  tbody {
+    @media (min-width: $bp-bart) {
+      // Undo display: block
+      display: table-row-group;
+    }
+
+    tr {
+      margin-bottom: 1em;
+
+      @media (min-width: $bp-bart) {
+        // Undo display: block
+        display: table-row;
+        border-width: 1px;
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      &:nth-of-type(even) {
+        @media (min-width: $bp-bart) {
+          background-color: rgba(0,0,0,.12);
+        }
+      }
+    }
+
+    th[scope="row"] {
+      background-color: rgba(38,137,13,1);
+      color: white;
+
+      @media (min-width: $bp-lisa) {
+        border-left: 1px solid rgba(134,188,37,1);
+        border-bottom: 1px solid rgba(134,188,37,1);
+      }
+
+      @media (min-width: $bp-bart) {
+        background-color: transparent;
+        color: rgba(0,0,0.87);
+        text-align: left;
+      }
+    }
+
+    td {
+      text-align: right;
+
+      @media (min-width: $bp-bart) {
+        border-left: 1px solid rgba(134,188,37,1);
+        border-bottom: 1px solid rgba(134,188,37,1);
+        text-align: center;
+      }
+
+      &:last-of-type {
+        @media (min-width: $bp-bart) {
+          border-right: 1px solid rgba(134,188,37,1);
+        }
+      }
+    }
+
+    td[data-type=currency] {
+      text-align:center;
+    }
+
+    td[data-title]:before {
+      content: attr(data-title);
+      float: left;
+      font-size: .8em;
+      color: rgba(0,0,0,.54);
+
+      @media (min-width: $bp-lisa) {
+        font-size: .9em;
+      }
+
+      @media (min-width: $bp-bart) {
+        // Don’t show data-title labels
+        content: none;
+      }
+    }
+  }
+}
+</style>
+
+
 <body>
 
 <!--PreLoader-->
@@ -15,6 +231,9 @@
 <!-- search area -->
 <div th:replace="~{fragments::search}"></div>
 <!-- end search arewa -->
+
+
+
 
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
@@ -43,16 +262,69 @@
             <div class="col-md-7">
                 <div class="single-product-content">
                     <h3 th:text="${product.productName}"></h3>
-                    <p class="single-product-pricing" th:text = "${product.price} + '$'"><span></span></p>
-                    <p th:text="${product.cpu}">CPU: </p>     <p th:text="${product.camera}">Camera: </p>
-                    <p th:text="${product.ram}">RAM: </p>     <p th:text="${product.origin}">Origin: </p>
-                    <p th:text="${product.memory}">Memory: </p>  <p th:text="${product.sim}">Sim: </p>
-                    <p th:text="${product.display}">Display: </p> <p th:text="${product.releaseDate}">Release Date: </p>
+                    <p style="color: #FF0000" class="single-product-pricing" th:text = "${product.price} + '$'"><span></span></p>
+<!--                    <p th:text="${product.cpu}">CPU: </p>     <p th:text="${product.camera}">Camera: </p>-->
+<!--                    <p th:text="${product.ram}">RAM: </p>     <p th:text="${product.origin}">Origin: </p>-->
+<!--                    <p th:text="${product.memory}">Memory: </p>  <p th:text="${product.sim}">Sim: </p>-->
+<!--                    <p th:text="${product.display}">Display: </p> <p th:text="${product.releaseDate}">Release Date: </p>-->
+                    <div class="container" style="margin-left: -13px;">
+                        <table class="responsive-table">
+                            <thead>
+                            <tr >
+                                <th style="text-align: center;" scope="col">Properties</th>
+                                <th scope="col">Detail</th>
 
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">CPU</th>
+                                <td data-title="Released" th:text="${product.cpu}"></td>
+
+
+                            </tr>
+                            <tr>
+                                <th scope="row">Ram</th>
+                                <td data-title="Released" th:text="${product.ram}+'GB'" ></td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">Memory</th>
+                                <td data-title="Released" th:text="${product.memory}+'GB'" ></td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row" >Display</th>
+                                <td data-title="Released" th:text="${product.display}+'Hz'" ></td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">Camera</th>
+                                <td data-title="Released" th:text="${product.camera}+'px'" ></td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">Origin</th>
+                                <td data-title="Released" th:text="${product.origin} "></td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">Sim</th>
+                                <td data-title="Released" th:text="${product.sim}" ></td>
+
+                            </tr>
+                            <tr>
+                                <th scope="row">Date</th>
+                                <td data-title="Released" th:text="${product.releaseDate}" ></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <div class="single-product-form">
                         <form th:action="@{/cart-single/phone/{id}(id=${product.phoneId})}" method="post" class="add-to-cart-form">
-                            <input type="number" name="quantity" placeholder="0" min="1">
+                            <input style="border: solid 1px;" type="number" name="quantity" placeholder="0" min="1">
                             <button type="submit" class="cart-btn" id="bt" style="margin-left: 7%;"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
                         </form>
 <!--                        <form action="index.html">-->

@@ -4,16 +4,16 @@
 // $('[data-toggle="tooltip"]').tooltip();
 
 function changeStatus(btn) {
-    var isActive = btn.classList.contains('active'); // Kiểm tra xem nút có class 'active' hay không
-    var phoneId = btn.getAttribute('data-id'); // Lấy ID của sản phẩm từ thuộc tính data-id của thẻ <a>
+    var isActive = btn.classList.contains('active'); // Check if the button has the 'active' class
+    var phoneId = btn.getAttribute('data-id'); // Get the product ID from the data-id attribute
 
     $.ajax({
         url: '/api/change-status',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({ id: phoneId }), // Đóng gói ID thành đối tượng JSON
+        data: JSON.stringify({ id: phoneId }), // Pack the ID into a JSON object
         success: function(response) {
-            // Hiển thị thông báo chỉnh sửa trạng thái sản phẩm thành công (nếu cần)
+            // Display a notification for the successful status change (if needed)
 
             if (isActive) {
                 btn.classList.remove('active');
@@ -37,6 +37,7 @@ function changeStatus(btn) {
         }
     });
 }
+
 ///////////////////////////////////////////////////////////////////////////////////
 
 

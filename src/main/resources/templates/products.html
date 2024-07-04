@@ -102,7 +102,7 @@
 
 </div>
 
-<div th:if="${message}" class="alert alert-success mt-5" role="alert">
+<div th:if="${message}" class="alert alert-success mt-5"  role="alert">
     <p style="text-align: center;
     font-size: larger;" th:text="${message}"></p>
 </div>
@@ -136,13 +136,14 @@
                             </td>
 
                             <td class="action-links">
-                                <a th:if="${phone.status}" onclick="changeStatus(this)" class="stock active" style="color: green;" th:data-id="${phone.phoneId}">
+                                <a  th:if="${phone.status}" href="#" onclick="changeStatus(this); return false;" class="stock active" style="color: green;" th:data-id="${phone.phoneId}" >
                                     <i class="fas fa-check-circle" data-toggle="tooltip" title="In Stock"></i>
                                 </a>
-                                <a th:if="!${phone.status}" onclick="changeStatus(this)" class="stock inactive" style="color: gray;" th:data-id="${phone.phoneId}">
+                                <a th:if="!${phone.status}" href="#" onclick="changeStatus(this); return false;" class="stock inactive" style="color: gray;" th:data-id="${phone.phoneId}" >
                                     <i class="fas fa-times-circle" data-toggle="tooltip" title="Out of Stock"></i>
                                 </a>
                             </td>
+
                         </tr>
 
                     </tbody>
@@ -236,7 +237,8 @@
     </div>
 </footer>
 
-<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+
+
 <script th:src="@{/js/CRUD.js}"></script>
 </body>
 </html>

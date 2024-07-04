@@ -33,12 +33,13 @@ public class ShopController {
                                     @RequestParam (name="maxPrice", required = false) String maxPrice) {
         model.addAttribute("listBrand", brandService.findAllBrand());
             Page<Phone> list = phoneService.viewphoneforshop(page);
+
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 model.addAttribute("isLogin", false);
                 return "shop";
             }
-            if(name!=null && !name.isEmpty()){
+            if(name !=null && !name.isEmpty()){
                 list = phoneService.searchPhoneforShop(name,page);
                 model.addAttribute("keyword", name);
             }
@@ -46,8 +47,12 @@ public class ShopController {
                 Double max = Double.parseDouble(maxPrice);
                 Double min = Double.parseDouble(minPrice);
                 list = phoneService.searchByPrice(min,max,page);
+                int TotalPage = list.getTotalPages();
+                if(list.isEmpty()) {
+                    TotalPage =1;
+                }
                 model.addAttribute("listPhone", list);
-                model.addAttribute("totalPage", list.getTotalPages());
+                model.addAttribute("totalPage", TotalPage);
                 model.addAttribute("currentPage", page);
                 model.addAttribute("isLogin", true);
                 model.addAttribute("username", authentication.getName());
