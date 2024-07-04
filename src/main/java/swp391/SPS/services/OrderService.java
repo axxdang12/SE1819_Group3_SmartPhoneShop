@@ -13,6 +13,6 @@ public interface OrderService {
     Order getOrder(int oId);
     void placeOrder(String userName);
     void cancelOrder(int orderId);
-    List<Order> searchOrderByUserId(int id);
+    List<Order> searchOrderByUserName(String name);
     void updateOrderStatus(int id, String status);
 }

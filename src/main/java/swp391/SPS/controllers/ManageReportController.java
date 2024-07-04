@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp391.SPS.dtos.ReportDto;
 import swp391.SPS.entities.Report;
 import swp391.SPS.services.ReportService;
@@ -17,17 +18,24 @@ public class ManageReportController {
     private ReportService reportService;
 
     @GetMapping("/manageReport")
-    public String viewReportList(@RequestParam(value = "userId", required = false) Integer userId,
+    public String viewReportList(@RequestParam(value = "name", required = false) String name,
                                  @RequestParam(value = "orderId", required = false) Integer orderId,
-                                 Model model) {
+                                 Model model, RedirectAttributes redirectAttributes) {
         List<ReportDto> reportList;
-        if (userId != null) {
-            reportList = reportService.searchReportByUserId(userId);
+        if (name != null && !name.isEmpty()) {
+            reportList = reportService.searchReportByUserName(name);
+            if (reportList.isEmpty()) {
+                redirectAttributes.addFlashAttribute("error", "No reports found for user: " + name);
+            }
         } else if (orderId != null) {
             reportList = reportService.searchReportByOrderId(orderId);
+            if (reportList.isEmpty()) {
+                redirectAttributes.addFlashAttribute("error", "No reports found for order ID: " + orderId);
+            }
         } else {
             reportList = reportService.getAllReport();
         }
+
         model.addAttribute("reportList", reportList);
         return "manageReport";
     }

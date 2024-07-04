@@ -26,8 +26,8 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
     void deleteR(@Param("reportId") int reportId);
 
     @Transactional
-    @Query(value = "SELECT * FROM sps.report WHERE report.user_id LIKE %:uID%", nativeQuery = true)
-    List<Report> searchReportByUserId(@Param("uID") int userId);
+    @Query(value = "SELECT CONCAT(ud.first_name, ' ', ud.last_name) AS username,  r.report_id, r.description, r.status, r.order_id, r.user_id FROM report r JOIN user u USING(user_id) JOIN userdtl ud USING(user_detail_id) WHERE CONCAT(ud.first_name, ' ', ud.last_name) LIKE %:name%", nativeQuery = true)
+    List<Report> searchReportByUserName(@Param("name") String name);
 
     @Transactional
     @Query(value = "SELECT * FROM sps.report WHERE report.order_id LIKE %:oID%", nativeQuery = true)

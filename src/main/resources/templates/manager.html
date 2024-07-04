@@ -83,12 +83,23 @@
         </div>
         <form th:action="@{/searchorder}" method="POST">
             <div class="input-group">
-                <input class="form-control" type="search" name="userid" placeholder="Search by User ID" aria-label="Search">
+                <input class="form-control" type="search" name="name" placeholder="Search by User Name" aria-label="Search">
                 <div class="input-group-append">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </div>
             </div>
         </form>
+        <div th:if="${message}">
+            <div class="alert alert-success" role="alert">
+                <p th:text="${message}"></p>
+            </div>
+        </div>
+
+        <div th:if="${error}">
+            <div class="alert alert-danger" role="alert">
+                <p th:text="${error}"></p>
+            </div>
+        </div>
         <!-- row -->
         <div class="row tm-content-row">
             <div class="col-12 tm-block-col">
@@ -122,15 +133,15 @@
                             </td>
                             <td>
                                 <div th:if="${order.status == 'Pending'}">
-                                    <form th:action="@{approve/{id}(id=${order.orderId})}" method="get">
-                                        <button type="submit" class="btn btn-success">Approve</button>
+                                    <form th:action="@{approve/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('approve')">
+                                        <button type="submit" class="btn btn-success" style="width: 120px; height: 50px">Approve</button>
                                     </form>
-                                    <form th:action="@{reject/{id}(id=${order.orderId})}" method="get">
-                                        <button type="submit" class="btn btn-danger">Reject</button>
+                                    <form th:action="@{reject/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('reject')">
+                                        <button type="submit" class="btn btn-danger" style="width: 120px; height: 50px">Reject</button>
                                     </form>
                                 </div>
                                 <div th:if="${order.status == 'Approved'}">
-                                    <form th:action="@{complete/{id}(id=${order.orderId})}" method="get">
+                                    <form th:action="@{complete/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('complete')">
                                         <button type="submit" class="btn btn-success">Complete</button>
                                     </form>
                                 </div>
@@ -152,20 +163,21 @@
                             </td>
                             <td>
                                 <div th:if="${order.status == 'Pending'}">
-                                    <form th:action="@{approve/{id}(id=${order.orderId})}" method="get">
-                                        <button type="submit" class="btn btn-success">Approve</button>
+                                    <form th:action="@{approve/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('approve')">
+                                        <button type="submit" class="btn btn-success" style="width: 120px; height: 50px">Approve</button>
                                     </form>
-                                    <form th:action="@{reject/{id}(id=${order.orderId})}" method="get">
-                                        <button type="submit" class="btn btn-danger">Reject</button>
+                                    <form th:action="@{reject/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('reject')">
+                                        <button type="submit" class="btn btn-danger" style="width: 120px; height: 50px">Reject</button>
                                     </form>
                                 </div>
                                 <div th:if="${order.status == 'Approved'}">
-                                    <form th:action="@{complete/{id}(id=${order.orderId})}" method="get">
+                                    <form th:action="@{complete/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('complete')">
                                         <button type="submit" class="btn btn-success">Complete</button>
                                     </form>
                                 </div>
                             </td>
                         </tr>
+
 
                         </tbody>
                     </table>
@@ -221,7 +233,9 @@
         alert(action + ' clicked!');
         // Additional logic can be added here
     }
-
+    function confirmAction(action) {
+        return confirm('Are you sure you want to ' + action + ' this order?');
+    }
 </script>
 </body>
 
