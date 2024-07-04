@@ -33,7 +33,7 @@
 <!--PreLoader Ends-->
 <nav class="navbar navbar-expand-xl">
   <div class="container h-100">
-    <a class="navbar-brand" href="products.html">
+    <a class="navbar-brand" th:href="@{/manager}">
       <h1 class="tm-site-title mb-0">Product Manager</h1>
     </a>
     <button
@@ -51,7 +51,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mx-auto h-100">
         <li class="nav-item">
-          <a class="nav-link" href="manager.html">
+          <a class="nav-link" th:href="@{/manager}">
             <i class="fas fa-tachometer-alt"></i> Orders
             <span class="sr-only">(current)</span>
           </a>

@@ -96,7 +96,7 @@
 									<td>Product</td>
 									<td>Total</td>
 								</tr>
-								<tr th:each="items : ${listPByC}">
+								<tr th:each="items : ${listPByC}" th:if="${items.phone.status}">
 									<td th:text="${items.phone.productName}"></td>
 									<td th:text="${items.total} + '$'"></td>
 								</tr>

@@ -32,7 +32,7 @@ public class CartController {
             }
             model.addAttribute("isLogin", true);
             model.addAttribute("username", authentication.getName());
-            Cart cart= cartService.getCart(userService.getUserId(authentication.getName()));
+            Cart cart= cartService.getCart(authentication.getName());
             model.addAttribute("listPByC", cart.getItems());
             model.addAttribute("cartTotal", cart.getTotal());
         return "cart";

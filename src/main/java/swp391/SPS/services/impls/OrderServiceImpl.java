@@ -74,11 +74,8 @@ public class OrderServiceImpl implements OrderService {
     public void cancelOrder(int orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid order ID: " + orderId));
-        List<OrderItem> orderItems = order.getOrderItems();
-        if (orderItems != null) {
-            orderItems.clear();
-        }
-        orderRepository.delete(order);
+        order.setStatus("Canceled");
+        orderRepository.save(order);
     }
 
     @Override

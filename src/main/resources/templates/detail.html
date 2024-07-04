@@ -121,6 +121,10 @@
 	
 	<!-- jquery -->
 	<div th:replace="~{fragments::script}"></div>
-
+	<script>
+		function confirmReorder() {
+            return confirm("Are you sure you want to reorder?");
+        }
+	</script>
 </body>
 </html>
