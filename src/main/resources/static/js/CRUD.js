@@ -68,6 +68,7 @@ function changeStatus(btn) {
                  if (keyword != ''&& keyword != null ) { // Kiểm tra nếu keyword không trống và selectedValue là "All"
                              loadPage(page, keyword);
                          } else {
+                             if(selectedValue==null) selectedValue = -1;
                              loadPageStatus(page, selectedValue);
                          }
           });
@@ -75,6 +76,7 @@ function changeStatus(btn) {
           $('#search-button').click(function(e) {
                       e.preventDefault();
                       var keyword = $('#search-form input[name="keyword"]').val();
+                      console.log('keyword: '+keyword);
                       loadPage(1, keyword);
                         $('#statusSelect').val('');
                   });
