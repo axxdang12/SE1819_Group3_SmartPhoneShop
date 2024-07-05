@@ -12,6 +12,12 @@
 <!--PreLoader Ends-->
 <nav th:replace="~{fragmentManagement::navbar}" >
 </nav>
+<style>
+  .form-control:disabled, .form-control[readonly] {
+  background-color: #54657d;
+  opacity: 1;
+}
+</style>
 <body>
 <div class="container tm-mt-big tm-mb-big">
    <div class="row">
@@ -80,7 +86,12 @@
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label >Ram
                   </label>
-                  <input  name="ram" type="number" th:value="${phone.ram}" class="form-control validate" required />
+                  <select class="custom-select tm-select-accounts" name="ram">
+                    <option value="8" selected>8GB</option>
+                    <option value="16" >12GB</option>
+                    <option value="32">32GB</option>
+
+                  </select>
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label >Display
@@ -151,15 +162,8 @@
     </div>
   </div>
 </div>
-<footer class="tm-footer row tm-mt-small">
-  <div class="col-12 font-weight-light">
-    <p class="text-center text-white mb-0 px-4 small">
-      Copyright &copy; <b>2024</b> All rights reserved.
-
-
-    </p>
-  </div>
-</footer>
+  <footer th:replace="~{fragmentManagement::footer}" >
+  </footer>
 </body>
 <div th:replace="~{fragmentManagement::js}">
 

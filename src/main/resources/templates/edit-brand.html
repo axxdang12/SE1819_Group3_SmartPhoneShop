@@ -13,6 +13,12 @@
 <!--PreLoader Ends-->
 <nav th:replace="~{fragmentManagement::navbar}" >
 </nav>
+<style>
+    .form-control:disabled, .form-control[readonly] {
+    background-color: #54657d;
+    opacity: 1;
+}
+</style>
 <div class="container tm-mt-big tm-mb-big">
     <div class="row">
         <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
@@ -45,15 +51,8 @@
         </div>
     </div>
 </div>
-    <footer class="tm-footer row tm-mt-small">
-        <div class="col-12 font-weight-light">
-            <p class="text-center text-white mb-0 px-4 small">
-                Copyright &copy; <b>2024</b> All rights reserved.
-
-
-            </p>
-        </div>
-    </footer>
+<footer th:replace="~{fragmentManagement::footer}" >
+</footer>
 
 <div th:replace="~{fragmentManagement::js}">
 

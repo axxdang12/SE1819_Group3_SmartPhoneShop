@@ -91,30 +91,6 @@
                     </table>
                 </div>
 
-              <!-- table container -->
-<!--                <a th:href="@{/add-product}"-->
-<!--                        class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>-->
-
-
-<!--                <div class="containerrr">-->
-<!--                    <ul class="pagination" id="page">-->
-<!--                        <li>-->
-<!--                            <a th:if="${currentPage>1}"-->
-<!--                               th:href="@{ ${keyword != null && keyword!='' ? '?keyword=' + keyword + '&' : '?' } + 'pageNumber='+${currentPage-1}}" id="page-link-prev" data-page="prev">Prev</a>-->
-<!--                        </li>-->
-<!--                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPage)}">-->
-<!--                            <a th:href="@{${keyword != null && keyword!='' ? '?keyword=' + keyword + '&' : '?' } +    'pageNumber='+${pageNumber}}"-->
-<!--                               th:id="'page-link-' + ${pageNumber}"-->
-<!--                               th:data-page="${pageNumber}" th:text="${pageNumber}"-->
-<!--                               th:class="${currentPage == pageNumber ? 'active' : ''}"></a>-->
-<!--                        </li>-->
-
-<!--                        <li>-->
-<!--                            <a th:if="${currentPage < totalPage}" th:href="@{ ${keyword != null && keyword!='' ? '?keyword=' + keyword + '&' : '?' } + 'pageNumber='+${currentPage+1}}" id="page-link-next" data-page="next">Next</a>-->
-<!--                        </li>-->
-<!--                    </ul>-->
-<!--                </div>-->
-
                 <div class="containerrr">
                     <ul class="pagination" id="page">
                         <li>
@@ -152,10 +128,7 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- table container -->
-<!--                <button class="btn btn-primary btn-block text-uppercase mb-3">-->
-<!--                    <a href="ADD-category.html" style="color: white;">Add new category</a>-->
-<!--                </button>-->
+
                 <button class="btn btn-primary btn-block text-uppercase mb-3">
                     <a th:href="@{/add-brand}" style="color: white;">Add new brand</a>
 
@@ -168,14 +141,7 @@
     </div>
 </div>
 
-<footer class="tm-footer row tm-mt-small">
-    <div class="col-12 font-weight-light">
-        <p class="text-center text-white mb-0 px-4 small">
-            Copyright &copy; <b>2024</b> All rights reserved.
-
-
-        </p>
-    </div>
+<footer th:replace="~{fragmentManagement::footer}" >
 </footer>
 
 <div th:replace="~{fragmentManagement::js}">
