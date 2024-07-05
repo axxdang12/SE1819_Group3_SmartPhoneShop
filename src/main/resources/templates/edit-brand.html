@@ -1,68 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Edit Product - Dashboard Admin Template</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
-    <!-- https://fonts.google.com/specimen/Roboto -->
-    <link rel="stylesheet" th:href="@{/css/fontawesome.min.css}" />
-    <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" th:href="@{jquery-ui-datepicker/jquery-ui.min.css}" type="text/css" />
-    <!-- http://api.jqueryui.com/datepicker/ -->
-    <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap.min.css}" />
-    <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
-    <!--
-      Product Admin CSS Template
-      https://templatemo.com/tm-524-product-admin
-      -->
+<head th:replace="~{fragmentManagement::header}">
+
 </head>
 
 <body>
 <!--PreLoader-->
-<div class="loader">
-    <div class="loader-inner">
-        <div class="circle"></div>
-    </div>
+<div th:replace="~{fragmentManagement::loader}">
+
 </div>
 <!--PreLoader Ends-->
-<nav class="navbar navbar-expand-xl">
-    <div class="container h-100">
-        <a class="navbar-brand" href="products.html">
-            <h1 class="tm-site-title mb-0">Product Manager</h1>
-        </a>
-        <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <i class="fas fa-bars tm-nav-icon"></i>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto h-100">
-                <li class="nav-item">
-                    <a class="nav-link" href="manager.html">
-                        <i class="fas fa-tachometer-alt"></i> Orders
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/manageProduct}">
-                        <i class="fas fa-shopping-cart"></i> Products
-                    </a>
-                </li>
-            </ul>
-            <ul class="navbar-nav">
-                <!-- <li class="nav-item"> -->
-                <!-- <a class="nav-link d-block" href="login.html"> -->
-                <!-- Admin, <b>Logout</b> -->
-                <!-- </a> -->
-                <!-- </li> -->
-            </ul>
-        </div>
-    </div>
+<nav th:replace="~{fragmentManagement::navbar}" >
 </nav>
 <div class="container tm-mt-big tm-mb-big">
     <div class="row">
@@ -84,7 +33,7 @@
                             <div class="form-group mb-3">
                                 <label>Brand Name
                                 </label>
-                                <input  name="name" type="text" th:value="${brand.brandName}" class="form-control validate" />
+                                <input  name="name" type="text" th:value="${brand.brandName}" class="form-control validate" required />
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary btn-block text-uppercase">Update</button>
@@ -106,13 +55,11 @@
         </div>
     </footer>
 
-    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-    <!-- https://jquery.com/download/ -->
-    <script th:src="@{/jquery-ui-datepicker/jquery-ui.min.js}"></script>
-    <!-- https://jqueryui.com/download/ -->
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <!-- https://getbootstrap.com/ -->
-    <script>
+<div th:replace="~{fragmentManagement::js}">
+
+</div>
+
+<script>
         $(function () {
           $("#expire_date").datepicker({
             defaultDate: "10/22/2020"
