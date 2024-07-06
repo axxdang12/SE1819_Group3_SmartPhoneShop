@@ -20,6 +20,4 @@ public interface OrderItemRepository extends JpaRepository<OrderItem, Integer>{
     @Transactional
     @Query(value = "select * from order_item where order_id= :order_id" , nativeQuery = true)
     List<OrderItem> getOrderItemByOrderId(@Param("order_id") int order_id);
-
-
 }
