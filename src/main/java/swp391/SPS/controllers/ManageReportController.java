@@ -22,15 +22,27 @@ public class ManageReportController {
                                  @RequestParam(value = "orderId", required = false) Integer orderId,
                                  Model model, RedirectAttributes redirectAttributes) {
         List<ReportDto> reportList;
-        if (name != null && !name.isEmpty()) {
+        if (name != null && name.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Search input for user name cannot be empty.");
+            return "redirect:/manageReport";
+        }
+
+        if (orderId != null && orderId.toString().isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Search input for order ID cannot be empty.");
+            return "redirect:/manageReport";
+        }
+        if (name != null) {
             reportList = reportService.searchReportByUserName(name);
             if (reportList.isEmpty()) {
                 redirectAttributes.addFlashAttribute("error", "No reports found for user: " + name);
+                return "redirect:/manageReport";
             }
-        } else if (orderId != null) {
+        }
+        if (orderId != null) {
             reportList = reportService.searchReportByOrderId(orderId);
             if (reportList.isEmpty()) {
                 redirectAttributes.addFlashAttribute("error", "No reports found for order ID: " + orderId);
+                return "redirect:/manageReport";
             }
         } else {
             reportList = reportService.getAllReport();

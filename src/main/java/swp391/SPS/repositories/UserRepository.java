@@ -24,6 +24,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 //  @Modifying
   @Transactional
-  @Query(value = "SELECT * FROM user u JOIN ordertb o USING (user_id) WHERE o.order_id = :orderId" , nativeQuery = true)
+  @Query(value = "SELECT u.* FROM user u JOIN ordertb o USING (user_id) WHERE o.order_id = :orderId" , nativeQuery = true)
   User getUserByOrderId(@Param("orderId") int orderId);
 }
