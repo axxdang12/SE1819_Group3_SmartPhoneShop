@@ -33,9 +33,7 @@ public interface UserService {
 
     User findUserByOrderId(int orderId);
 
-    ResponseEntity getListUser(int page, int size) throws NoDataInListException;
-
-    PageDto getListUserFirstLoad(int page, int size) throws NoDataInListException, OutOfPageException;
+    PageDto getListUserFirstLoad(int page, int size, String search) throws NoDataInListException, OutOfPageException;
 
     User saveUserRole(int userId, String roleName) throws UserNotFoundException;
 

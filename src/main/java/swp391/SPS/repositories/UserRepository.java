@@ -19,8 +19,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
   public User findByResetPasswordToken(String token);
 
-  @Query("SELECT u FROM User u")
-  Page<User> findAllUser(Pageable pageable);
+  @Query("SELECT u FROM User u WHERE u.username LIKE %?1% OR u.email LIKE %?1% OR u.userDetail.firstName LIKE %?1% OR u.userDetail.lastName LIKE %?1% OR u.userDetail.address LIKE %?1% OR u.userDetail.phoneNumber LIKE %?1%")
+  Page<User> findAllUser(String search,Pageable pageable);
 
 //  @Modifying
   @Transactional

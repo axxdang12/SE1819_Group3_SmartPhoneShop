@@ -21,10 +21,7 @@ import swp391.SPS.repositories.RoleRepository;
 import swp391.SPS.repositories.UserRepository;
 import swp391.SPS.services.UserService;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -75,22 +72,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity getListUser(int page, int size) throws NoDataInListException {
+    public PageDto getListUserFirstLoad(int page, int size, String search) throws NoDataInListException, OutOfPageException {
         Pageable pageable = PageRequest.of(page, size);
-        Page<User> userRequest = userRepository.findAllUser(pageable);
-        if (userRequest.getContent().isEmpty()) {
-            throw new NoDataInListException("No user");
+        if (Objects.isNull(search)) {
+            search = "";
         }
-        if (page > userRequest.getTotalPages() - 1) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No user");
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(PageDto.builder().resultList(userRequest.getContent()).currentPage(userRequest.getNumber() + 1).totalPage(userRequest.getTotalPages()));
-    }
 
-    @Override
-    public PageDto getListUserFirstLoad(int page, int size) throws NoDataInListException, OutOfPageException {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<User> userRequest = userRepository.findAllUser(pageable);
+        Page<User> userRequest = userRepository.findAllUser(search, pageable);
         if (userRequest.getContent().isEmpty()) {
             throw new NoDataInListException("No user");
         }

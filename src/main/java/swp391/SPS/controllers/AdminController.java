@@ -39,7 +39,7 @@ public class AdminController {
             return "redirect:/login";
         }
         int currentPage = page.orElse(1);
-        PageDto pageDto = userService.getListUserFirstLoad(currentPage -1, 2);
+        PageDto pageDto = userService.getListUserFirstLoad(currentPage -1, 2, "");
         List<Integer> pageNumbers = IntStream.rangeClosed(1, pageDto.getTotalPage())
                 .boxed()
                 .collect(Collectors.toList());
