@@ -48,13 +48,13 @@
                                 <p><textarea name="description" id="description" cols="30" rows="10" placeholder="Describe the issue" th:attr="disabled=${reportNormal}" th:text="${existingReport?.description}" required></textarea></p>
                             </div>
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary" id="bt" th:attr="hidden=${reportNormal}">Submit Report</button>
+                                <button type="submit" class="btn btn-primary" id="bt" th:attr="hidden=${reportNormal}" onclick="return confirmSubmit()">Submit Report</button>
                             </div>
                         </div>
                     </form>
                     <form th:action="@{/delete-report}" method="post" th:if="${existingReport}">
                         <input type="hidden" name="reportId" th:value="${existingReport.reportId}" />
-                        <button id="bt" type="submit" class="btn btn-danger mt-2">Delete Report</button>
+                        <button id="bt" type="submit" class="btn btn-danger mt-2" onclick="return confirmDelete()">Delete Report</button>
                     </form>
                 </div>
             </div>
@@ -98,5 +98,15 @@
 
 <!-- jquery -->
 <div th:replace="~{fragments::script}"></div>
+
+<script>
+    function confirmDelete() {
+            return confirm("Are you sure you delete this report ?");
+        }
+
+        function confirmSubmit() {
+            return confirm("Are you sure you submit this report ?");
+        }
+</script>
 </body>
 </html>

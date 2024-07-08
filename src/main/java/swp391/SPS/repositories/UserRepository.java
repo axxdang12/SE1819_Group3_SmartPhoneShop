@@ -13,14 +13,15 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-  User findByUsername(String userName);
-  @Query("SELECT u FROM User u WHERE u.email = ?1")
-  public User findByEmail(String email);
+    User findByUsername(String userName);
 
-  public User findByResetPasswordToken(String token);
+    @Query("SELECT u FROM User u WHERE u.email = ?1")
+    public User findByEmail(String email);
 
-  @Query("SELECT u FROM User u")
-  Page<User> findAllUser(Pageable pageable);
+    public User findByResetPasswordToken(String token);
+
+    @Query("SELECT u FROM User u WHERE u.username LIKE %?1% OR (u.email LIKE %?1%) OR (u.userDetail.firstName LIKE %?1%) OR (u.userDetail.lastName LIKE %?1%) OR (u.userDetail.phoneNumber LIKE %?1%)")
+    Page<User> findAllUser(String search, Pageable pageable);
 
 //  @Modifying
   @Transactional

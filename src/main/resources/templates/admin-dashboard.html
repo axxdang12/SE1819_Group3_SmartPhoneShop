@@ -43,33 +43,23 @@
         list-style: none;
     }
 
+    .input-group {
+        width: 350px;
+        margin-bottom: 20px;
+    }
+
+    .wrapper {
+        margin: 50px 0 50px 0;
+    }
+
 </style>
 <!--PreLoader-->
 <div th:replace="~{fragments::loader}"></div>
 <!--PreLoader Ends-->
 
 <!-- header -->
-<div th:replace="~{fragments::headerNav}"></div>
+<div th:replace="~{fragments::headerNavAdmin}"></div>
 <!-- end header -->
-
-<!--&lt;!&ndash; search area &ndash;&gt;-->
-<!--<div class="search-area">-->
-<!--    <div class="container">-->
-<!--        <div class="row">-->
-<!--            <div class="col-lg-12">-->
-<!--                <span class="close-btn"><i class="fas fa-window-close"></i></span>-->
-<!--                <div class="search-bar">-->
-<!--                    <div class="search-bar-tablecell">-->
-<!--                        <h3>Search For:</h3>-->
-<!--                        <input type="text" placeholder="Keywords">-->
-<!--                        <button type="submit">Search <i class="fas fa-search"></i></button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-<!-- end search area -->
 
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
@@ -86,8 +76,13 @@
 </div>
 
 <!-- check out section -->
-<div class="checkout-section mt-150 mb-150">
+<div class="wrapper">
     <div class="container">
+        <div class="input-group rounded">
+            <input type="search" id="searchText" name="search" class="form-control rounded" placeholder="Search"
+                   aria-label="Search" aria-describedby="search-addon"/>
+            <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
+        </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="order-table">
@@ -105,7 +100,8 @@
                         <tr th:each="item: ${listFirstLoad}">
                             <td th:text="${item.userId}"></td>
                             <td th:text="${item.username}"></td>
-                            <td><select class="role-select" th:attr="data-id=${item.userId}">
+                            <td><select class="role-select" th:attr="data-id=${item.userId}"
+                                        th:disabled="${item.username == username}">
                                 <option th:each="role: ${listRole}" th:value="${role.roleName}"
                                         th:selected="${role.roleName == item.roles[0].roleName}"
                                         th:text="${role.roleName}"></option>
@@ -116,7 +112,9 @@
                                 <button th:class="'btn btnChange ' + ${item.status == 'ACTIVE' ? 'btn-success' : 'btn-danger'}"
                                         th:attr="data-id=${item.userId}"
                                         th:value="${item.status}"
-                                        th:text="${item.status}"></button>
+                                        th:text="${item.status}"
+                                        th:disabled="${item.username == username}"
+                                ></button>
                             </td>
                         </tr>
                         </tbody>
@@ -170,15 +168,6 @@
     </div>
 </div>
 <!-- end check out section -->
-
-
-<!-- footer -->
-<div th:replace="~{fragments::footer}"></div>
-<!-- end footer -->
-
-<!-- copyright -->
-<div th:replace="~{fragments::copyright}"></div>
-<!-- end copyright -->
 
 <!-- jquery -->
 <div th:replace="~{fragments::script}"></div>
