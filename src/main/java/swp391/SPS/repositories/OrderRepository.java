@@ -21,8 +21,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
 
     @Modifying
     @Transactional
-    @Query(value = "SELECT * FROM ordertb WHERE ordertb.user_id LIKE %:uID%" , nativeQuery = true)
-    List<Order> searchOrderByUserId(@Param("uID") int userId);
+    @Query(value = "SELECT u.user_id, ud.user_detail_id , CONCAT(ud.first_name, ' ', ud.last_name) AS username,  o.order_date,  o.order_id, o.total_price, o.status FROM ordertb o JOIN user u USING(user_id) JOIN userdtl ud USING(user_detail_id) WHERE CONCAT(ud.first_name, ' ', ud.last_name) LIKE %:name%", nativeQuery = true)
+    List<Order> searchOrderByUserName(@Param("name") String name);
 
 
 }

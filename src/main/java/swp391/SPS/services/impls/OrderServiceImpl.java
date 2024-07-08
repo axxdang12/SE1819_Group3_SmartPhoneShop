@@ -79,8 +79,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> searchOrderByUserId(int id) {
-        return orderRepository.searchOrderByUserId(id);
+    public List<Order> searchOrderByUserName(String name) {
+        return orderRepository.searchOrderByUserName(name);
     }
 
     @Transactional

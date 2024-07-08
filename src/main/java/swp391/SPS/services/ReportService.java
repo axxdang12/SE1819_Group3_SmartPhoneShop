@@ -13,6 +13,6 @@ public interface ReportService {
     Report getReport(int reportId);
     List<ReportDto> getAllReport();
     ReportDto convertToDTO(Report report);
-    List<ReportDto> searchReportByUserId(int userId);
+    List<ReportDto> searchReportByUserName(String name);
     List<ReportDto> searchReportByOrderId(int orderId);
 }
