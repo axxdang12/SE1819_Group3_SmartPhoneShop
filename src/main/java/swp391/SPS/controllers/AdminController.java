@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import swp391.SPS.dtos.PageDto;
 import swp391.SPS.dtos.RequestSaveUserRoleDto;
 import swp391.SPS.entities.User;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.repositories.RoleRepository;
@@ -34,14 +35,14 @@ public class AdminController {
 
     @RequestMapping(value = {"/admin-dashboard"}, method = RequestMethod.GET)
     public String adminDashBoard(Model model,
-                                 @RequestParam("page") Optional<Integer> page) throws NoDataInListException, OutOfPageException {
+                                 @RequestParam("page") Optional<Integer> page) throws NoDataInListException, OutOfPageException, FileNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
             return "redirect:/login";
         }
         int currentPage = page.orElse(1);
-        PageDto pageDto = userService.getListUserFirstLoad(currentPage - 1, 2, "");
+        PageDto pageDto = userService.getListUserFirstLoad(currentPage - 1, 5, "");
         List<Integer> pageNumbers = IntStream.rangeClosed(1, pageDto.getTotalPage())
                 .boxed()
                 .collect(Collectors.toList());
