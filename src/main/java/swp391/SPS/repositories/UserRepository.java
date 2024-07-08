@@ -1,5 +1,4 @@
 package swp391.SPS.repositories;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,8 +23,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE u.username LIKE %?1% OR (u.email LIKE %?1%) OR (u.userDetail.firstName LIKE %?1%) OR (u.userDetail.lastName LIKE %?1%) OR (u.userDetail.phoneNumber LIKE %?1%)")
     Page<User> findAllUser(String search, Pageable pageable);
 
-    //  @Modifying
-    @Transactional
-    @Query(value = "SELECT * FROM user u JOIN ordertb o USING (user_id) WHERE o.order_id = :orderId", nativeQuery = true)
-    User getUserByOrderId(@Param("orderId") int orderId);
+//  @Modifying
+  @Transactional
+  @Query(value = "SELECT u.* FROM user u JOIN ordertb o USING (user_id) WHERE o.order_id = :orderId" , nativeQuery = true)
+  User getUserByOrderId(@Param("orderId") int orderId);
 }

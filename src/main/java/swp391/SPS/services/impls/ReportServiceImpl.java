@@ -65,8 +65,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<ReportDto> searchReportByUserId(int userId) {
-        List<Report> reports = reportRepository.searchReportByUserId(userId);
+    public List<ReportDto> searchReportByUserName(String name) {
+        List<Report> reports = reportRepository.searchReportByUserName(name);
         return reports.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
