@@ -32,7 +32,7 @@
     <!-- responsive -->
     <link rel="stylesheet" th:href="@{/css/responsive.css}">
 
-<!--    <link rel="stylesheet" th:href="@{/css/style.css}">-->
+    <!--    <link rel="stylesheet" th:href="@{/css/style.css}">-->
 </head>
 
 <!--<head th:fragment="header-part">-->
@@ -78,12 +78,12 @@
 </div>
 <!--endloader-->
 
-    <div class="search-area" th:fragment="search">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <span class="close-btn"><i class="fas fa-window-close"></i></span>
-                    <form th:action ="@{/shop}" method="get" >
+<div class="search-area" th:fragment="search">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <span class="close-btn"><i class="fas fa-window-close"></i></span>
+                <form th:action="@{/shop}" method="get">
                     <div class="search-bar">
                         <div class="search-bar-tablecell">
                             <h3>Search For:</h3>
@@ -91,11 +91,11 @@
                             <button type="submit">Search <i class="fas fa-search"></i></button>
                         </div>
                     </div>
-                    </form>
-    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
 
 <!-- header -->
@@ -123,8 +123,8 @@
                             </li>
                             <li><a th:if="${isLogin == false}" th:href="@{/register}">Signup</a>
                             </li>
-<!--                            <li><a th:if="${isLogin == true}" th:href="@{/logout}">Logout</a>-->
-<!--                            </li>-->
+                            <!--                            <li><a th:if="${isLogin == true}" th:href="@{/logout}">Logout</a>-->
+                            <!--                            </li>-->
                             <li><a th:if="${isLogin == true}" th:text="'Hello '+ ${username}" th:href="@{/profile}"></a>
                             </li>
                             <li>
@@ -247,4 +247,31 @@
     <script th:src="@{/js/login.js}"></script>
 </div>
 <!--end js-->
+
+<div class="top-header-area" id="stickerAdmin" th:fragment="headerNavAdmin">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 text-center">
+                <div class="main-menu-wrap">
+                    <!-- menu start -->
+                    <nav class="main-menu">
+                        <ul>
+                            <li>
+                                <div class="header-icons">
+                                    <a th:if="${isLogin == true}" th:text="'Hello '+ ${username}"
+                                       th:href="@{/profile}"></a>
+                                    <a th:if="${isLogin == true}" th:href="@{/logout}"><img class="imgIcon"
+                                                                                            th:src="@{/images/icon/logout.png}"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                    <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+                    <div class="mobile-menu"></div>
+                    <!-- menu end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </html>
