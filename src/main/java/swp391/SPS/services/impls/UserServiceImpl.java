@@ -14,6 +14,7 @@ import swp391.SPS.dtos.UserDto;
 import swp391.SPS.entities.Cart;
 import swp391.SPS.entities.Role;
 import swp391.SPS.entities.User;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.exceptions.UserNotFoundException;
@@ -72,18 +73,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageDto getListUserFirstLoad(int page, int size, String search) throws NoDataInListException, OutOfPageException {
+    public PageDto getListUserFirstLoad(int page, int size, String search) throws NoDataInListException, OutOfPageException, FileNotFoundException {
         Pageable pageable = PageRequest.of(page, size);
         if (Objects.isNull(search)) {
             search = "";
         }
-
         Page<User> userRequest = userRepository.findAllUser(search, pageable);
-        if (userRequest.getContent().isEmpty()) {
-            throw new NoDataInListException("No user");
-        }
         if (page > userRequest.getTotalPages() - 1) {
-            throw new OutOfPageException("Out of page");
+            throw new FileNotFoundException("Page not found");
         }
         return PageDto.builder().resultList(userRequest.getContent()).currentPage(userRequest.getNumber() + 1).totalPage(userRequest.getTotalPages()).size(2).build();
     }

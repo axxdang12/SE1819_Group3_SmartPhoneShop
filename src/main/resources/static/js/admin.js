@@ -49,6 +49,7 @@ $(document).ready(function () {
                 complete: function () {
                     saveRole();
                     saveActive();
+                    search();
                 }
             })
         });
@@ -105,6 +106,7 @@ $(document).ready(function () {
                 complete: function () {
                     saveActive();
                     saveRole();
+                    search();
                 }
             })
         });
@@ -114,8 +116,9 @@ $(document).ready(function () {
 
     var timer;
     var timeout = 1000;
-    function search(){
-        $('#searchText').keyup(function (){
+
+    function search() {
+        $('#searchText').keyup(function () {
             let params = new window.URLSearchParams(window.location.search);
             let currentPage;
             if (params.get("page") == null) {
@@ -130,7 +133,7 @@ $(document).ready(function () {
             };
             clearTimeout(timer);
             if ($('#searchText').val()) {
-                timer = setTimeout(function(){
+                timer = setTimeout(function () {
                     //do stuff here e.g ajax call etc....
                     $.ajax({
                         url: "/search",
@@ -171,5 +174,6 @@ $(document).ready(function () {
             }
         })
     }
+
     search();
 });
