@@ -13,4 +13,5 @@ public class RequestSaveActiveDto {
     private int userId;
     private String status;
     private int page;
+    private String search;
 }
