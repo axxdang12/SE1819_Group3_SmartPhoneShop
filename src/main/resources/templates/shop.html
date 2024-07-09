@@ -3,7 +3,7 @@
 
 <head th:replace="~{fragments::header}"></head>
 <body>
-<!--<link rel="stylesheet" th:href="@{/css1/style.css}">-->
+<link rel="stylesheet" th:href="@{/css1/style.css}">
 <!--PreLoader-->
 <div th:replace="~{fragments::loader}"></div>
 <!--PreLoader Ends-->
@@ -15,11 +15,7 @@
 <!-- search area -->
 <div th:replace="~{fragments::search}"></div>
 <!-- end search area -->
-<style>
-    li a{
-    color: black
-    }
-</style>
+
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
     <div class="container">
@@ -33,38 +29,117 @@
         </div>
     </div>
 </div>
-
-<div class="product-section mt-150 mb-150" style="margin-top: -10px">
+<!-- end breadcrumb section -->
+<section class="ftco-section">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12" style="    margin: 109px 0px -73px 0px;">
-                <div class="product-filters">
-                    <ul>
-                        <li > <a th:href="@{/shop}" style="color: black">All</a></li>
-                        <li th:each="brand: ${listBrand}">
-                            <a  th:href="@{/shop/brand/{idBrand}(idBrand=${brand.brandId})}"
-                                th:text="${brand.brandName}" style="color: black" ></a>
+        <div class="row justify-content-center">
+        </div>
+    </div>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" id="ftco-navbar">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                        aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="fa fa-bars"></span> Menu
+                </button>
+                <div class="collapse navbar-collapse" id="ftco-nav">
+                    <ul class="navbar-nav ml-auto">
+
+                        <li class="nav-item position-static">
+                            <a class="nav-link" th:href="@{/shop}" style=" color: red">All</a>
+                        </li>
+
+
+                        <li class="nav-item dropdown position-static">
+                            <a class="nav-link dropdown-toggle" href="" id="drop_down04" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">Brand</a>
+                            <div class="dropdown-menu p-4" aria-labelledby="dropdown04">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div th:each="brand: ${listBrand}">
+                                            <a class="dropdown-item"
+                                               th:href="@{/shop/brand/{idBrand}(idBrand=${brand.brandId})}"
+                                               th:text="${brand.brandName}" style="color: black"></a>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+
+                        <li class="nav-item dropdown position-static">
+                            <a class="nav-link dropdown-toggle" href="" id="drop_down04" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">Price</a>
+                            <div class="dropdown-menu p-4" aria-labelledby="dropdown04">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item price-link" th:href="@{/shop/price?minPrice=0&maxPrice=200}">Under 200$</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=200&maxPrice=500}">200$ - 500$</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=500&maxPrice=1000}">500$ - 1000$</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=1000&maxPrice=1500}">1000$ - 1500$</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <a class="dropdown-item price-link" href="/shop?minPrice=1500&maxPrice=10000">Over 1500$</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                                                        <div class="dropdown-menu p-4" aria-labelledby="dropdown04">
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <a class="dropdown-item" href="#">Under 200$</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <a class="dropdown-item" href="#">200$ - 500$</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <a class="dropdown-item" href="#">500$ - 1000$</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <a class="dropdown-item" href="#">1000$ - 1500$</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <a class="dropdown-item" href="#">Over 1500$</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                         </li>
 
                     </ul>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="product-filters">
-                    <ul>
-
-                        <li><a th:href="@{/shop/?minPrice=0&maxPrice=200}" >Under 200$</a></li>
-                        <li><a th:href="@{/shop?minPrice=200&maxPrice=500}" >200$ - 500$</a></li>
-                        <li><a th:href="@{/shop?minPrice=500&maxPrice=1000}" >500$ - 1000$</a></li>
-                        <li><a th:href="@{/shop?minPrice=1000&maxPrice=1500}" >1000$ - 1500$</a></li>
-                        <li><a th:href="@{/shop?minPrice=1500&maxPrice=10000}" >1500$ - 10000$</a></li>
-
-
-
-                    </ul>
-                </div>
-            </div>
-        </div>
+        </nav>
+        <!-- END nav -->
+    </div>
+</section>
+<!-- products -->
+<div class="product-section mt-150 mb-150" style="margin-top: -10px">
+    <div class="container">
         <div class="row product-lists">
             <div th:each="phone: ${listPhone}" class="col-lg-4 col-md-6 text-center ">
                 <div class="single-product-item">

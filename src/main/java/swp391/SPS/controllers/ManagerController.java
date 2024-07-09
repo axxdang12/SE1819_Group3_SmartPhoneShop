@@ -11,9 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import swp391.SPS.entities.Order;
 import swp391.SPS.services.OrderItemService;
 import swp391.SPS.services.OrderService;
 import swp391.SPS.services.UserService;
+
+import java.util.List;
 
 @Controller
 public class ManagerController {
@@ -33,8 +36,18 @@ public class ManagerController {
     }
 
     @PostMapping("/searchorder")
-    public String searchOrderById(@RequestParam("userid") int id, Model model){
-        model.addAttribute("listOrderByUser", orderService.searchOrderByUserId(id));
+    public String searchOrderById(@RequestParam("name") String name, Model model, RedirectAttributes redirectAttributes){
+        if (name.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Search input cannot be empty.");
+            return "redirect:/manager";
+        }
+
+        List<Order> orders = orderService.searchOrderByUserName(name);
+        if (orders.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "No orders found for user: " + name);
+            return "redirect:/manager";
+        }
+        model.addAttribute("listOrderByUser", orderService.searchOrderByUserName(name));
         return "manager";
     }
     @GetMapping("/order-detail-manager/{id}")

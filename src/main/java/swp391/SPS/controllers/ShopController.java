@@ -37,7 +37,7 @@ public class ShopController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 model.addAttribute("isLogin", false);
-               
+
             }
             if(name !=null && !name.isEmpty()){
                 list = phoneService.searchPhoneforShop(name,page);
@@ -104,7 +104,7 @@ public class ShopController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
-
+            return "shop";
         }
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
