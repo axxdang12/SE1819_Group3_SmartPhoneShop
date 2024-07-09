@@ -15,7 +15,11 @@
 <!-- search area -->
 <div th:replace="~{fragments::search}"></div>
 <!-- end search area -->
-
+<style>
+    li a{
+    color: black
+    }
+</style>
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
     <div class="container">
@@ -29,122 +33,14 @@
         </div>
     </div>
 </div>
-<!-- end breadcrumb section -->
-<!--<section class="ftco-section">-->
-<!--    <div class="container">-->
-<!--        <div class="row justify-content-center">-->
-<!--        </div>-->
-<!--    </div>-->
-<!--&lt;!&ndash;    <div class="container">&ndash;&gt;-->
-<!--&lt;!&ndash;        <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" id="ftco-navbar">&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="container">&ndash;&gt;-->
-<!--&lt;!&ndash;                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"&ndash;&gt;-->
-<!--&lt;!&ndash;                        aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <span class="fa fa-bars"></span> Menu&ndash;&gt;-->
-<!--&lt;!&ndash;                </button>&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="collapse navbar-collapse" id="ftco-nav">&ndash;&gt;-->
-<!--&lt;!&ndash;                    <ul class="navbar-nav ml-auto">&ndash;&gt;-->
 
-<!--&lt;!&ndash;                        <li class="nav-item position-static">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <a class="nav-link" th:href="@{/shop}" style=" color: red">All</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
-
-
-<!--&lt;!&ndash;                        <li class="nav-item dropdown position-static">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <a class="nav-link dropdown-toggle" href="" data-toggle="dropdown"&ndash;&gt;-->
-<!--&lt;!&ndash;                               aria-haspopup="true" aria-expanded="false">Brand</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <div class="dropdown-menu p-4" aria-labelledby="dropdown04">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <div class="row">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <div class="col-md-3">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <div th:each="brand: ${listBrand}">&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <a class="dropdown-item"&ndash;&gt;-->
-<!--&lt;!&ndash;                                               th:href="@{/shop/brand/{idBrand}(idBrand=${brand.brandId})}"&ndash;&gt;-->
-<!--&lt;!&ndash;                                               th:text="${brand.brandName}" style="color: black"></a>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                        </div>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
-
-
-<!--&lt;!&ndash;                        <li class="nav-item dropdown position-static">&ndash;&gt;-->
-<!--&lt;!&ndash;                            <a class="nav-link dropdown-toggle" href=""  data-toggle="dropdown"&ndash;&gt;-->
-<!--&lt;!&ndash;                               aria-haspopup="true" aria-expanded="false">Price</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <div class="dropdown-menu p-4" aria-labelledby="dropdown04">&ndash;&gt;-->
-<!--&lt;!&ndash;                                <div class="row">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <div class="col-md-3">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <a class="dropdown-item price-link" th:href="@{/shop/price?minPrice=0&maxPrice=200}">Under 200$</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <div class="row">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <div class="col-md-3">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=200&maxPrice=500}">200$ - 500$</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <div class="row">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <div class="col-md-3">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=500&maxPrice=1000}">500$ - 1000$</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <div class="row">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <div class="col-md-3">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=1000&maxPrice=1500}">1000$ - 1500$</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <div class="row">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <div class="col-md-3">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <a class="dropdown-item price-link" th:href="@{/shop?minPrice=1500&maxPrice=10000}">Over 1500$</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
-
-
-<!--&lt;!&ndash;&lt;!&ndash;                            <div class="dropdown-menu p-4" aria-labelledby="dropdown04">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                <div class="row">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                    <div class="col-md-3">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                        <a class="dropdown-item" href="#">Under 200$</a>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                    </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                <div class="row">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                    <div class="col-md-3">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                        <a class="dropdown-item" href="#">200$ - 500$</a>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                    </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                <div class="row">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                    <div class="col-md-3">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                        <a class="dropdown-item" href="#">500$ - 1000$</a>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                    </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                <div class="row">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                    <div class="col-md-3">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                        <a class="dropdown-item" href="#">1000$ - 1500$</a>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                    </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                <div class="row">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                    <div class="col-md-3">&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                        <a class="dropdown-item" href="#">Over 1500$</a>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                    </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                                </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                            </div>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
-
-<!--&lt;!&ndash;                    </ul>&ndash;&gt;-->
-<!--&lt;!&ndash;                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;        </nav>&ndash;&gt;-->
-<!--&lt;!&ndash;        &lt;!&ndash; END nav &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;    </div>&ndash;&gt;-->
-<!--</section>-->
-<!-- products -->
 <div class="product-section mt-150 mb-150" style="margin-top: -10px">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" style="    margin: 109px 0px -73px 0px;">
                 <div class="product-filters">
                     <ul>
-                        <li class="active"> <a th:href="@{/shop}" style="color: black">All</a></li>
+                        <li > <a th:href="@{/shop}" style="color: black">All</a></li>
                         <li th:each="brand: ${listBrand}">
                             <a  th:href="@{/shop/brand/{idBrand}(idBrand=${brand.brandId})}"
                                 th:text="${brand.brandName}" style="color: black" ></a>
