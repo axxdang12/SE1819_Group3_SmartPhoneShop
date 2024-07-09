@@ -41,7 +41,7 @@
 <div class="product-section mt-150 mb-150" style="margin-top: -10px">
     <div class="container">
         <div class="row">
-            <div class="col-md-12" style="    margin: 109px 0px -73px 0px;">
+            <div class="col-md-12" style="    margin: 57px 0px -77px 0px;">
                 <div class="product-filters">
                     <ul>
                         <li > <a th:href="@{/shop}" style="color: black">All</a></li>
@@ -54,7 +54,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-12" style=" margin-bottom: -64px;">
                 <div class="product-filters">
                     <ul>
 
@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="row product-lists">
-            <div th:each="phone: ${listPhone}" class="col-lg-4 col-md-6 text-center ">
+            <div th:each="phone: ${listPhone}" class="col-lg-4 col-md-6 text-center "  style="padding: 43px;">
                 <div class="single-product-item">
                     <div class="product-image">
                         <a th:href="@{/single-product/{id}(id=${phone.phoneId})}"><img th:src="@{${phone.picture.main}}"
