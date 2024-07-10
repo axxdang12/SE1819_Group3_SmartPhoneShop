@@ -22,6 +22,9 @@
     li a{
     color: black
     }
+    .product-filters ul li {
+        border: 3px solid #051922;
+    }
 </style>
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
@@ -59,7 +62,7 @@
                     <ul>
 
 
-                        <li><a th:href="@{/shop/?minPrice=0&maxPrice=200}" >Under 200$</a></li>
+                        <li><a th:href="@{/shop?minPrice=0&maxPrice=200}" >Under 200$</a></li>
                         <li><a th:href="@{/shop?minPrice=200&maxPrice=500}" >200$ - 500$</a></li>
                         <li><a th:href="@{/shop?minPrice=500&maxPrice=1000}" >500$ - 1000$</a></li>
                         <li><a th:href="@{/shop?minPrice=1000&maxPrice=1500}" >1000$ - 1500$</a></li>

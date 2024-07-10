@@ -38,6 +38,10 @@ public class ShopController {
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 model.addAttribute("isLogin", false);
 
+            }else{
+                model.addAttribute("isLogin", true);
+
+                model.addAttribute("username", authentication.getName());
             }
             if(name !=null && !name.isEmpty()){
                 list = phoneService.searchPhoneforShop(name,page);
@@ -54,17 +58,14 @@ public class ShopController {
                 model.addAttribute("listPhone", list);
                 model.addAttribute("totalPage", TotalPage);
                 model.addAttribute("currentPage", page);
-                model.addAttribute("isLogin", true);
-                model.addAttribute("username", authentication.getName());
                 model.addAttribute("minPrice", min);
                 model.addAttribute("maxPrice", max);
-                return "shop";
+
             }
             model.addAttribute("listPhone", list);
             model.addAttribute("totalPage", list.getTotalPages());
             model.addAttribute("currentPage", page);
-            model.addAttribute("isLogin", true);
-            model.addAttribute("username", authentication.getName());
+
 
         return "shop";
 
@@ -99,15 +100,22 @@ public class ShopController {
         model.addAttribute("listBrand", brandService.findAllBrand());
         Page<Phone> list = phoneService.getPhoneBrandByPahination(id,page);
         model.addAttribute("listPhone", list);
-        model.addAttribute("totalPage", list.getTotalPages());
+        int TotalPage = list.getTotalPages();
+        if(list.isEmpty()) {
+            TotalPage =1;
+        }
+        model.addAttribute("totalPage", TotalPage);
         model.addAttribute("currentPage", page);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
-            return "shop";
+
+        }else{
+            model.addAttribute("isLogin", true);
+            model.addAttribute("username", authentication.getName());
         }
-        model.addAttribute("isLogin", true);
-        model.addAttribute("username", authentication.getName());
+
+
         return "shop";
     }
 
