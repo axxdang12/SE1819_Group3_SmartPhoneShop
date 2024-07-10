@@ -2225,9 +2225,9 @@ a.video-play-btn {
 .feature-bg:after {
   background-image: url(https://st2.depositphotos.com/1001877/8560/i/950/depositphotos_85600024-stock-photo-online-shopping-concept-mobile-phone.jpg);
   position: absolute;
-  right: 0;
+  right: 100px;
   top: 0;
-  width: 40%;
+  width: 30%;
   height: 100%;
   content: "";
   background-size: cover;
@@ -2237,23 +2237,6 @@ a.video-play-btn {
   box-shadow: 0 0 20px #cacaca;
   border-bottom-left-radius: 5px;
 }
-.team-bg-1 {
-  background-image: url("https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MT233?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1693248327138");
-}
-
-.team-bg-2 {
-  background-image: url("https://cdn.viettelstore.vn/Images/Product/ProductImage/2018473440.jpeg");
-}
-
-.team-bg-3 {
-  background-image: url("https://product.hstatic.net/1000120098/product/huawei-nova-3i-den-chipu-1-600x600_master.jpg");
-  width: 140%;
-}
-
-
-
-
-
 
 .team-bg {
   height: 400px;
