@@ -77,6 +77,22 @@
                 </div>
             </div>
         </div>
+        <div th:if="${check}" class="full-height-section error-section">
+            <div class="full-height-tablecell">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2 text-center">
+                            <div class="error-text">
+                                <i class="far fa-sad-cry"></i>
+                                <h1>Oops! Not Found.</h1>
+                                <p>We are sorry for lacking that products.</p>
+                                <a th:href="@{/shop}" class="boxed-btn">Back to Shop</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row product-lists">
             <div th:each="phone: ${listPhone}" class="col-lg-4 col-md-6 text-center "  style="padding: 43px;">
                 <div class="single-product-item">
@@ -93,7 +109,7 @@
 
 
         </div>
-        <div class="row">
+        <div th:if="${!check}" class="row">
             <div class="col-lg-12 text-center">
                 <div class="pagination-wrap">
                     <ul>

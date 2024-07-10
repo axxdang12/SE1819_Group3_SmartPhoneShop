@@ -1,10 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="~{fragments::header}"></head>
 <body>
+<!--<link rel="stylesheet" th:href="@{/css1/style.css}">-->
+<!--PreLoader-->
+<div th:replace="~{fragments::loader}"></div>
+<!--PreLoader Ends-->
+
+
+<!-- header -->
+<div th:replace="~{fragments::headerNav}"></div>
+<!-- end header -->
+
+
+<!-- search area -->
+<div th:replace="~{fragments::search}"></div>
+<!-- end search area -->
+<style>
+    li a{
+    color: black
+    }
+    .product-filters ul li {
+        border: 3px solid #051922;
+    }
+</style>
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>MODERN & FASHION</p>
+                    <h1>Smartphones Shop</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="product-section mt-150 mb-150" style="margin-top: -10px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="    margin: 57px 0px -77px 0px;">
+                <div class="product-filters">
+                    <ul>
+                        <li > <a th:href="@{/shop}" style="color: black">All</a></li>
+                        <li th:each="brand: ${listBrand}">
+                            <a  th:href="@{/shop/brand/{idBrand}(idBrand=${brand.brandId})}"
+                                th:text="${brand.brandName}" style="color: black" ></a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12" style=" margin-bottom: -64px;">
+                <div class="product-filters">
+                    <ul>
+
+
+                        <li><a th:href="@{/shop?minPrice=0&maxPrice=200}" >Under 200$</a></li>
+                        <li><a th:href="@{/shop?minPrice=200&maxPrice=500}" >200$ - 500$</a></li>
+                        <li><a th:href="@{/shop?minPrice=500&maxPrice=1000}" >500$ - 1000$</a></li>
+                        <li><a th:href="@{/shop?minPrice=1000&maxPrice=1500}" >1000$ - 1500$</a></li>
+                        <li><a th:href="@{/shop?minPrice=1500&maxPrice=10000}" >1500$ - 10000$</a></li>
+
+
+
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="full-height-section error-section">
+            <div class="full-height-tablecell">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2 text-center">
+                            <div class="error-text">
+                                <i class="far fa-sad-cry"></i>
+                                <h1>Oops! Not Found.</h1>
+                                <p>We are sorry for lacking that products.</p>
+                                <a th:href="@{/shop}" class="boxed-btn">Back to Shop</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<!-- end products -->
+
+
+<!-- logo carousel -->
+<div class="logo-carousel-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="logo-carousel-inner">
+                    <div class="single-logo-item">
+                        <img th:src="@{images/company-logos/1.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{images/company-logos/2.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{images/company-logos/3.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{images/company-logos/4.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{images/company-logos/5.png}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end logo carousel -->
+
+
+<!-- footer -->
+<div th:replace="~{fragments::footer}"></div>
+<!-- end footer -->
+
+
+<!-- copyright -->
+<div th:replace="~{fragments::copyright}"></div>
+<!-- end copyright -->
+
+
+<div th:replace="~{fragments::script}"></div>
+
 
 </body>
 </html>
+

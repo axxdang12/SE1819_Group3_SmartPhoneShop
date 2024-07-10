@@ -53,10 +53,11 @@ public class PhoneServiceImpl implements PhoneService {
 
     @Override
     public List<Phone> getPhoneByBrand(int id) {
+        List<Phone> listPhone = findAllPhone();
         Brand brand = brandRepository.getReferenceById(id);
         List<Phone> l = new ArrayList<>();
-        for (int i = 0; i < findAllPhone().size(); i++) {
-            if(findAllPhone().get(i).getBrand().equals(brand) && findAllPhone().get(i).getStatus() == true) l.add(findAllPhone().get(i));
+        for (int i = 0; i < listPhone.size(); i++) {
+            if(listPhone.get(i).getBrand().equals(brand) && listPhone.get(i).getStatus()) l.add(listPhone.get(i));
         }
         return l;
     }
@@ -147,7 +148,7 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public Page<Phone> getPhoneBrandByPahination(int id, int pageNo) {
         List<Phone> list = getPhoneByBrand(id);
-        Pageable pageable = PageRequest.of(pageNo-1,6);
+        Pageable pageable = PageRequest.of(pageNo -1,6);
         int start = (int) pageable.getOffset();
         int end = pageable.getOffset() + pageable.getPageSize() > list.size() ? list.size() : (int) (pageable.getOffset() + pageable.getPageSize());
         list = list.subList(start, end);
