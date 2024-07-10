@@ -6,6 +6,7 @@ import swp391.SPS.dtos.ProfileDto;
 import swp391.SPS.dtos.UserDto;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.entities.User;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.exceptions.UserNotFoundException;
@@ -33,9 +34,7 @@ public interface UserService {
 
     User findUserByOrderId(int orderId);
 
-    ResponseEntity getListUser(int page, int size) throws NoDataInListException;
-
-    PageDto getListUserFirstLoad(int page, int size) throws NoDataInListException, OutOfPageException;
+    PageDto getListUserFirstLoad(int page, int size, String search) throws NoDataInListException, OutOfPageException, FileNotFoundException;
 
     User saveUserRole(int userId, String roleName) throws UserNotFoundException;
 

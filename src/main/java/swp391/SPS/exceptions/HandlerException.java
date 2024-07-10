@@ -1,4 +1,5 @@
 package swp391.SPS.exceptions;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -35,5 +36,12 @@ public class HandlerException {
         model.addAttribute("message",
                 exception.getMessage());
         return "admin-dashboard";
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public String handlerFileNotFoundException(FileNotFoundException fileNotFoundException, Model model) {
+        model.addAttribute("message",
+                fileNotFoundException.getMessage());
+        return "404";
     }
 }
