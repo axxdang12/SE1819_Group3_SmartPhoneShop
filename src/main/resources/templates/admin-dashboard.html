@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments::header}"></head>
+<head th:replace="~{fragments::header}">
+</head>
 <body>
 <style>
+
     .pagination {
         display: inline-block;
     }
@@ -12,6 +14,7 @@
         float: left;
         padding: 8px 16px;
         text-decoration: none;
+        border-radius: 5px;
     }
 
     .pagination a.active {
@@ -35,7 +38,7 @@
 
     }
 
-    .pagination_admin {
+    .pagination {
         display: flex;
     }
 
@@ -79,7 +82,7 @@
 <div class="wrapper">
     <div class="container">
         <div class="input-group rounded">
-            <input type="search" id="searchText" name="search" class="form-control rounded" placeholder="Search"
+            <input type="search" id="searchText" th:name="search" class="form-control rounded" placeholder="Search"
                    aria-label="Search" aria-describedby="search-addon"/>
             <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
         </div>
@@ -122,7 +125,7 @@
 
                     <div id="test"></div>
 
-                    <ul class="pagination_admin">
+                    <ul class="pagination">
                         <th:block th:if="${pageDto.currentPage > 1}">
                             <li class="page-item member-page-item">
                                 <a class="page-link" type="button"
