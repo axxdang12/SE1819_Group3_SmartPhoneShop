@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 //import swp391.SPS.services.AccessService;
 import swp391.SPS.entities.Phone;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.services.BrandService;
 //import swp391.SPS.services.CategoryService;
 import swp391.SPS.services.PhoneService;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class ShopController {
@@ -30,41 +32,61 @@ public class ShopController {
     public String shop(Model model,@RequestParam(name = "keyword", required = false) String name,
                                     @RequestParam(name = "pageNo", defaultValue = "1") int page,
                                     @RequestParam (name = "minPrice", required = false) String minPrice,
-                                    @RequestParam (name="maxPrice", required = false) String maxPrice) {
+                                    @RequestParam (name="maxPrice", required = false) String maxPrice) throws FileNotFoundException {
         model.addAttribute("listBrand", brandService.findAllBrand());
             Page<Phone> list = phoneService.viewphoneforshop(page);
-            boolean check = true;
+
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 model.addAttribute("isLogin", false);
-                check = false;
+
+            }else{
+                model.addAttribute("isLogin", true);
+
+                model.addAttribute("username", authentication.getName());
             }
             if(name !=null && !name.isEmpty()){
                 list = phoneService.searchPhoneforShop(name,page);
                 model.addAttribute("keyword", name);
+                int TotalPage = list.getTotalPages();
+
+                if(page > TotalPage || list.getContent().isEmpty() || list.getContent()==null){
+                    model.addAttribute("check", true);
+                }else{
+                    model.addAttribute("check", false);
+                }
             }
             else if (minPrice != null && maxPrice != null ) {
                 Double max = Double.parseDouble(maxPrice);
                 Double min = Double.parseDouble(minPrice);
                 list = phoneService.searchByPrice(min,max,page);
                 int TotalPage = list.getTotalPages();
-                if(list.isEmpty()) {
-                    TotalPage =1;
+
+                if(page > TotalPage || list.getContent().isEmpty() || list.getContent()==null){
+                    model.addAttribute("check", true);
+                }else{
+                    model.addAttribute("check", false);
                 }
                 model.addAttribute("listPhone", list);
                 model.addAttribute("totalPage", TotalPage);
                 model.addAttribute("currentPage", page);
-                model.addAttribute("isLogin", check);
+                model.addAttribute("isLogin", true);
                 model.addAttribute("username", authentication.getName());
                 model.addAttribute("minPrice", min);
                 model.addAttribute("maxPrice", max);
                 return "shop";
             }
+        int TotalPage = list.getTotalPages();
+
+        if(page > TotalPage || list.getContent().isEmpty() || list.getContent()==null){
+            model.addAttribute("check", true);
+        }else{
+            model.addAttribute("check", false);
+        }
             model.addAttribute("listPhone", list);
             model.addAttribute("totalPage", list.getTotalPages());
             model.addAttribute("currentPage", page);
-            model.addAttribute("isLogin", check);
-            model.addAttribute("username", authentication.getName());
+
 
         return "shop";
 
@@ -95,19 +117,30 @@ public class ShopController {
 //}
 
     @GetMapping("/shop/brand/{idBrand}")
-    public String ProductByBrand(@PathVariable("idBrand") int id, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page){
+    public String ProductByBrand(@PathVariable("idBrand") int id, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page) throws FileNotFoundException {
         model.addAttribute("listBrand", brandService.findAllBrand());
         Page<Phone> list = phoneService.getPhoneBrandByPahination(id,page);
+        int TotalPage = list.getTotalPages();
+
+        if(page > TotalPage || list.getContent().isEmpty() || list.getContent()==null){
+            model.addAttribute("check", true);
+        }else{
+            model.addAttribute("check", false);
+        }
         model.addAttribute("listPhone", list);
-        model.addAttribute("totalPage", list.getTotalPages());
+
+        model.addAttribute("totalPage", TotalPage);
         model.addAttribute("currentPage", page);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
-            return "shop";
+
+        }else{
+            model.addAttribute("isLogin", true);
+            model.addAttribute("username", authentication.getName());
         }
-        model.addAttribute("isLogin", true);
-        model.addAttribute("username", authentication.getName());
+
+
         return "shop";
     }
 

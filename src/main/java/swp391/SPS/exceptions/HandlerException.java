@@ -44,4 +44,10 @@ public class HandlerException {
                 fileNotFoundException.getMessage());
         return "404";
     }
+//    @ExceptionHandler(FileNotFoundException.class)
+//    public String handlerProductNotFoundException(FileNotFoundException fileNotFoundException, Model model) {
+//        model.addAttribute("message",
+//                fileNotFoundException.getMessage());
+//        return "NotFound";
+//    }
 }

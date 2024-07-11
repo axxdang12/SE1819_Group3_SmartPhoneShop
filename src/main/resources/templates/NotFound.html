@@ -77,7 +77,7 @@
                 </div>
             </div>
         </div>
-        <div th:if="${check}" class="full-height-section error-section">
+        <div class="full-height-section error-section">
             <div class="full-height-tablecell">
                 <div class="container">
                     <div class="row">
@@ -85,7 +85,7 @@
                             <div class="error-text">
                                 <i class="far fa-sad-cry"></i>
                                 <h1>Oops! Not Found.</h1>
-                                <p>We apologize for the inconvenience, but it appears the product you're looking for is currently unavailable.</p>
+                                <p>We are sorry for lacking that products.</p>
                                 <a th:href="@{/shop}" class="boxed-btn">Back to Shop</a>
                             </div>
                         </div>
@@ -93,52 +93,7 @@
                 </div>
             </div>
         </div>
-        <div class="row product-lists">
-            <div th:each="phone: ${listPhone}" class="col-lg-4 col-md-6 text-center "  style="padding: 43px;">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a th:href="@{/single-product/{id}(id=${phone.phoneId})}"><img th:src="@{${phone.picture.main}}"
-                                                                                       alt=""></a>
-                    </div>
-                    <h3 th:text="${phone.productName}"></h3>
-                    <p class="product-price" th:text="${phone.price} + '$'">$</p>
-                    <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn"><i
-                            class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
 
-
-        </div>
-        <div th:if="${!check}" class="row">
-            <div class="col-lg-12 text-center">
-                <div class="pagination-wrap">
-                    <ul>
-                        <li th:if="${currentPage > 1}">
-                            <a th:href="@{'/shop?'
-                     +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
-                     + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
-                     + 'pageNo=' + ${currentPage - 1}}">Prev</a>
-                        </li>
-                        <li th:each="pageNo : ${#numbers.sequence(1, totalPage)}">
-                            <a th:href="@{'/shop?'
-                     +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
-                     + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
-                     + 'pageNo=' + ${pageNo}}"
-                               th:classappend="${currentPage == pageNo} ? 'active' : ''"
-                               th:text="${pageNo}">Page</a>
-                        </li>
-                        <li th:if="${currentPage < totalPage}">
-                            <a th:href="@{'/shop?'
-                     +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
-                     + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
-                     + 'pageNo=' + ${currentPage + 1}}">Next</a>
-                        </li>
-                    </ul>
-
-
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 

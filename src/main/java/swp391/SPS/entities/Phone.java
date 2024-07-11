@@ -62,7 +62,7 @@ public class Phone {
   @Column(name = "release_date")
   private LocalDate releaseDate;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
   private Brand brand;
 
