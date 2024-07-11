@@ -10,6 +10,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp391.SPS.dtos.ProfileDto;
 import swp391.SPS.entities.Cart;
 import swp391.SPS.entities.User;
+import swp391.SPS.exceptions.FileNotFoundException;
+import swp391.SPS.exceptions.NoDataInListException;
+import swp391.SPS.exceptions.OutOfPageException;
+import swp391.SPS.exceptions.UserNotFoundException;
 import swp391.SPS.services.CartService;
 import swp391.SPS.services.UserService;
 
@@ -23,7 +27,7 @@ public class CheckoutController {
     UserService userService;
 
     @GetMapping("/checkout")
-    public String checkout(Model model) {
+    public String checkout(Model model) throws FileNotFoundException {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 model.addAttribute("isLogin", false);
@@ -33,6 +37,9 @@ public class CheckoutController {
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
         Cart cart= cartService.getCart(authentication.getName());
+        if (cart.getItems().isEmpty()) {
+            throw new FileNotFoundException("Page not found");
+        }
         model.addAttribute("listPByC", cart.getItems());
         model.addAttribute("cartTotal", cart.getTotal());
         model.addAttribute("user", user);

@@ -41,6 +41,7 @@ public class MainController {
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("listPhone",phoneService.getbestsale());
             model.addAttribute("isLogin", false);
+            model.addAttribute("listPhone",phoneService.getbestsale());
             return "index";
         }
         model.addAttribute("listPhone",phoneService.getbestsale());

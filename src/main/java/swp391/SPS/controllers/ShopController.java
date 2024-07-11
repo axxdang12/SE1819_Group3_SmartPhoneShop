@@ -70,6 +70,8 @@ public class ShopController {
                 model.addAttribute("listPhone", list);
                 model.addAttribute("totalPage", TotalPage);
                 model.addAttribute("currentPage", page);
+                model.addAttribute("isLogin", true);
+                model.addAttribute("username", authentication.getName());
                 model.addAttribute("minPrice", min);
                 model.addAttribute("maxPrice", max);
                 return "shop";
