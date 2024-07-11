@@ -40,6 +40,7 @@ public class MainController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
+            model.addAttribute("listPhone",phoneService.getbestsale());
             return "index";
         }
         model.addAttribute("listPhone",phoneService.getbestsale());
