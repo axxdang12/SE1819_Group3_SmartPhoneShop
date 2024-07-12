@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import swp391.SPS.dtos.RequestSaveUserRoleDto;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.entities.Picture;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.services.BrandService;
@@ -42,7 +43,7 @@ public class CRUDproductAjax {
 
 
     @PostMapping("/api/change-status")
-        public ResponseEntity<Map<String, Object>> deletePhone(@RequestBody Map<String, Integer> request) {
+        public ResponseEntity<Map<String, Object>> deletePhone(@RequestBody Map<String, Integer> request) throws FileNotFoundException {
             int id = request.get("id");
 
             Map<String, Object> response = new HashMap<>();

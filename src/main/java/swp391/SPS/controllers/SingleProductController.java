@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import swp391.SPS.entities.Cart;
+import swp391.SPS.entities.Phone;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.services.CartItemService;
 import swp391.SPS.services.CartService;
 import swp391.SPS.services.PhoneService;
@@ -29,17 +31,27 @@ public class SingleProductController {
     UserService userService;
 
     @GetMapping("/single-product/{id}")
-    public String SingleProduct(@PathVariable("id") int id, Model model){
-        model.addAttribute("product",phoneService.getPhoneByID(id));
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("isLogin", false);
+    public String SingleProduct(@PathVariable("id") int id, Model model) throws FileNotFoundException {
+        Phone p = phoneService.getPhoneByID(id);
+        if(p!=null){
+            model.addAttribute("product",p);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+                model.addAttribute("isLogin", false);
+                model.addAttribute("check", false);
+                return "single-product";
+            }
+            model.addAttribute("isLogin", true);
+            model.addAttribute("username", authentication.getName());
+            model.addAttribute("check", false);
             return "single-product";
         }
-        model.addAttribute("isLogin", true);
-        model.addAttribute("username", authentication.getName());
+        model.addAttribute("check", true);
         return "single-product";
+
+
     }
+
 
     @PostMapping("/cart-single/phone/{id}")
     public String addPhoneQuantityToCart(@PathVariable("id") int id, Model model, @RequestParam("quantity") int quantity){

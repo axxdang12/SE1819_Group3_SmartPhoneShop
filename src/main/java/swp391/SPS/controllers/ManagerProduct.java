@@ -15,6 +15,7 @@ import swp391.SPS.entities.Brand;
 //import swp391.SPS.entities.Category;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.entities.Picture;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.services.*;
 
 import java.sql.Date;
@@ -117,8 +118,8 @@ public class ManagerProduct {
         return "add-product";
     }
 
-    @GetMapping("/edit-product")
-    public String viewEditphone(@RequestParam("id") int id, Model model) {
+    @PostMapping("/edit-product")
+    public String viewEditphone(@RequestParam("id") int id, Model model) throws FileNotFoundException {
         model.addAttribute("phone", phoneService.getPhoneByID(id));
         return "Edit-product";
     }

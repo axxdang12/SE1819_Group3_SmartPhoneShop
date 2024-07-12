@@ -13,6 +13,7 @@ import swp391.SPS.entities.Brand;
 //import swp391.SPS.entities.Category;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.entities.User;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.repositories.BrandRepository;
@@ -46,9 +47,11 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     @Override
-    public Phone getPhoneByID(int id) {
-       Phone p =  phoneRepository.getReferenceById(id);
-       return p;
+    public Phone getPhoneByID(int id) throws FileNotFoundException {
+      if(phoneRepository.findById(id).isEmpty()){
+          throw new FileNotFoundException("Not found!");
+      }
+       return phoneRepository.findById(id).get();
     }
 
     @Override
@@ -119,7 +122,7 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     @Override
-    public List<Phone> getbestsale() {
+    public List<Phone> getbestsale() throws FileNotFoundException {
         List<Integer> li = phoneRepository.getBestSale();
         List<Phone> lp = new ArrayList<>();
         for(Integer i : li){

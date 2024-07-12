@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import swp391.SPS.dtos.PageDto;
 import swp391.SPS.entities.Phone;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.services.PhoneService;
@@ -36,7 +37,7 @@ public class MainController {
 
     @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     @CrossOrigin
-    public String index(Model model) {
+    public String index(Model model) throws FileNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("listPhone",phoneService.getbestsale());
