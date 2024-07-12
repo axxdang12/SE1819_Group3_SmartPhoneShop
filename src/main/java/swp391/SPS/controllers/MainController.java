@@ -70,7 +70,17 @@ public class MainController {
         return "about";
     }
 
-
+    @GetMapping("/403")
+    public String ex403(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "403";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        return "403";
+    }
 
     @GetMapping("/detail")
     public String detail(Model model) {

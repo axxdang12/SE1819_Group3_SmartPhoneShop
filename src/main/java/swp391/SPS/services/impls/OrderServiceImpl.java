@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 //import swp391.SPS.entities.Accessory;
 import org.springframework.transaction.annotation.Transactional;
 import swp391.SPS.entities.*;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.repositories.OrderItemRepository;
 import swp391.SPS.repositories.OrderRepository;
 import swp391.SPS.repositories.UserRepository;
@@ -41,8 +42,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getOrder(int oId) {
-        return orderRepository.getReferenceById(oId);
+    public Order getOrder(int oId) throws FileNotFoundException {
+        if (orderRepository.findById(oId).isEmpty()){
+            throw new FileNotFoundException("Not found report");
+        }
+        return orderRepository.findById(oId).get();
     }
 
     @Transactional

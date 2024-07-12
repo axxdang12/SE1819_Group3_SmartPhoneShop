@@ -59,7 +59,7 @@ public class WebSecurityConfig {
                     .hasAuthority("ADMIN")
                         .requestMatchers("/manager").hasAuthority("MANAGER")
 //                    .requestMatchers("/").hasAnyAuthority("USER")
-                    .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login","/reset-password", "/shop","/shop/brand/*","/single-product" ,"/cart", "/about")
+                    .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login","/reset-password", "/shop","/shop/brand/*","/single-product/*" ,"/cart", "/about")
                     .permitAll()
                     .anyRequest()
                     .authenticated())

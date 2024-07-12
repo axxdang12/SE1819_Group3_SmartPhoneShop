@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import swp391.SPS.entities.Report;
 import swp391.SPS.entities.User;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.repositories.UserRepository;
 import swp391.SPS.services.OrderItemService;
 import swp391.SPS.services.OrderService;
 import swp391.SPS.services.ReportService;
 import swp391.SPS.services.UserService;
+
 
 
 @Controller
@@ -33,7 +35,7 @@ public class ReportController {
     UserService userService;
 
     @GetMapping("/report/{id}")
-    public String showReportForm(@PathVariable("id") int orderId, Model model) {
+    public String showReportForm(@PathVariable("id") int orderId, Model model) throws FileNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
@@ -51,7 +53,7 @@ public class ReportController {
 
     @PostMapping("/submit-report")
     public String submitReport(@RequestParam("orderId") int orderId,
-                               @RequestParam("description") String description, Model model) {
+                               @RequestParam("description") String description, Model model) throws FileNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
