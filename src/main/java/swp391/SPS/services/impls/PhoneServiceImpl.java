@@ -61,6 +61,7 @@ public class PhoneServiceImpl implements PhoneService {
     public List<Phone> getPhoneByBrand(int id) throws FileNotFoundException {
         List<Phone> listPhone = findAllPhone();
         Brand brand = brandService.getBrand(id);
+        if(brand ==null) return null;
         List<Phone> l = new ArrayList<>();
         for (int i = 0; i < listPhone.size(); i++) {
             if(listPhone.get(i).getBrand().equals(brand) && listPhone.get(i).getStatus()) l.add(listPhone.get(i));
@@ -154,6 +155,7 @@ public class PhoneServiceImpl implements PhoneService {
     @Override
     public Page<Phone> getPhoneBrandByPahination(int id, int pageNo) throws FileNotFoundException {
         List<Phone> list = getPhoneByBrand(id);
+        if(list == null) return null;
         Pageable pageable = PageRequest.of(pageNo -1,6);
         int start = (int) pageable.getOffset();
         int end = pageable.getOffset() + pageable.getPageSize() > list.size() ? list.size() : (int) (pageable.getOffset() + pageable.getPageSize());

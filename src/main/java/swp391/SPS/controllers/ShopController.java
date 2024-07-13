@@ -119,10 +119,12 @@ public class ShopController {
     @GetMapping("/shop/brand/{idBrand}")
     public String ProductByBrand(@PathVariable("idBrand") int id, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page) throws FileNotFoundException {
         model.addAttribute("listBrand", brandService.findAllBrand());
+        int TotalPage = 1;
         Page<Phone> list = phoneService.getPhoneBrandByPahination(id,page);
-        int TotalPage = list.getTotalPages();
 
-        if(page > TotalPage || list.getContent().isEmpty() || list.getContent()==null){
+        if(list!=null) TotalPage = list.getTotalPages();
+
+        if(page > TotalPage || list == null){
             model.addAttribute("check", true);
         }else{
             model.addAttribute("check", false);

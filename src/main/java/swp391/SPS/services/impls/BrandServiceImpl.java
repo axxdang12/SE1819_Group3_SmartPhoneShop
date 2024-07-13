@@ -19,7 +19,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand getBrand(int b) throws FileNotFoundException {
-        if(brandRepository.findById(b).isEmpty()) throw new FileNotFoundException("Not found");
+        if(brandRepository.findById(b).isEmpty()) return null;
         return brandRepository.findById(b).get();
     }
 
