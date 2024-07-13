@@ -143,12 +143,11 @@ public class ManagerProduct {
                             @RequestParam("ps") String ps,
                             @RequestParam("camera") double camera,
                             @RequestParam("status") Boolean status,
-                            @RequestParam("date") Date date, Model model, RedirectAttributes redirectAttributes) {
-//        model.addAttribute("listCategory", categoryService.findAllCategory());
+                            @RequestParam("date") Date date, Model model, RedirectAttributes redirectAttributes) throws FileNotFoundException {
         model.addAttribute("listBrand", brandService.findAllBrand());
         Picture picture = new Picture(picid, pm, pf, pb, ps);
         pictureService.editPicture(pictureService.getPictureById(picid));
-//        Category c = categoryService.getCategory(cate);
+
         Brand b = brandService.getBrand(brand);
 
         Phone phone = new Phone();
@@ -164,7 +163,7 @@ public class ManagerProduct {
     }
 
     @GetMapping("/edit-brand")
-    public String editBrand(@RequestParam("id") int id, Model model) {
+    public String editBrand(@RequestParam("id") int id, Model model) throws FileNotFoundException {
         model.addAttribute("brand", brandService.getBrand(id));
         return "edit-brand";
     }
@@ -215,7 +214,7 @@ public class ManagerProduct {
             @RequestParam("camera") int camera,
             @RequestParam("date") Date date,
             @RequestParam("status") Boolean status,
-            Model model) {
+            Model model) throws FileNotFoundException {
 
         Picture picture = new Picture();
         picture = Picture.builder().site(ps).back(pb).front(pf).main(pm).build();

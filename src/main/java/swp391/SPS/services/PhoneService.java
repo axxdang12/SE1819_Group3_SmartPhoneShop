@@ -15,7 +15,7 @@ public interface PhoneService {
     List<Phone> findAllPhone();
     void addPhone(Phone phone);
     Phone getPhoneByID(int id) throws FileNotFoundException;
-    List<Phone> getPhoneByBrand(int id);
+    List<Phone> getPhoneByBrand(int id) throws FileNotFoundException;
     void editPhone(Phone p);
     void changeStatus(Phone p);
     List<Phone> searchPhone(String name);
@@ -24,7 +24,7 @@ public interface PhoneService {
     List<Phone> getbestsale() throws FileNotFoundException;
     Page<Phone> viewphoneforshop(int pageno);
     Page<Phone> searchPhoneforShop(String name,int pageNo);
-    Page<Phone> getPhoneBrandByPahination(int id,int pageNo);
+    Page<Phone> getPhoneBrandByPahination(int id,int pageNo) throws FileNotFoundException;
     Page<Phone> searchPhoneByStatus(boolean status,int pageNo);
     Page<Phone> searchByPrice(double min, double max,int PageNo);
 }

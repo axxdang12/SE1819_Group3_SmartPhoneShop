@@ -19,6 +19,7 @@ import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.repositories.BrandRepository;
 import swp391.SPS.repositories.PhoneRepository;
 //import swp391.SPS.repositories.CategoryRepository;
+import swp391.SPS.services.BrandService;
 import swp391.SPS.services.PhoneService;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class PhoneServiceImpl implements PhoneService {
     private PhoneRepository phoneRepository;
     @Autowired
     private BrandRepository brandRepository;
+    @Autowired
+    private BrandService brandService;
 //    @Autowired
 //    private CategoryRepository categoryRepository;
 
@@ -55,9 +58,9 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     @Override
-    public List<Phone> getPhoneByBrand(int id) {
+    public List<Phone> getPhoneByBrand(int id) throws FileNotFoundException {
         List<Phone> listPhone = findAllPhone();
-        Brand brand = brandRepository.getReferenceById(id);
+        Brand brand = brandService.getBrand(id);
         List<Phone> l = new ArrayList<>();
         for (int i = 0; i < listPhone.size(); i++) {
             if(listPhone.get(i).getBrand().equals(brand) && listPhone.get(i).getStatus()) l.add(listPhone.get(i));
@@ -149,7 +152,7 @@ public class PhoneServiceImpl implements PhoneService {
 
 
     @Override
-    public Page<Phone> getPhoneBrandByPahination(int id, int pageNo) {
+    public Page<Phone> getPhoneBrandByPahination(int id, int pageNo) throws FileNotFoundException {
         List<Phone> list = getPhoneByBrand(id);
         Pageable pageable = PageRequest.of(pageNo -1,6);
         int start = (int) pageable.getOffset();
