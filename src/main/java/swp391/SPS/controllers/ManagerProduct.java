@@ -60,7 +60,16 @@ public class ManagerProduct {
         } else {
             list = phoneService.findPhonePage(page);
         }
+
         Map<String, Object> response = new HashMap<>();
+        // Kiểm tra nếu list là null hoặc không có sản phẩm nào
+        if (list == null || list.getContent().isEmpty()) {
+            response.put("htmlContent", ""); // Hoặc một thông báo HTML thích hợp
+            response.put("totalPages", 0);
+            response.put("currentPage", page);
+            response.put("noProducts", true); // Thêm một trường để kiểm tra trên frontend
+            return response;
+        }
         response.put("htmlContent", generateHtmlContent(list.getContent()));
         response.put("totalPages", list.getTotalPages());
         response.put("currentPage", page);
@@ -82,6 +91,14 @@ public class ManagerProduct {
         }
 
         Map<String, Object> response = new HashMap<>();
+        // Kiểm tra nếu list là null hoặc không có sản phẩm nào
+        if (list == null || list.getContent().isEmpty()) {
+            response.put("htmlContent", ""); // Hoặc một thông báo HTML thích hợp
+            response.put("totalPages", 0);
+            response.put("currentPage", page);
+            response.put("noProducts", true); // Thêm một trường để kiểm tra trên frontend
+            return response;
+        }
         response.put("htmlContent", generateHtmlContent(list.getContent()));
         response.put("totalPages", list.getTotalPages());
         response.put("currentPage", page);
