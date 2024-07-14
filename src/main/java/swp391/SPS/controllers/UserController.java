@@ -59,6 +59,42 @@ public class UserController {
         return "profile";
     }
 
+    @GetMapping("/profileManager")
+    public String profileManager(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "profileManager";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        model.addAttribute("user", userService.findByUsername(authentication.getName()));
+        User user = userService.findByUsername(authentication.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("profileDto", new ProfileDto(user.getUserDetail().getFirstName(), user.getUserDetail().getLastName(), user.getUserDetail().getPhoneNumber(), user.getEmail(), user.getUserDetail().getGender(), user.getUserDetail().getAddress()));
+        return "profileManager";
+    }
+
+    @PostMapping("/profileManager/update")
+    public String updateProfileManager(Model model, @Valid @ModelAttribute("profileDto") ProfileDto profileDto, BindingResult bindingResult) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("user", userService.findByUsername(authentication.getName()));
+        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+            model.addAttribute("isLogin", false);
+            return "profileManager";
+        }
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("isLogin", true);
+            model.addAttribute("username", authentication.getName());
+            model.addAttribute("user", userService.findByUsername(authentication.getName()));
+            return "profileManager";
+        }
+        model.addAttribute("isLogin", true);
+        model.addAttribute("username", authentication.getName());
+        userService.saveProfile(profileDto, authentication.getName());
+        return "profileManager";
+    }
+
     @PostMapping("/checkout/update")
     public String updateProfileCheckout(Model model, @Valid @ModelAttribute("profileDto") ProfileDto profileDto, BindingResult bindingResult) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

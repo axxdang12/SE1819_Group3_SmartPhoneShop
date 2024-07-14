@@ -78,9 +78,14 @@ public class OrderServiceImpl implements OrderService {
     public void cancelOrder(int orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid order ID: " + orderId));
-        order.setStatus("Canceled");
-        orderRepository.save(order);
+        if ("Pending".equals(order.getStatus())) {
+            order.setStatus("Canceled");
+            orderRepository.save(order);
+        } else {
+            throw new IllegalStateException("Order cannot be canceled because its status is: " + order.getStatus());
+        }
     }
+
 
     @Override
     public List<Order> searchOrderByUserName(String name) {

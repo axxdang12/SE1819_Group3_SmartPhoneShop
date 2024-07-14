@@ -6,11 +6,9 @@
 <body>
 <link rel="stylesheet" th:href="@{static/css/profile.css}">
 
-<!--PreLoader-->
-<div th:replace="~{fragments::loader}"></div>
 <!--PreLoader Ends-->
 <div class="container light-style flex-grow-1 container-p-y">
-    <form th:action="@{/profile/update}" th:object="${profileDto}" method="POST">
+    <form th:action="@{/profileManager/update}" th:object="${profileDto}" method="POST">
         <h4 class="font-weight-bold py-3 mb-4">
             PROFILE USER
         </h4>
@@ -93,7 +91,7 @@
         </div>
         <div class="text-right mt-3" style="margin-left: 82%;">
             <button type="submit" class="btn btn-primary">Save changes</button>&nbsp;
-            <a class="btn btn-primary" th:href="@{/}">Back to home</a>
+            <a class="btn btn-primary" th:href="@{/manager}">Back to home</a>
         </div><br>
     </form>
 </div>

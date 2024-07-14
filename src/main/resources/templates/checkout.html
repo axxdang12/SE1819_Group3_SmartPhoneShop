@@ -108,7 +108,8 @@
 								</tr>
 							</tbody>
 						</table>
-						<a class="boxed-btn" th:href="@{/place-order}" onclick="return confirmOrder()" >Place Order</a>
+						<a class="boxed-btn" th:href="@{/place-order}" th:if="${cartTotal > 0}" onclick="return confirmOrder()">Place Order</a>
+						<p th:if="${cartTotal == 0}" style="padding-right: 145px;font-weight: bold;padding-top: 30px;">Your cart is empty or have Inactive Product so you cannot Place Order.</p>
 					</div>
 				</div>
 			</div>

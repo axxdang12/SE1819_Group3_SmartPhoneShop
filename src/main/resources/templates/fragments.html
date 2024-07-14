@@ -90,8 +90,6 @@
                             </li>
                             <li><a th:if="${isLogin == false}" th:href="@{/register}">Signup</a>
                             </li>
-                            <!--                            <li><a th:if="${isLogin == true}" th:href="@{/logout}">Logout</a>-->
-                            <!--                            </li>-->
                             <li><a th:if="${isLogin == true}" th:text="'Hello '+ ${username}" th:href="@{/profile}"></a>
                             </li>
                             <li>
@@ -121,14 +119,14 @@
 <div class="footer-area" th:fragment="footer">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="footer-box about-widget">
                     <h2 class="widget-title">About us</h2>
                     <p>Shop will provide users with the best phone products at preferential prices with an extremely
                         attractive warranty policy.</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6" style="padding-left: 10%;">
                 <div class="footer-box get-in-touch">
                     <h2 class="widget-title">Get in Touch</h2>
                     <ul>
@@ -138,25 +136,14 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6" style="padding-left: 23%;">
                 <div class="footer-box pages">
                     <h2 class="widget-title">Pages</h2>
                     <ul>
                         <li><a th:href="@{/}">Home</a></li>
                         <li><a th:href="@{/about}">About</a></li>
-                        <li><a th:href="@{/checkout}">Checkout</a></li>
                         <li><a th:href="@{/shop}">Shop</a></li>
                     </ul>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="footer-box subscribe">
-                    <h2 class="widget-title">Subscribe</h2>
-                    <p>Subscribe to our mailing list to get the latest updates.</p>
-                    <form action="index.html">
-                        <input type="email" placeholder="Email">
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
                 </div>
             </div>
         </div>
@@ -168,21 +155,8 @@
 <div class="copyright" th:fragment="copyright">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6 col-md-12">
+            <div style="text-align: center;">
                 <p>Copyrights &copy; 2024 - <a href="">SWP391-SUMMER24</a>, All Rights Reserved.</p>
-            </div>
-            <div class="col-lg-6 text-right col-md-12">
-                <div class="social-icons">
-                    <ul>
-                        <li><a href="https://www.facebook.com/profile.php?id=100009172256835" target="_blank"><i
-                                class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                        <li><a href="https://www.instagram.com/_.nkhanhh/" target="_blank"><i
-                                class="fab fa-instagram"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-                        <li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
