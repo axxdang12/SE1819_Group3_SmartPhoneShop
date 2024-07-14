@@ -20,7 +20,8 @@ import swp391.SPS.services.UserService;
 @Controller
 @CrossOrigin
 public class MainController {
-    @Autowired private UserService userService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private RoleService roleService;
@@ -39,17 +40,27 @@ public class MainController {
     public String index(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-            model.addAttribute("listPhone",phoneService.getbestsale());
+            model.addAttribute("listPhone", phoneService.getbestsale());
             model.addAttribute("isLogin", false);
-            model.addAttribute("listPhone",phoneService.getbestsale());
+            model.addAttribute("listPhone", phoneService.getbestsale());
             return "index";
         }
-        model.addAttribute("listPhone",phoneService.getbestsale());
-        model.addAttribute("isLogin", true);
-        model.addAttribute("username", authentication.getName());
-        return "index";
+        String role = userService.findByUsername(authentication.getName()).getRoles().get(0).getRoleName();
+        if (role.equalsIgnoreCase("ADMIN")) {
+            model.addAttribute("isLogin", true);
+            model.addAttribute("username", authentication.getName());
+            return "redirect:/admin-dashboard";
+        } else if (role == "MANAGER") {
+            model.addAttribute("isLogin", true);
+            model.addAttribute("username", authentication.getName());
+            return "redirect:/manager-dashboard";
+        } else {
+            model.addAttribute("listPhone", phoneService.getbestsale());
+            model.addAttribute("isLogin", true);
+            model.addAttribute("username", authentication.getName());
+            return "index";
+        }
     }
-
 
 
     @RequestMapping(value = "/manager-dashboard", method = RequestMethod.GET)
@@ -69,7 +80,6 @@ public class MainController {
         model.addAttribute("username", authentication.getName());
         return "about";
     }
-
 
 
     @GetMapping("/detail")

@@ -55,6 +55,12 @@
         margin: 50px 0 50px 0;
     }
 
+    .rowOne {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
 </style>
 <!--PreLoader-->
 <div th:replace="~{fragments::loader}"></div>
@@ -81,10 +87,13 @@
 <!-- check out section -->
 <div class="wrapper">
     <div class="container">
-        <div class="input-group rounded">
-            <input type="search" id="searchText" th:name="search" class="form-control rounded" placeholder="Search"
-                   aria-label="Search" aria-describedby="search-addon"/>
-            <span class="input-group-text border-0" id="search-addon"><i class="fas fa-search"></i></span>
+        <div class="rowOne">
+            <div class="input-group rounded">
+                <input type="search" id="searchText" th:name="search" class="form-control rounded" placeholder="Search"
+                       aria-label="Search" aria-describedby="search-addon"/>
+            </div>
+            <a th:href="@{/admin-dashboard/add-account}" class="btn btn-secondary btn-lg" role="button"
+               aria-disabled="true">Add new account</a>
         </div>
         <div class="row">
             <div class="col-lg-12">
