@@ -58,6 +58,14 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     @Override
+    public Phone getPhoneByIdForManager(int id) {
+        if(phoneRepository.findById(id).isEmpty()){
+            return null;
+        }
+        return phoneRepository.findById(id).get();
+    }
+
+    @Override
     public List<Phone> getPhoneByBrand(int id) throws FileNotFoundException {
         List<Phone> listPhone = findAllPhone();
         Brand brand = brandService.getBrand(id);

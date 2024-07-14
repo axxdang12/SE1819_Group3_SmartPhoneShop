@@ -15,6 +15,7 @@ public interface PhoneService {
     List<Phone> findAllPhone();
     void addPhone(Phone phone);
     Phone getPhoneByID(int id) throws FileNotFoundException;
+    Phone getPhoneByIdForManager(int id);
     List<Phone> getPhoneByBrand(int id) throws FileNotFoundException;
     void editPhone(Phone p);
     void changeStatus(Phone p);

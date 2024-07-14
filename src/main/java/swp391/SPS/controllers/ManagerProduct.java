@@ -135,9 +135,17 @@ public class ManagerProduct {
         return "add-product";
     }
 
-    @PostMapping("/edit-product")
+    @GetMapping("/edit-product")
     public String viewEditphone(@RequestParam("id") int id, Model model) throws FileNotFoundException {
-        model.addAttribute("phone", phoneService.getPhoneByID(id));
+        Phone p = phoneService.getPhoneByIdForManager(id);
+        if(p!=null) {
+            model.addAttribute("phone", p);
+        }
+        else {
+            model.addAttribute("check",true);
+            return "Edit-product";
+        }
+        model.addAttribute("check",false);
         return "Edit-product";
     }
 
@@ -181,7 +189,14 @@ public class ManagerProduct {
 
     @GetMapping("/edit-brand")
     public String editBrand(@RequestParam("id") int id, Model model) throws FileNotFoundException {
-        model.addAttribute("brand", brandService.getBrand(id));
+       Brand brand = brandService.getBrand(id);
+       if(brand!=null) model.addAttribute("brand",brand );
+       else{
+           model.addAttribute("check",true);
+           return "edit-brand";
+       }
+        model.addAttribute("check",false);
+
         return "edit-brand";
     }
 

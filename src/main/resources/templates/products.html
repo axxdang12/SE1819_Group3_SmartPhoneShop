@@ -72,10 +72,10 @@
                             <td th:text = "${phone.productName}"></td>
                             <td th:text ="${phone.price} + '$'"></td>
                             <td>
-                                <form th:action="@{/edit-product}" method="get">
-                                    <input type="hidden" name="id" th:value="${phone.phoneId}" />
-                                    <button type="submit" style="color: white;">Editttt</button>
-                                </form>
+                            <td>
+                                <a th:href="@{/edit-product(id=${phone.phoneId})}" class="btn btn-link" style="color: white;">Edit</a>
+
+                            </td>
                             </td>
 
                             <td class="action-links">
