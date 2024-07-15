@@ -76,7 +76,7 @@ public class WebSecurityConfig {
                                         .invalidateHttpSession(true)
                                         .clearAuthentication(true)
                                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                        .logoutSuccessUrl("/login?logout")
+//                                        .logoutSuccessUrl("/login?logout")
                                         .permitAll())
                 .authenticationManager(authenticationManager)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
