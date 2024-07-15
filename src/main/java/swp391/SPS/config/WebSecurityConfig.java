@@ -55,10 +55,10 @@ public class WebSecurityConfig {
                                 author
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                                         .permitAll()
-                                        .requestMatchers("/admin-dashboard/*")
+                                        .requestMatchers("/admin-dashboard/*", "/save-role/", "/save-active/", "/search")
                                         .hasAuthority("ADMIN")
                                         .requestMatchers("/manager").hasAuthority("MANAGER")
-//                    .requestMatchers("/").hasAnyAuthority("USER")
+                                        .requestMatchers("/cart/*", "/checkout").hasAnyAuthority("USER")
                                         .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login", "/reset-password", "/shop", "/shop/brand/*", "/single-product", "/cart", "/about")
                                         .permitAll()
                                         .anyRequest()

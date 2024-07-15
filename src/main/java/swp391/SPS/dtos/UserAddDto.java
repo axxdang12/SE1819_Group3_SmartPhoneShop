@@ -20,7 +20,6 @@ public class UserAddDto {
     private String repeatPassword;
 
     @Pattern(regexp = "^.+@.+$", message = "Email input invalid, try again!")
-    @NotEmpty(message = "Email can not be blank")
     private String email;
 
     String role;

@@ -37,6 +37,8 @@
         </div>
         <div th:if="${passwordError}" th:text="${passwordError}"
              class="alert alert-danger text-left"></div>
+        <div th:if="${usernameError}" th:text="${usernameError}"
+             class="alert alert-danger text-left"></div>
         <div th:if="${success}" class="alert alert-success text-left" th:text="${success}">
         </div>
         <div class="card overflow-hidden">
@@ -62,17 +64,17 @@
                                     <div class="form-group">
                                         <label class="form-label">Email</label>
                                         <input type="text" class="form-control" name="email"
-                                               placeholder="Last Name">
+                                               placeholder="Email">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Password</label>
-                                        <input type="text" class="form-control" name="password"
-                                               placeholder="Address">
+                                        <input type="password" class="form-control" name="password"
+                                               placeholder="Password">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Confirm password</label>
-                                        <input type="text" class="form-control" name="repeatPassword"
-                                               placeholder="Address">
+                                        <input type="password" class="form-control" name="repeatPassword"
+                                               placeholder="Confirm password">
                                     </div>
                                     <br>
                                     <div class="form-group">
@@ -84,7 +86,7 @@
                                     </div>
                                 </div>
                                 <div class="text-right mt-3">
-                                    <button type="submit" class="btn btn-primary">Save changes</button>&nbsp;
+                                    <button type="submit" class="btn btn-primary">Create</button>&nbsp;
                                     <a class="btn btn-primary" th:href="@{/}">Back to home</a>
                                 </div>
                                 <br>

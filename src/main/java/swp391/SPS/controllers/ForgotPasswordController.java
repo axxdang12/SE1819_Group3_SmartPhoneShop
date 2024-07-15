@@ -27,9 +27,12 @@ import java.io.UnsupportedEncodingException;
 
 @Controller
 public class ForgotPasswordController {
-    @Autowired private JavaMailSender javaMailSender;
-    @Autowired private UserService userService;
-    @Autowired private EmailService emailService;
+    @Autowired
+    private JavaMailSender javaMailSender;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/forgot-password")
     public String showForgotPasswordForm() {
@@ -76,9 +79,10 @@ public class ForgotPasswordController {
         if (user == null) {
             model.addAttribute("message", "Invalid Token");
             return "reset-password-form";
-        } else if(changePassDto.getPassword().equals(changePassDto.getRepeatPassword())) {
+        } else if (changePassDto.getPassword().equals(changePassDto.getRepeatPassword())) {
             userService.updatePassword(user, changePassDto.getPassword());
             model.addAttribute("message", "You have successfully changed your password.");
+            return "redirect:page/login";
         } else {
             model.addAttribute("message", "Password not the same.");
         }

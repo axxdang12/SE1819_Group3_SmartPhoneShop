@@ -78,18 +78,23 @@ public class AdminController {
     }
 
     @PostMapping("/admin-dashboard/add-account")
-    public String add(@Valid @ModelAttribute(value = "userAddDto") UserAddDto userAddDto, Model model, BindingResult result) {
+    public String add(@Valid @ModelAttribute(value = "userAddDto") UserAddDto userAddDto, BindingResult result, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         List<String> messageList = new ArrayList<>();
         List<FieldError> fieldErrors = result.getFieldErrors();
-
         try {
-
             if (result.hasErrors()) {
                 for (FieldError fieldError : fieldErrors) {
                     messageList.add(fieldError.getDefaultMessage());
                 }
                 model.addAttribute("messageList", messageList);
+                return "AddAccount";
+            }
+            User userByEmail = userService.findByEmail(userAddDto.getEmail());
+            if (userByEmail != null) {
+                model.addAttribute("userAddDto", userAddDto);
+                System.out.println("user not null");
+                model.addAttribute("usernameError", "Your email has been registered!");
                 return "AddAccount";
             }
             if (userAddDto.getPassword().equals(userAddDto.getRepeatPassword())) {
