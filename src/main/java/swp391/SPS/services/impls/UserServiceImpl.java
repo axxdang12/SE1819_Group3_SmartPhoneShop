@@ -8,12 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import swp391.SPS.dtos.PageDto;
-import swp391.SPS.dtos.ProfileDto;
-import swp391.SPS.dtos.UserDto;
+import swp391.SPS.dtos.*;
 import swp391.SPS.entities.Cart;
 import swp391.SPS.entities.Role;
 import swp391.SPS.entities.User;
+import swp391.SPS.entities.UserDetail;
 import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
@@ -120,8 +119,30 @@ public class UserServiceImpl implements UserService {
         role.setUsers(List.of(user));
         user.setRoles(List.of(role));
         Cart cart = new Cart();
+        UserDetail userDetail = new UserDetail();
         user.setCart(cart);
+        user.setUserDetail(userDetail);
         user.setStatus("ACTIVE");
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User save(UserAddDto userAddDto) {
+        User user = new User();
+        user.setEmail(userAddDto.getEmail());
+        user.setUsername(userAddDto.getUsername());
+        user.setPassword(userAddDto.getPassword());
+        Role role = roleRepository.findByRoleName(userAddDto.getRole());
+        role.setUsers(List.of(user));
+        user.setRoles(List.of(role));
+        UserDetail userDetail = new UserDetail();
+        user.setUserDetail(userDetail);
+        user.setStatus("ACTIVE");
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User save(User user) {
         return userRepository.save(user);
     }
 

@@ -41,22 +41,22 @@ public class RegisterController {
     @PostMapping("/register-new")
     public String addNewAdmin(
             @Valid @ModelAttribute("userDto") UserDto userDto, BindingResult result, Model model) {
-      List<String> messageList = new ArrayList<>();
-      List<FieldError> fieldErrors = result.getFieldErrors();
+        List<String> messageList = new ArrayList<>();
+        List<FieldError> fieldErrors = result.getFieldErrors();
 
         try {
 
             if (result.hasErrors()) {
-              for (FieldError fieldError : fieldErrors) {
-                messageList.add(fieldError.getDefaultMessage());
-              }
-              model.addAttribute("messageList", messageList);
+                for (FieldError fieldError : fieldErrors) {
+                    messageList.add(fieldError.getDefaultMessage());
+                }
+                model.addAttribute("messageList", messageList);
                 return "register";
             }
             String username = userDto.getUsername();
             User user = userService.findByUsername(username);
             User userByEmail = userService.findByEmail(userDto.getEmail());
-            if (user != null || userByEmail != null ) {
+            if (user != null || userByEmail != null) {
                 model.addAttribute("userDto", userDto);
                 System.out.println("user not null");
                 model.addAttribute("usernameError", "Your username or email has been registered!");
@@ -67,8 +67,8 @@ public class RegisterController {
                 userService.save(userDto);
                 System.out.println("success");
                 model.addAttribute("success", "Register successfully!");
-                EmailDetails emailDetails = EmailDetails.builder().recipient(userDto.getEmail()).subject("Simple email subject").msgBody("Your account have been create success! \nYour account is: " + userDto.getUsername() + "\nYour password is: " + userDto.getRepeatPassword() + "\nPlease do not share your password with anyone!").build();
-                emailService.sendSimpleMail(emailDetails);
+                EmailDetails emailDetails = EmailDetails.builder().recipient(userDto.getEmail()).subject("Account create success").msgBody("Your account have been create success! \nYour account is: " + userDto.getUsername() + "\nYour password is: " + userDto.getRepeatPassword() + "\nPlease do not share your password with anyone!").build();
+                emailService.sendSimpleMail(emailDetails, userDto);
                 model.addAttribute("userDto", userDto);
             } else {
                 model.addAttribute("userDto", userDto);

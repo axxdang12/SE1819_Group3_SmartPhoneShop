@@ -1,9 +1,7 @@
 package swp391.SPS.services;
 
 import org.springframework.http.ResponseEntity;
-import swp391.SPS.dtos.PageDto;
-import swp391.SPS.dtos.ProfileDto;
-import swp391.SPS.dtos.UserDto;
+import swp391.SPS.dtos.*;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.entities.User;
 import swp391.SPS.exceptions.FileNotFoundException;
@@ -15,6 +13,10 @@ import java.util.List;
 
 public interface UserService {
     User save(UserDto userDto);
+
+    User save(UserAddDto userAddDto);
+
+    User save(User user);
 
     User saveProfile(ProfileDto profileDto, String userName);
 

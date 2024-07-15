@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::header}">
+</head>
+<body>
+<style>
+
+</style>
+<!--PreLoader-->
+<div th:replace="~{fragments::loader}"></div>
+<!--PreLoader Ends-->
+
+<!-- header -->
+<div th:replace="~{fragments::headerNavAdmin}"></div>
+<!-- end header -->
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Admin Dashboard</p>
+                    <h1>Admin manager</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- check out section -->
+<div class="wrapper">
+    <div class="container">
+        <div th:if="${messageList}">
+            <div class="alert alert-danger"><span class="messageError" th:each="message: ${messageList}"
+                                                  th:text="${message}"></span></div>
+        </div>
+        <div th:if="${passwordError}" th:text="${passwordError}"
+             class="alert alert-danger text-left"></div>
+        <div th:if="${usernameError}" th:text="${usernameError}"
+             class="alert alert-danger text-left"></div>
+        <div th:if="${success}" class="alert alert-success text-left" th:text="${success}">
+        </div>
+        <div class="card overflow-hidden">
+            <div class="row no-gutters row-bordered row-border-light">
+                <div class="col-md-3 pt-0">
+                    <div class="list-group list-group-flush account-settings-links">
+                        <p id="link-profile" class="list-group-item list-group-item-action" data-toggle="list">Add
+                            account</p>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <form id="account-general" th:action="@{/admin-dashboard/add-account}" th:object="${userAddDto}"
+                              method="POST">
+                            <div class="tab-pane">
+                                <hr class="border-light m-0">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">User Name</label>
+                                        <input type="text" class="form-control" name="username"
+                                               placeholder="User Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Email</label>
+                                        <input type="text" class="form-control" name="email"
+                                               placeholder="Email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password"
+                                               placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Confirm password</label>
+                                        <input type="password" class="form-control" name="repeatPassword"
+                                               placeholder="Confirm password">
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label class="form-label">Role</label>
+                                        <select name="role">
+                                            <option value="ADMIN">ADMIN</option>
+                                            <option value="MANAGER">MANAGER</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="text-right mt-3">
+                                    <button type="submit" class="btn btn-primary">Create</button>&nbsp;
+                                    <a class="btn btn-primary" th:href="@{/}">Back to home</a>
+                                </div>
+                                <br>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end check out section -->
+
+<!-- jquery -->
+<div th:replace="~{fragments::script}"></div>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+
+</script>
+
+</body>
+</html>
