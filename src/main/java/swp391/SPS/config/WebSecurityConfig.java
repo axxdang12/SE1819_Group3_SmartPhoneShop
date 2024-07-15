@@ -57,7 +57,7 @@ public class WebSecurityConfig {
                                         .permitAll()
                                         .requestMatchers("/admin-dashboard/*", "/save-role/", "/save-active/", "/search")
                                         .hasAuthority("ADMIN")
-                                        .requestMatchers("/manager").hasAuthority("MANAGER")
+                                        .requestMatchers("/manager/**, /manageProduct/**, /manageReport/**").hasAuthority("MANAGER")
                                         .requestMatchers("/cart/*", "/checkout").hasAnyAuthority("USER")
                                         .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login", "/reset-password", "/shop", "/shop/brand/*", "/single-product", "/cart", "/about")
                                         .permitAll()
@@ -76,7 +76,7 @@ public class WebSecurityConfig {
                                         .invalidateHttpSession(true)
                                         .clearAuthentication(true)
                                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                        .logoutSuccessUrl("/login?logout")
+//                                        .logoutSuccessUrl("/login?logout")
                                         .permitAll())
                 .authenticationManager(authenticationManager)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));

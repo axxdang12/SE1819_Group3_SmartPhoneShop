@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp391.SPS.entities.Order;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.services.OrderItemService;
 import swp391.SPS.services.OrderService;
 import swp391.SPS.services.UserService;
@@ -51,7 +52,7 @@ public class ManagerController {
         return "manager";
     }
     @GetMapping("/order-detail-manager/{id}")
-    public String detailOrderManager(@PathVariable("id") int id, Model model) {
+    public String detailOrderManager(@PathVariable("id") int id, Model model) throws FileNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
@@ -78,15 +79,23 @@ public class ManagerController {
     }
     @GetMapping("/approve/{id}")
     public String approveOrder(@PathVariable int id, RedirectAttributes redirectAttributes) {
-        orderService.updateOrderStatus(id, "Approved");
-        redirectAttributes.addFlashAttribute("message", "Order approved successfully");
+        try {
+            orderService.updateOrderStatus(id, "Approved");
+            redirectAttributes.addFlashAttribute("message", "Order approved successfully");
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
         return "redirect:/manager";
     }
 
     @GetMapping("/reject/{id}")
     public String rejectOrder(@PathVariable int id, RedirectAttributes redirectAttributes) {
-        orderService.updateOrderStatus(id, "Rejected");
-        redirectAttributes.addFlashAttribute("message", "Order rejected successfully");
+        try {
+            orderService.updateOrderStatus(id, "Rejected");
+            redirectAttributes.addFlashAttribute("message", "Order rejected successfully");
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
         return "redirect:/manager";
     }
 

@@ -153,7 +153,7 @@ public class ManagerProduct {
         Phone phone = new Phone();
         phone = Phone.builder().productName(productName).status(status).phoneId(pid).cpu(cpu).ram(ram).sim(sim).price(price).camera(camera).memory(memory).origin(origin).brand(b).picture(picture).releaseDate(date.toLocalDate()).display(dis).build();
         phoneService.editPhone(phone);
-        redirectAttributes.addFlashAttribute("message", "Chỉnh sửa thành công sản phẩm "+phone.getProductName() + " có id: "+phone.getPhoneId()  +" !");
+        redirectAttributes.addFlashAttribute("message", "Chỉnh sửa thành công sản phẩm "+phone.getProductName() +" !");
         return "redirect:/manageProduct";
     }
 
@@ -228,7 +228,7 @@ public class ManagerProduct {
         for (Phone p : lphone) {
             if (p.equals(phone)) {
                 model.addAttribute("listBrand", brandService.findAllBrand());
-                model.addAttribute("mess", "Đã thêm thành công"+ phone.getProductName()+" có id: "+phone.getPhoneId()+" !");
+                model.addAttribute("mess", "Đã thêm thành công "+ phone.getProductName()+" !");
                 return "add-product";
             }
         }
