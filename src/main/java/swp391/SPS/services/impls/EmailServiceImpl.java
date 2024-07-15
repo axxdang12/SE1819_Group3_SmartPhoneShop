@@ -8,6 +8,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import swp391.SPS.dtos.UserDto;
 import swp391.SPS.entities.EmailDetails;
 import swp391.SPS.services.EmailService;
 
@@ -23,7 +24,7 @@ public class EmailServiceImpl implements EmailService {
     private String sender;
 
     @Override
-    public void sendSimpleMail(EmailDetails details) throws MessagingException, UnsupportedEncodingException {
+    public void sendSimpleMail(EmailDetails details, UserDto userDto) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
@@ -32,7 +33,12 @@ public class EmailServiceImpl implements EmailService {
 
         String subject = details.getSubject();
 
-        String content = details.getMsgBody();
+        String content = "<p>Hello,</p>"
+                + "<p>You have requested to reset your password.</p>"
+                + "<p>Your account is:\"" + userDto.getUsername() + "\"</p>"
+                + "<p>Your password is:\"" + userDto.getRepeatPassword() + "\"</p>"
+                + "<br>"
+                + "<p>Please don't share this to anyone else! ";
 
         helper.setSubject(subject);
 
@@ -52,7 +58,7 @@ public class EmailServiceImpl implements EmailService {
         String subject = "Here's the link to reset your password";
 
         String content = "<p>Hello,</p>"
-                + "<p>You have requested to reset your password.</p>"
+                + "<p>Your account have been create success!</p>"
                 + "<p>Click the link below to change your password:</p>"
                 + "<p><a href=\"" + link + "\">Change my password</a></p>"
                 + "<br>"
