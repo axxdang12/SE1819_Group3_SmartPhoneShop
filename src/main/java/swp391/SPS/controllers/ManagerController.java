@@ -79,15 +79,23 @@ public class ManagerController {
     }
     @GetMapping("/approve/{id}")
     public String approveOrder(@PathVariable int id, RedirectAttributes redirectAttributes) {
-        orderService.updateOrderStatus(id, "Approved");
-        redirectAttributes.addFlashAttribute("message", "Order approved successfully");
+        try {
+            orderService.updateOrderStatus(id, "Approved");
+            redirectAttributes.addFlashAttribute("message", "Order approved successfully");
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
         return "redirect:/manager";
     }
 
     @GetMapping("/reject/{id}")
     public String rejectOrder(@PathVariable int id, RedirectAttributes redirectAttributes) {
-        orderService.updateOrderStatus(id, "Rejected");
-        redirectAttributes.addFlashAttribute("message", "Order rejected successfully");
+        try {
+            orderService.updateOrderStatus(id, "Rejected");
+            redirectAttributes.addFlashAttribute("message", "Order rejected successfully");
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
         return "redirect:/manager";
     }
 

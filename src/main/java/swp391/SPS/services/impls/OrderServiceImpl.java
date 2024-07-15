@@ -92,13 +92,16 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.searchOrderByUserName(name);
     }
 
+
     @Transactional
     public void updateOrderStatus(int id, String status) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid order ID: " + id));
-        order.setStatus(status);
-        orderRepository.save(order);
+        if ("Canceled".equals(order.getStatus())) {
+            throw new IllegalStateException("Order cannot be set any status because its status is: " + order.getStatus());
+
+        } else {
+            order.setStatus(status);
+            orderRepository.save(order);        }
     }
-
-
 }
