@@ -41,6 +41,8 @@
 								<tr class="table-head-row">
 									<th class="product-id">User ID</th>
 									<th class="product-name">User Name</th>
+									<th class="product-name">First Name</th>
+									<th class="product-name">Last Name</th>
 									<th class="product-email">Email</th>
 									<th class="product-address">Address</th>
 									<th class="product-gender">Gender</th>
@@ -50,7 +52,9 @@
 							<tbody>
 								<tr class="table-body-row">
 									<td class="product-id" th:text="${userdtl.userDetailId}">1</td>
-									<td class="product-name" th:text="${userdtl.firstName +' '+ userdtl.lastName}">User A</td>
+									<td class="product-name" th:text="${user.username}">User A</td>
+									<td class="product-name" th:text="${userdtl.firstName}">User A</td>
+									<td class="product-name" th:text="${userdtl.lastName}">User A</td>
 									<td class="product-email" th:text="${user.email}">userA@example.com</td>
 									<td class="product-address" th:text="${userdtl.address}">123 Main St, Cityville</td>
 									<td class="product-gender" th:text="${userdtl.gender}">Male</td>

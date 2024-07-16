@@ -1,8 +1,12 @@
 package swp391.SPS.exceptions;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 public class HandlerException {
@@ -44,4 +48,32 @@ public class HandlerException {
                 fileNotFoundException.getMessage());
         return "404";
     }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public String handleAccessDeniedException(AccessDeniedException ex, Model model) {
+        model.addAttribute("message", "You do not have permission to access this page");
+        return "403";
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public String handlerNoResourceFoundException(NoResourceFoundException noResourceFoundException, Model model) {
+        model.addAttribute("message",
+                noResourceFoundException.getMessage());
+        return "404";
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public String handlerMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException methodArgumentTypeMismatchException, Model model) {
+        model.addAttribute("message",
+                methodArgumentTypeMismatchException.getMessage());
+        return "404";
+    }
+
+
+//    @ExceptionHandler(FileNotFoundException.class)
+//    public String handlerProductNotFoundException(FileNotFoundException fileNotFoundException, Model model) {
+//        model.addAttribute("message",
+//                fileNotFoundException.getMessage());
+//        return "NotFound";
+//    }
 }

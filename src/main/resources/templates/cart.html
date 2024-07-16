@@ -52,7 +52,7 @@
 
 						<tbody>
 						<tr class="table-body-row" th:each="items : ${listPByC}">
-							<td class="product-remove"><a th:href="@{/cart/delete-phone/{id}(id=${items.phone.phoneId})}"><i class="far fa-window-close"></i></a></td>
+							<td class="product-remove"><a th:href="@{/cart/delete-phone/{id}(id=${items.phone.phoneId})}" onclick="return confirmDeleteP()"><i class="far fa-window-close"></i></a></td>
 							<td class="product-image">
 								<img th:src="@{${items.phone.picture.main}}" alt="">
 							</td>

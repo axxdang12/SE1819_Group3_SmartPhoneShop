@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 //import swp391.SPS.entities.Accessory;
 import org.springframework.transaction.annotation.Transactional;
 import swp391.SPS.entities.*;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.repositories.OrderItemRepository;
 import swp391.SPS.repositories.OrderRepository;
 import swp391.SPS.repositories.UserRepository;
@@ -41,8 +42,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getOrder(int oId) {
-        return orderRepository.getReferenceById(oId);
+    public Order getOrder(int oId) throws FileNotFoundException {
+        if (orderRepository.findById(oId).isEmpty()){
+            throw new FileNotFoundException("Not found report");
+        }
+        return orderRepository.findById(oId).get();
     }
 
     @Transactional
@@ -74,22 +78,30 @@ public class OrderServiceImpl implements OrderService {
     public void cancelOrder(int orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid order ID: " + orderId));
-        order.setStatus("Canceled");
-        orderRepository.save(order);
+        if ("Pending".equals(order.getStatus())) {
+            order.setStatus("Canceled");
+            orderRepository.save(order);
+        } else {
+            throw new IllegalStateException("Order cannot be canceled because its status is: " + order.getStatus());
+        }
     }
+
 
     @Override
     public List<Order> searchOrderByUserName(String name) {
         return orderRepository.searchOrderByUserName(name);
     }
 
+
     @Transactional
     public void updateOrderStatus(int id, String status) {
         Order order = orderRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid order ID: " + id));
-        order.setStatus(status);
-        orderRepository.save(order);
+        if ("Canceled".equals(order.getStatus())) {
+            throw new IllegalStateException("Order cannot be set any status because its status is: " + order.getStatus());
+
+        } else {
+            order.setStatus(status);
+            orderRepository.save(order);        }
     }
-
-
 }

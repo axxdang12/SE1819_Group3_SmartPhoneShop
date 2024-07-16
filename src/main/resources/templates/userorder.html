@@ -39,7 +39,6 @@
                     <table class="table">
 						<thead>
 							<tr>
-								<th>Order ID</th>
 								<th>Order Date</th>
 								<th>Total Price</th>
 								<th>View detail</th>
@@ -50,7 +49,6 @@
 						</thead>
 						<tbody>
 							<tr th:each="order: ${orderListByUid}">
-								<td th:text="${order.orderId}"></td>
 								<td th:text="${order.orderDate}"></td>
 								<td style="padding-left: 25px;" th:text="${order.totalPrice}+'$'"></td>
 								<td><a class="btn btn-info" th:href="@{/orderDetail/{id}(id=${order.orderId})}">Details</a></td>
@@ -76,6 +74,9 @@
 						</tbody>
 					</table>					
                 </div>
+				<div>
+					<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></p>
+				</div>
             </div>
         </div>
     </div>

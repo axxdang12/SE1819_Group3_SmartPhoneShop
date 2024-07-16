@@ -544,6 +544,11 @@ a.boxed-btn, a.bordered-btn, a.cart-btn {
     margin-bottom: 40px;
 }
 
+.breadcrumb-bg {
+    background-image: url(../images/img.png);
+}
+
+
 .breadcrumb-text p {
     color: #ff0000;
     font-weight: 700;
@@ -560,12 +565,13 @@ a.boxed-btn, a.bordered-btn, a.cart-btn {
 }
 
 .breadcrumb-section {
+    padding: 150px 0;
     background-size: cover;
     background-position: center center;
     position: relative;
     z-index: 1;
     background-attachment: fixed;
-    padding: 90px 0;
+    padding-top: 200px;
 }
 
 .breadcrumb-section:after {
@@ -2822,8 +2828,6 @@ table.order-details tbody td {
 .messageError {
     display: flex;
     flex-wrap: wrap;
-    font-size: 13px;
-    color: red;
 }
 
 .imgIcon {
