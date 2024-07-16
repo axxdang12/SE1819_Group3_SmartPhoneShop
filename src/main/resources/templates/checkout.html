@@ -108,7 +108,8 @@
 								</tr>
 							</tbody>
 						</table>
-						<a class="boxed-btn" th:href="@{/place-order}" onclick="return confirmOrder()" >Place Order</a>
+						<a class="boxed-btn" th:href="@{/place-order}" th:if="${cartTotal > 0}" onclick="return validateAndConfirmOrder()">Place Order</a>
+						<p th:if="${cartTotal == 0}" style="padding-right: 145px;font-weight: bold;padding-top: 30px;">Your cart is empty or have Inactive Product so you cannot Place Order.</p>
 					</div>
 				</div>
 			</div>
@@ -131,9 +132,19 @@
 	<div th:replace="~{fragments::script}"></div>
 
 	<script>
-		function confirmOrder() {
-                return confirm("Are you sure you want to place order ?");
-            }
+		function validateAndConfirmOrder() {
+        var firstName = document.getElementById('firstName').value.trim();
+        var lastName = document.getElementById('lastName').value.trim();
+        var address = document.getElementById('address').value.trim();
+        var phoneNumber = document.getElementById('phoneNumber').value.trim();
+
+        if (firstName === '' || lastName === '' || address === '' || phoneNumber === '') {
+            alert('Please enter full information to this form !!!');
+            return false;
+        }
+
+        return confirm("Are you sure you want to place order ?");
+    }
 	</script>
 
 </body>

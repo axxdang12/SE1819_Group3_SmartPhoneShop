@@ -5,6 +5,7 @@ import swp391.SPS.dtos.ReportDto;
 import swp391.SPS.entities.Order;
 import swp391.SPS.entities.Report;
 import swp391.SPS.entities.User;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.repositories.*;
 import swp391.SPS.services.OrderService;
 import swp391.SPS.services.ReportService;
@@ -21,7 +22,7 @@ public class ReportServiceImpl implements ReportService {
     private OrderService orderService;
 
     @Override
-    public Report submitR(int orderId, String description, User user) {
+    public Report submitR(int orderId, String description, User user) throws FileNotFoundException {
         Order order=orderService.getOrder(orderId);
         Report report=new Report();
         report.setOrder(order);
@@ -32,7 +33,10 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public Report getReportByOrderId(int orderId) {
+    public Report getReportByOrderId(int orderId) throws FileNotFoundException {
+        if (reportRepository.getReportFromOrder(orderId) == null){
+            throw new FileNotFoundException("Not found report");
+        }
         return reportRepository.getReportFromOrder(orderId);
     }
 

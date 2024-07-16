@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import swp391.SPS.entities.Order;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.services.OrderItemService;
 import swp391.SPS.services.OrderService;
 import swp391.SPS.services.UserService;
@@ -24,7 +25,7 @@ public class OrderItemController {
     UserService userService;
 
     @GetMapping("/orderDetail/{id}")
-    public String detailOrder(@PathVariable("id") int id, Model model) {
+    public String detailOrder(@PathVariable("id") int id, Model model) throws FileNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);

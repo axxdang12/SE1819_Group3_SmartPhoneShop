@@ -2,20 +2,16 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragmentManagement::header}">
-
 </head>
 
-
+<body id="reportsPage">
 <!--PreLoader-->
 <div th:replace="~{fragmentManagement::loader}">
 </div>
 <!--PreLoader Ends-->
 
-<nav th:replace="~{fragmentManagement::navbar}" >
-
-</nav>
+<nav th:replace="~{fragmentManagement::navbar}" ></nav>
 <div class="" id="home">
-    <body id="reportsPage">
     <div class="container">
         <div class="row">
             <div class="col">
@@ -67,10 +63,10 @@
                             <td th:text="${order.totalPrice}+'$'"></td>
                             <td><a class="btn btn-info" th:href="@{order-detail-manager/{id}(id=${order.orderId})}">Details</a></td>
                             <td>
-                                <a th:if="${order.status == 'Pending'}" class="tm-status-circle pending"></a>
-                                <a th:if="${order.status == 'Approved'}" class="tm-status-circle moving"></a>
-                                <a th:if="${order.status == 'Rejected'}" class="tm-status-circle cancelled"></a>
-                                <a th:if="${order.status == 'Completed'}" class="tm-status-circle completed"></a>
+                                <a th:if="${order.status == 'Pending'}" ></a>
+                                <a th:if="${order.status == 'Approved'}" ></a>
+                                <a th:if="${order.status == 'Rejected'}" ></a>
+                                <a th:if="${order.status == 'Completed'}" ></a>
                                 <span th:text="${order.status}"></span>
                             </td>
                             <td>
@@ -84,7 +80,7 @@
                                 </div>
                                 <div th:if="${order.status == 'Approved'}">
                                     <form th:action="@{complete/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('complete')">
-                                        <button type="submit" class="btn btn-success">Complete</button>
+                                        <button type="submit" class="btn btn-success" style="width: 120px; height: 50px">Complete</button>
                                     </form>
                                 </div>
                             </td>
@@ -114,15 +110,16 @@
                                 </div>
                                 <div th:if="${order.status == 'Approved'}">
                                     <form th:action="@{complete/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('complete')">
-                                        <button type="submit" class="btn btn-success">Complete</button>
+                                        <button type="submit" class="btn btn-success" style="width: 120px; height: 50px">Complete</button>
                                     </form>
                                 </div>
                             </td>
                         </tr>
-
-
                         </tbody>
                     </table>
+                    <div>
+                        <p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></p>
+                    </div>
                 </div>
             </div>
         </div>
