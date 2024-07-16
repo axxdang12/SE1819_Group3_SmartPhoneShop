@@ -117,20 +117,12 @@ public class ShopController {
 //
 //}
 
-    @GetMapping("/shop/brand/")
-    public String exceptionBrand() throws FileNotFoundException {
-         throw new FileNotFoundException("Not Found!");
-    }
-    @GetMapping("/single-product/")
-    public String exceptionSingleProduct() throws FileNotFoundException {
-        throw new FileNotFoundException("Not Found!");
-    }
 
-    @GetMapping("/shop/brand/{idBrand}")
-    public String ProductByBrand(@PathVariable("idBrand") String idBrand, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page) throws FileNotFoundException {
-//        if(idBrand.isEmpty() || idBrand.equals("")){
-//            throw new FileNotFoundException("Not Found");
-//        }
+    @GetMapping("/shop/brand")
+    public String ProductByBrand(@RequestParam("id") String idBrand, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page) throws FileNotFoundException {
+        if(idBrand.isEmpty() || idBrand.equals("")){
+            throw new FileNotFoundException("Not Found");
+        }
         int id = Integer.parseInt(idBrand);
         model.addAttribute("listBrand", brandService.findAllBrand());
         int TotalPage = 1;

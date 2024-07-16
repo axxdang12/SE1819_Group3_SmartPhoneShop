@@ -30,8 +30,12 @@ public class SingleProductController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/single-product/{id}")
-    public String SingleProduct(@PathVariable("id") int id, Model model) throws FileNotFoundException {
+    @GetMapping("/single-product")
+    public String SingleProduct(@RequestParam("id") String idPhone, Model model) throws FileNotFoundException {
+        if(idPhone.isEmpty() || idPhone.equals("")) {
+            throw new FileNotFoundException("Not Found");
+        }
+        int id = Integer.parseInt(idPhone);
         Phone p = phoneService.getPhoneByID(id);
         if(p!=null){
             model.addAttribute("product",p);

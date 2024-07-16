@@ -49,7 +49,7 @@
                     <ul>
                         <li > <a th:href="@{/shop}" style="color: black">All</a></li>
                         <li th:each="brand: ${listBrand}">
-                            <a  th:href="@{/shop/brand/{idBrand}(idBrand=${brand.brandId})}"
+                            <a  th:href="@{/shop/brand(id=${brand.brandId})}"
                                 th:text="${brand.brandName}" style="color: black" ></a>
                         </li>
 
@@ -97,7 +97,7 @@
             <div th:each="phone: ${listPhone}" class="col-lg-4 col-md-6 text-center "  style="padding: 43px;">
                 <div class="single-product-item">
                     <div class="product-image">
-                        <a th:href="@{/single-product/{id}(id=${phone.phoneId})}"><img th:src="@{${phone.picture.main}}"
+                        <a th:href="@{/single-product(id=${phone.phoneId})}"><img th:src="@{${phone.picture.main}}"
                                                                                        alt=""></a>
                     </div>
                     <h3 th:text="${phone.productName}"></h3>
