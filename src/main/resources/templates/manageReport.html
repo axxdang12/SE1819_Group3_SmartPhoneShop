@@ -22,8 +22,8 @@
                 <p class="text-white mt-5 mb-5">Welcome back, <b>Manager</b></p>
             </div>
         </div>
-        <!-- Search by User ID -->
-        <form method="get" action="#" id="searchByUserNameForm" class="mb-3">
+        <!-- Search by Username -->
+        <form th:action="@{/searchReport}" method="POST">
             <div class="form-group">
                 <label for="name">Search by User Name</label>
                 <input type="text" class="form-control" id="name" name="name">
@@ -32,7 +32,7 @@
         </form>
 
         <!-- Search by Order ID -->
-        <form method="get" action="#" id="searchByOrderIdForm">
+        <form th:action="@{/searchReport}" method="POST">
             <div class="form-group">
                 <label for="orderId">Search by Order ID</label>
                 <input type="text" class="form-control" id="orderId" name="orderId">

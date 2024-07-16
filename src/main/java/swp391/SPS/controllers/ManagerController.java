@@ -38,17 +38,12 @@ public class ManagerController {
 
     @PostMapping("/searchorder")
     public String searchOrderById(@RequestParam("name") String name, Model model, RedirectAttributes redirectAttributes){
-        if (name.isEmpty()) {
-            redirectAttributes.addFlashAttribute("error", "Search input cannot be empty.");
-            return "redirect:/manager";
-        }
-
         List<Order> orders = orderService.searchOrderByUserName(name);
         if (orders.isEmpty()) {
-            redirectAttributes.addFlashAttribute("error", "No orders found for user: " + name);
-            return "redirect:/manager";
+            model.addAttribute("error", "No orders found for user: " + name);
+        } else {
+            model.addAttribute("listOrderByUser", orders);
         }
-        model.addAttribute("listOrderByUser", orderService.searchOrderByUserName(name));
         return "manager";
     }
     @GetMapping("/order-detail-manager/{id}")
