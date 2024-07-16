@@ -136,7 +136,12 @@ public class ManagerProduct {
     }
 
     @GetMapping("/edit-product")
-    public String viewEditphone(@RequestParam("id") int id, Model model) throws FileNotFoundException {
+    public String viewEditphone(@RequestParam("id") String idPhone, Model model) throws FileNotFoundException {
+       if(idPhone.isEmpty() || idPhone.equals("")){
+           model.addAttribute("check",true);
+           return "Edit-product";
+       }
+        int id = Integer.parseInt(idPhone);
         Phone p = phoneService.getPhoneByIdForManager(id);
         if(p!=null) {
             model.addAttribute("phone", p);
@@ -188,8 +193,12 @@ public class ManagerProduct {
     }
 
     @GetMapping("/edit-brand")
-    public String editBrand(@RequestParam("id") int id, Model model) throws FileNotFoundException {
-       Brand brand = brandService.getBrand(id);
+    public String editBrand(@RequestParam("id") String idBrand, Model model) throws FileNotFoundException {
+        if(idBrand.isEmpty() || idBrand.equals("")){
+            model.addAttribute("check",true);
+            return "edit-brand";
+        }
+        Brand brand = brandService.getBrand(Integer.parseInt(idBrand));
        if(brand!=null) model.addAttribute("brand",brand );
        else{
            model.addAttribute("check",true);
