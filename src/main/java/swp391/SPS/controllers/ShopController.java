@@ -33,6 +33,7 @@ public class ShopController {
                                     @RequestParam(name = "pageNo", defaultValue = "1") int page,
                                     @RequestParam (name = "minPrice", required = false) String minPrice,
                                     @RequestParam (name="maxPrice", required = false) String maxPrice) throws FileNotFoundException {
+
         model.addAttribute("listBrand", brandService.findAllBrand());
             Page<Phone> list = phoneService.viewphoneforshop(page);
 
@@ -116,8 +117,21 @@ public class ShopController {
 //
 //}
 
+    @GetMapping("/shop/brand/")
+    public String exceptionBrand() throws FileNotFoundException {
+         throw new FileNotFoundException("Not Found!");
+    }
+    @GetMapping("/single-product/")
+    public String exceptionSingleProduct() throws FileNotFoundException {
+        throw new FileNotFoundException("Not Found!");
+    }
+
     @GetMapping("/shop/brand/{idBrand}")
-    public String ProductByBrand(@PathVariable("idBrand") int id, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page) throws FileNotFoundException {
+    public String ProductByBrand(@PathVariable("idBrand") String idBrand, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page) throws FileNotFoundException {
+//        if(idBrand.isEmpty() || idBrand.equals("")){
+//            throw new FileNotFoundException("Not Found");
+//        }
+        int id = Integer.parseInt(idBrand);
         model.addAttribute("listBrand", brandService.findAllBrand());
         int TotalPage = 1;
         Page<Phone> list = phoneService.getPhoneBrandByPahination(id,page);
