@@ -84,7 +84,7 @@
                                 </div>
                                 <div th:if="${order.status == 'Approved'}">
                                     <form th:action="@{complete/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('complete')">
-                                        <button type="submit" class="btn btn-success">Complete</button>
+                                        <button type="submit" class="btn btn-success" style="width: 120px; height: 50px">Complete</button>
                                     </form>
                                 </div>
                             </td>
@@ -114,7 +114,7 @@
                                 </div>
                                 <div th:if="${order.status == 'Approved'}">
                                     <form th:action="@{complete/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('complete')">
-                                        <button type="submit" class="btn btn-success">Complete</button>
+                                        <button type="submit" class="btn btn-success" style="width: 120px; height: 50px">Complete</button>
                                     </form>
                                 </div>
                             </td>

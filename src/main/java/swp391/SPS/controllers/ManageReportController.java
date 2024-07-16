@@ -10,6 +10,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp391.SPS.dtos.ReportDto;
 import swp391.SPS.entities.Report;
 import swp391.SPS.services.ReportService;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -18,39 +20,41 @@ public class ManageReportController {
     private ReportService reportService;
 
     @GetMapping("/manageReport")
-    public String viewReportList(@RequestParam(value = "name", required = false) String name,
-                                 @RequestParam(value = "orderId", required = false) Integer orderId,
-                                 Model model, RedirectAttributes redirectAttributes) {
-        List<ReportDto> reportList;
-        if (name != null && name.isEmpty()) {
-            redirectAttributes.addFlashAttribute("error", "Search input for user name cannot be empty.");
-            return "redirect:/manageReport";
-        }
+    public String viewReportList(Model model) {
+        List<ReportDto> reportList = reportService.getAllReport();
+        model.addAttribute("reportList", reportList);
+        return "manageReport";
+    }
 
-        if (orderId != null && orderId.toString().isEmpty()) {
-            redirectAttributes.addFlashAttribute("error", "Search input for order ID cannot be empty.");
-            return "redirect:/manageReport";
-        }
-        if (name != null) {
+    @PostMapping("/searchReport")
+    public String searchReport(@RequestParam(value = "name", required = false) String name,
+                               @RequestParam(value = "orderId", required = false) Integer orderId,
+                               Model model) {
+        List<ReportDto> reportList = new ArrayList<>();
+
+        if (name != null && !name.isEmpty()) {
             reportList = reportService.searchReportByUserName(name);
             if (reportList.isEmpty()) {
-                redirectAttributes.addFlashAttribute("error", "No reports found for user: " + name);
-                return "redirect:/manageReport";
+                model.addAttribute("error", "No reports found for user: " + name);
             }
         }
+
         if (orderId != null) {
             reportList = reportService.searchReportByOrderId(orderId);
             if (reportList.isEmpty()) {
-                redirectAttributes.addFlashAttribute("error", "No reports found for order ID: " + orderId);
-                return "redirect:/manageReport";
+                model.addAttribute("error", "No reports found for order ID: " + orderId);
             }
-        } else {
-            reportList = reportService.getAllReport();
+        }
+
+        // Ensure reportList is empty if no search parameters are provided or no results found
+        if ((name == null || name.isEmpty()) && orderId == null) {
+            reportList = reportService.getAllReport(); // Only fetch all reports if no search parameters are provided
         }
 
         model.addAttribute("reportList", reportList);
         return "manageReport";
     }
+
 
     @GetMapping("/report/report-detail/{reportId}")
     public String viewReportDetails(@PathVariable("reportId") int reportId, Model model) {
