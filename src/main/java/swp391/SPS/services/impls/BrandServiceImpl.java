@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import swp391.SPS.entities.Brand;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.repositories.BrandRepository;
 import swp391.SPS.services.BrandService;
 
@@ -17,8 +18,9 @@ public class BrandServiceImpl implements BrandService {
     private BrandRepository brandRepository;
 
     @Override
-    public Brand getBrand(int b) {
-        return brandRepository.getReferenceById(b);
+    public Brand getBrand(int b) throws FileNotFoundException {
+        if(brandRepository.findById(b).isEmpty()) return null;
+        return brandRepository.findById(b).get();
     }
 
     @Override

@@ -27,8 +27,11 @@
                     <div class="col-12">
                         <h2 class="tm-block-title d-inline-block">Edit Brand</h2>
                     </div>
+                    <div th:if="${check}" class="col-12">
+                        <h2 class="tm-block-title d-inline-block" style="color:white">The selected brand is non-existent in system!</h2>
+                    </div>
                 </div>
-                <div class="row tm-edit-product-row">
+                <div th:if="${!check}" class="row tm-edit-product-row">
                     <div class="col-xl-12 col-lg-12 col-md-12">
                         <form th:action="@{/editbrand}" method="post" class="tm-edit-product-form">
                             <div class="form-group mb-3">

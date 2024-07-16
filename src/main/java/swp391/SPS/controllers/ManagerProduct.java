@@ -15,6 +15,7 @@ import swp391.SPS.entities.Brand;
 //import swp391.SPS.entities.Category;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.entities.Picture;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.services.*;
 
 import java.sql.Date;
@@ -59,7 +60,16 @@ public class ManagerProduct {
         } else {
             list = phoneService.findPhonePage(page);
         }
+
         Map<String, Object> response = new HashMap<>();
+        // Kiểm tra nếu list là null hoặc không có sản phẩm nào
+        if (list == null || list.getContent().isEmpty()) {
+            response.put("htmlContent", ""); // Hoặc một thông báo HTML thích hợp
+            response.put("totalPages", 0);
+            response.put("currentPage", page);
+            response.put("noProducts", true); // Thêm một trường để kiểm tra trên frontend
+            return response;
+        }
         response.put("htmlContent", generateHtmlContent(list.getContent()));
         response.put("totalPages", list.getTotalPages());
         response.put("currentPage", page);
@@ -81,6 +91,14 @@ public class ManagerProduct {
         }
 
         Map<String, Object> response = new HashMap<>();
+        // Kiểm tra nếu list là null hoặc không có sản phẩm nào
+        if (list == null || list.getContent().isEmpty()) {
+            response.put("htmlContent", ""); // Hoặc một thông báo HTML thích hợp
+            response.put("totalPages", 0);
+            response.put("currentPage", page);
+            response.put("noProducts", true); // Thêm một trường để kiểm tra trên frontend
+            return response;
+        }
         response.put("htmlContent", generateHtmlContent(list.getContent()));
         response.put("totalPages", list.getTotalPages());
         response.put("currentPage", page);
@@ -118,8 +136,21 @@ public class ManagerProduct {
     }
 
     @GetMapping("/edit-product")
-    public String viewEditphone(@RequestParam("id") int id, Model model) {
-        model.addAttribute("phone", phoneService.getPhoneByID(id));
+    public String viewEditphone(@RequestParam("id") String idPhone, Model model) throws FileNotFoundException {
+       if(idPhone.isEmpty() || idPhone.equals("")){
+           model.addAttribute("check",true);
+           return "Edit-product";
+       }
+        int id = Integer.parseInt(idPhone);
+        Phone p = phoneService.getPhoneByIdForManager(id);
+        if(p!=null) {
+            model.addAttribute("phone", p);
+        }
+        else {
+            model.addAttribute("check",true);
+            return "Edit-product";
+        }
+        model.addAttribute("check",false);
         return "Edit-product";
     }
 
@@ -142,12 +173,11 @@ public class ManagerProduct {
                             @RequestParam("ps") String ps,
                             @RequestParam("camera") double camera,
                             @RequestParam("status") Boolean status,
-                            @RequestParam("date") Date date, Model model, RedirectAttributes redirectAttributes) {
-//        model.addAttribute("listCategory", categoryService.findAllCategory());
+                            @RequestParam("date") Date date, Model model, RedirectAttributes redirectAttributes) throws FileNotFoundException {
         model.addAttribute("listBrand", brandService.findAllBrand());
         Picture picture = new Picture(picid, pm, pf, pb, ps);
         pictureService.editPicture(pictureService.getPictureById(picid));
-//        Category c = categoryService.getCategory(cate);
+
         Brand b = brandService.getBrand(brand);
 
         Phone phone = new Phone();
@@ -163,8 +193,19 @@ public class ManagerProduct {
     }
 
     @GetMapping("/edit-brand")
-    public String editBrand(@RequestParam("id") int id, Model model) {
-        model.addAttribute("brand", brandService.getBrand(id));
+    public String editBrand(@RequestParam("id") String idBrand, Model model) throws FileNotFoundException {
+        if(idBrand.isEmpty() || idBrand.equals("")){
+            model.addAttribute("check",true);
+            return "edit-brand";
+        }
+        Brand brand = brandService.getBrand(Integer.parseInt(idBrand));
+       if(brand!=null) model.addAttribute("brand",brand );
+       else{
+           model.addAttribute("check",true);
+           return "edit-brand";
+       }
+        model.addAttribute("check",false);
+
         return "edit-brand";
     }
 
@@ -214,7 +255,7 @@ public class ManagerProduct {
             @RequestParam("camera") int camera,
             @RequestParam("date") Date date,
             @RequestParam("status") Boolean status,
-            Model model) {
+            Model model) throws FileNotFoundException {
 
         Picture picture = new Picture();
         picture = Picture.builder().site(ps).back(pb).front(pf).main(pm).build();

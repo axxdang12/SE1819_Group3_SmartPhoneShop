@@ -90,8 +90,17 @@ function changeStatus(btn) {
                                               selectedValue: selectedValue
                                           },
                                           success: function(response) {
-                                              $('#tableee').html(response.htmlContent);
-                                              updatePaginationLinks(page, response.totalPages);
+                                              if (response.noProducts) {
+
+
+                                                     $('#tableee').html(response.htmlContent);
+                                                     updatePaginationLinks(page, response.totalPages);
+                                                     alert('Không có sản phẩm nào!');
+                                              }else{
+                                                $('#tableee').html(response.htmlContent);
+                                               updatePaginationLinks(page, response.totalPages);
+                                              }
+
 
                                           },
                                           error: function() {
@@ -131,8 +140,17 @@ function changeStatus(btn) {
                                               keyword: keyword
                                           },
                                           success: function(response) {
-                                              $('#tableee').html(response.htmlContent);
-                                              updatePaginationLinks(page, response.totalPages);
+                                          if (response.noProducts) {
+
+                                                       $('#tableee').html(response.htmlContent);
+                                                       updatePaginationLinks(page, response.totalPages);
+                                                       alert('Không có sản phẩm nào!');
+                                                 }else{
+                                                  $('#tableee').html(response.htmlContent);
+                                            updatePaginationLinks(page, response.totalPages);
+                                                                   }
+//                                              $('#tableee').html(response.htmlContent);
+//                                              updatePaginationLinks(page, response.totalPages);
                                           },
                                           error: function() {
                                               console.error("Error loading page");

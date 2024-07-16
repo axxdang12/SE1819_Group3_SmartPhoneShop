@@ -249,14 +249,29 @@ td{
     </div>
 </div>
 <!-- end breadcrumb section -->
-
+<div th:if="${check}" class="full-height-section error-section">
+    <div class="full-height-tablecell">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 text-center">
+                    <div class="error-text">
+                        <i class="far fa-sad-cry"></i>
+                        <h1>Oops! Not Found.</h1>
+                        <p>We apologize for the inconvenience, but it appears the product you're looking for is currently unavailable.</p>
+                        <a th:href="@{/shop}" class="boxed-btn">Back to Shop</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- single product -->
-<div class="single-product mt-150 mb-150">
+<div th:if="${!check}" class="single-product mt-150 mb-150">
     <div class="container">
         <div class="row">
             <div class="col-md-5">
                 <div class="single-product-img">
-                    <img th:src="@{${product.picture.main}}" alt="">
+                    <img th:src="${product.picture.main}" alt="">
                 </div>
             </div>
             <div class="col-md-7">
@@ -340,7 +355,7 @@ td{
 <!-- end single product -->
 
 <!-- more products -->
-<div class="more-products mb-150">
+<div th:if="${!check}" class="more-products mb-150">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-lg-2 text-center">

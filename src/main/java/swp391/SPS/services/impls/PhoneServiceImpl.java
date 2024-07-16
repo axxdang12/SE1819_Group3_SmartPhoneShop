@@ -13,11 +13,13 @@ import swp391.SPS.entities.Brand;
 //import swp391.SPS.entities.Category;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.entities.User;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.repositories.BrandRepository;
 import swp391.SPS.repositories.PhoneRepository;
 //import swp391.SPS.repositories.CategoryRepository;
+import swp391.SPS.services.BrandService;
 import swp391.SPS.services.PhoneService;
 
 import java.util.ArrayList;
@@ -30,6 +32,8 @@ public class PhoneServiceImpl implements PhoneService {
     private PhoneRepository phoneRepository;
     @Autowired
     private BrandRepository brandRepository;
+    @Autowired
+    private BrandService brandService;
 //    @Autowired
 //    private CategoryRepository categoryRepository;
 
@@ -46,15 +50,26 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     @Override
-    public Phone getPhoneByID(int id) {
-       Phone p =  phoneRepository.getReferenceById(id);
-       return p;
+    public Phone getPhoneByID(int id) throws FileNotFoundException {
+      if(phoneRepository.findById(id).isEmpty()){
+          throw new FileNotFoundException("Not found!");
+      }
+       return phoneRepository.findById(id).get();
     }
 
     @Override
-    public List<Phone> getPhoneByBrand(int id) {
+    public Phone getPhoneByIdForManager(int id) {
+        if(phoneRepository.findById(id).isEmpty()){
+            return null;
+        }
+        return phoneRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Phone> getPhoneByBrand(int id) throws FileNotFoundException {
         List<Phone> listPhone = findAllPhone();
-        Brand brand = brandRepository.getReferenceById(id);
+        Brand brand = brandService.getBrand(id);
+        if(brand ==null) return null;
         List<Phone> l = new ArrayList<>();
         for (int i = 0; i < listPhone.size(); i++) {
             if(listPhone.get(i).getBrand().equals(brand) && listPhone.get(i).getStatus()) l.add(listPhone.get(i));
@@ -119,7 +134,7 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     @Override
-    public List<Phone> getbestsale() {
+    public List<Phone> getbestsale() throws FileNotFoundException {
         List<Integer> li = phoneRepository.getBestSale();
         List<Phone> lp = new ArrayList<>();
         for(Integer i : li){
@@ -146,8 +161,9 @@ public class PhoneServiceImpl implements PhoneService {
 
 
     @Override
-    public Page<Phone> getPhoneBrandByPahination(int id, int pageNo) {
+    public Page<Phone> getPhoneBrandByPahination(int id, int pageNo) throws FileNotFoundException {
         List<Phone> list = getPhoneByBrand(id);
+        if(list == null) return null;
         Pageable pageable = PageRequest.of(pageNo -1,6);
         int start = (int) pageable.getOffset();
         int end = pageable.getOffset() + pageable.getPageSize() > list.size() ? list.size() : (int) (pageable.getOffset() + pageable.getPageSize());
