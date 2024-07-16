@@ -57,7 +57,7 @@ public class OrderController {
     }
 
     @GetMapping("/cancel-order/{id}")
-    public String cancelOrder(@PathVariable("id") int orderId, Model model) {
+    public String cancelOrder(@PathVariable("id") int orderId, Model model, RedirectAttributes redirectAttributes) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
@@ -65,7 +65,11 @@ public class OrderController {
         }
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
-        orderService.cancelOrder(orderId);
+        try {
+            orderService.cancelOrder(orderId);
+        } catch (IllegalStateException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
         model.addAttribute("orderListByUid",orderService.ListOrderByUserId(userService.getUserId(authentication.getName())));
         return "redirect:/userorder";
     }

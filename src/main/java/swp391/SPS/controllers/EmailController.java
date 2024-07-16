@@ -17,6 +17,6 @@ public class EmailController {
 
     @PostMapping("/sendMail")
     public void sendMail(@RequestBody EmailDetails details) throws MessagingException, UnsupportedEncodingException {
-        emailService.sendSimpleMail(details);
+//        emailService.sendSimpleMail(details);
     }
 }

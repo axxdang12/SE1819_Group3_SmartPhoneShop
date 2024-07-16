@@ -13,16 +13,13 @@
     cursor: pointer; /* Change the cursor to pointer on hover */
 }
 </style>
+
+
 <body id="reportsPage">
 <!--PreLoader-->
-<div th:replace="~{fragmentManagement::loader}">
-
-</div>
+<div th:replace="~{fragmentManagement::loader}"></div>
 <!--PreLoader Ends-->
-<nav th:replace="~{fragmentManagement::navbar}" >
-
-</nav>
-
+<nav th:replace="~{fragmentManagement::navbar}" ></nav>
 <div style="display: flex; margin: 18px 0px -46px 96px;">
     <form id="search-form" class="search-bar" method="get">
         <input type="search" name="keyword" required pattern=".*\S.*" style="background-color: #4E657A;color: white;"  >
@@ -72,10 +69,8 @@
                             <td th:text = "${phone.productName}"></td>
                             <td th:text ="${phone.price} + '$'"></td>
                             <td>
-                            <td>
                                 <a th:href="@{/edit-product(id=${phone.phoneId})}" class="btn btn-link" style="color: white;">Edit</a>
 
-                            </td>
                             </td>
 
                             <td class="action-links">

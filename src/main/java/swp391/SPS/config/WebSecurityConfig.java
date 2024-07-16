@@ -23,63 +23,70 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalAuthentication
 public class WebSecurityConfig {
 
-  @Bean
-  public UserDetailsService userDetailsService() {
-    return new LoginServiceConfig();
-  }
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new LoginServiceConfig();
+    }
 
-  @Bean
-  public BCryptPasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-  @Bean
-  public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
-    return new MySimpleUrlAuthenticationSuccessHandler();
-  }
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
+        return new MySimpleUrlAuthenticationSuccessHandler();
+    }
 
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    AuthenticationManagerBuilder authenticationManagerBuilder =
-        http.getSharedObject(AuthenticationManagerBuilder.class);
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder =
+                http.getSharedObject(AuthenticationManagerBuilder.class);
 
-    authenticationManagerBuilder
-        .userDetailsService(userDetailsService())
-        .passwordEncoder(passwordEncoder());
+        authenticationManagerBuilder
+                .userDetailsService(userDetailsService())
+                .passwordEncoder(passwordEncoder());
 
-    AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
+        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 
-    http.csrf(AbstractHttpConfigurer::disable)
-        .authorizeHttpRequests(
-            author ->
-                author
-                    .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-                    .permitAll()
-                    .requestMatchers("/admin-dashboard")
-                    .hasAuthority("ADMIN")
-                        .requestMatchers("/manager").hasAuthority("MANAGER")
-//                    .requestMatchers("/").hasAnyAuthority("USER")
-                    .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login","/reset-password", "/shop","/shop/brand/*","/single-product" ,"/cart", "/about","/single-product")
-                    .permitAll()
-                    .anyRequest()
-                    .authenticated())
-        .formLogin(
-            login ->
-                login
-                    .loginPage("/page/login")
-                    .loginProcessingUrl("/do-login")
-                    .successHandler(new MySimpleUrlAuthenticationSuccessHandler())
-                    .permitAll())
-        .logout(
-            logout ->
-                logout
-                    .invalidateHttpSession(true)
-                    .clearAuthentication(true)
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/login?logout")
-                    .permitAll())
-        .authenticationManager(authenticationManager)
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
-    return http.build();
-  }
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(
+                        author ->
+                                author
+                                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
+                                        .permitAll()
+                                        .requestMatchers("/admin-dashboard/*", "/save-role/", "/save-active/", "/search", "/profile/*", "/user_detail/*")
+                                        .hasAuthority("ADMIN")
+                                        .requestMatchers("/manager", "/api/phones", "/api/change-status",
+                                                "/searchorder", "/order-detail-manager/*", "/order-detail",
+                                                "/approve/*", "/reject/*", "/complete/*", "/manageReport",
+                                                "/report/report-detail/*", "/manageProduct/*", "/searchStatus/json",
+                                                "/add-product", "/edit-product", "/add-brand", "/edit-brand", "/profile/*", "/user_detail/*").hasAuthority("MANAGER")
+                                        .requestMatchers("/cart/*", "/checkout", "/detail", "/userorder", "/place-order",
+                                                "/cancel-order/*", "/orderDetail/*", "/report/*", "/submit-report",
+                                                "/delete-report", "/respond", "/cart-single/*", "/profile/*", "/checkout/update", "/user_detail/*").hasAnyAuthority("USER")
+                                        .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login", "/reset-password", "/shop/*", "/shop/brand/*", "/single-product/*", "/cart", "/about", "/profile/password")
+                                        .permitAll()
+                                        .anyRequest()
+                                        .authenticated())
+                .formLogin(
+                        login ->
+                                login
+                                        .loginPage("/page/login")
+                                        .loginProcessingUrl("/do-login")
+                                        .successHandler(new MySimpleUrlAuthenticationSuccessHandler())
+                                        .permitAll())
+                .logout(
+                        logout ->
+                                logout
+                                        .invalidateHttpSession(true)
+                                        .clearAuthentication(true)
+                                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                        .logoutSuccessUrl("/")
+                                        .permitAll())
+                .authenticationManager(authenticationManager)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"));
+        return http.build();
+    }
 }
