@@ -55,11 +55,17 @@ public class WebSecurityConfig {
                                 author
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                                         .permitAll()
-                                        .requestMatchers("/admin-dashboard/*", "/save-role/", "/save-active/", "/search")
+                                        .requestMatchers("/admin-dashboard/*", "/save-role/", "/save-active/", "/search", "/profile/*", "/user_detail/*")
                                         .hasAuthority("ADMIN")
-                                        .requestMatchers("/manager").hasAuthority("MANAGER")
-                                        .requestMatchers("/cart/*", "/checkout").hasAnyAuthority("USER")
-                                        .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login", "/reset-password", "/shop", "/shop/brand/*", "/single-product", "/cart", "/about")
+                                        .requestMatchers("/manager", "/api/phones", "/api/change-status",
+                                                "/searchorder", "/order-detail-manager/*", "/order-detail",
+                                                "/approve/*", "/reject/*", "/complete/*", "/manageReport",
+                                                "/report/report-detail/*", "/manageProduct/*", "/searchStatus/json",
+                                                "/add-product", "/edit-product", "/add-brand", "/edit-brand", "/profile/*", "/user_detail/*").hasAuthority("MANAGER")
+                                        .requestMatchers("/cart/*", "/checkout", "/detail", "/userorder", "/place-order",
+                                                "/cancel-order/*", "/orderDetail/*", "/report/*", "/submit-report",
+                                                "/delete-report", "/respond", "/cart-single/*", "/profile/*", "/checkout/update", "/user_detail/*").hasAnyAuthority("USER")
+                                        .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login", "/reset-password", "/shop/*", "/shop/brand/*", "/single-product/*", "/cart", "/about", "/profile/password")
                                         .permitAll()
                                         .anyRequest()
                                         .authenticated())
@@ -76,10 +82,11 @@ public class WebSecurityConfig {
                                         .invalidateHttpSession(true)
                                         .clearAuthentication(true)
                                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                        .logoutSuccessUrl("/login?logout")
+                                        .logoutSuccessUrl("/")
                                         .permitAll())
                 .authenticationManager(authenticationManager)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS));
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .exceptionHandling(ex -> ex.accessDeniedPage("/access-denied"));
         return http.build();
     }
 }
