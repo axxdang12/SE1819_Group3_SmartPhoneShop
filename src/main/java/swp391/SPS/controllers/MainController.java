@@ -50,10 +50,10 @@ public class MainController {
             model.addAttribute("isLogin", true);
             model.addAttribute("username", authentication.getName());
             return "redirect:/admin-dashboard";
-        } else if (role == "MANAGER") {
+        } else if (role.equalsIgnoreCase("MANAGER")) {
             model.addAttribute("isLogin", true);
             model.addAttribute("username", authentication.getName());
-            return "redirect:/manager-dashboard";
+            return "redirect:/manager";
         } else {
             model.addAttribute("listPhone", phoneService.getbestsale());
             model.addAttribute("isLogin", true);
