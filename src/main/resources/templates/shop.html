@@ -123,7 +123,7 @@
                             <a th:href="@{'/shop?'
                      +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
                      + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
-                     + ('pageNo=' + ${pageNo})}"
+                     + 'pageNo=' + ${pageNo}}"
                                th:classappend="${currentPage == pageNo} ? 'active' : ''"
                                th:text="${pageNo}">Page</a>
                         </li>

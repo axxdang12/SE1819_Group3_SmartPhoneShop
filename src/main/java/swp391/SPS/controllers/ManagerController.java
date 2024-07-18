@@ -15,6 +15,7 @@ import swp391.SPS.entities.Order;
 import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.services.OrderItemService;
 import swp391.SPS.services.OrderService;
+import swp391.SPS.services.PhoneService;
 import swp391.SPS.services.UserService;
 
 import java.util.List;
@@ -29,10 +30,16 @@ public class ManagerController {
     private OrderItemService orderItemService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private PhoneService phoneService;
 
     @GetMapping("/manager")
-    public String viewOrderList(Model model){
+    public String viewOrderList(Model model) throws FileNotFoundException {
         model.addAttribute("orderList", orderService.getAllOrder());
+        model.addAttribute("listBestSalePhone",phoneService.getbestsale());
+//        model.addAttribute("BrandRevenue",phoneService.GetBrandRevenue());
+        if(phoneService.GetTotalRevenue() == null)  model.addAttribute("revenue","Unknow");
+        else model.addAttribute("revenue", phoneService.GetTotalRevenue() );
         return "manager";
     }
 

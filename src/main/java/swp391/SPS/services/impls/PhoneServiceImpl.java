@@ -1,21 +1,15 @@
 package swp391.SPS.services.impls;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import swp391.SPS.dtos.PageDto;
+import swp391.SPS.dtos.BrandRevenueDTO;
 import swp391.SPS.entities.Brand;
 //import swp391.SPS.entities.Category;
 import swp391.SPS.entities.Phone;
-import swp391.SPS.entities.User;
 import swp391.SPS.exceptions.FileNotFoundException;
-import swp391.SPS.exceptions.NoDataInListException;
-import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.repositories.BrandRepository;
 import swp391.SPS.repositories.PhoneRepository;
 //import swp391.SPS.repositories.CategoryRepository;
@@ -185,6 +179,19 @@ public class PhoneServiceImpl implements PhoneService {
     public Page<Phone> searchByPrice(double min, double max, int PageNo) {
         Pageable pageable = PageRequest.of(PageNo-1,6);
         return phoneRepository.findByPriceRangeAndStatus(min,max,pageable);
+    }
+
+    @Override
+    public String GetTotalRevenue() {
+        if(phoneRepository.TotalRevenue()!= null) return phoneRepository.TotalRevenue();
+        return null;
+    }
+
+    @Override
+    public List<BrandRevenueDTO> GetBrandRevenue() {
+       List<BrandRevenueDTO> list = phoneRepository.ListRevenueOfBrand();
+       if(list==null) return null;
+       return list;
     }
 
 

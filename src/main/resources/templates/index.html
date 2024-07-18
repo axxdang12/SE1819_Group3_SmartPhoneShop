@@ -53,7 +53,7 @@
             <div th:each="phone: ${listPhone}" class="col-lg-4 col-md-6 text-center" >
                 <div class="single-product-item">
                     <div class="product-image">
-                        <a th:href="@{/single-product/{id}(id=${phone.phoneId})}"><img
+                        <a th:href="@{/single-product(id=${phone.phoneId})}"><img
                                 th:src="@{${phone.picture.main}}"
                                 alt=""></a>
                     </div>

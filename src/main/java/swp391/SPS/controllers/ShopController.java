@@ -33,10 +33,7 @@ public class ShopController {
                                     @RequestParam(name = "pageNo", defaultValue = "1") String pageNo,
                                     @RequestParam (name = "minPrice", required = false) String minPrice,
                                     @RequestParam (name="maxPrice", required = false) String maxPrice) throws FileNotFoundException {
-        if(pageNo.equals("") || pageNo.isEmpty() || pageNo == null){
-            model.addAttribute("check", true);
-            return "shop";
-        }
+
         model.addAttribute("listBrand", brandService.findAllBrand());
 
             int page = Integer.parseInt(pageNo);

@@ -3,6 +3,7 @@ package swp391.SPS.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import swp391.SPS.dtos.BrandRevenueDTO;
 import swp391.SPS.dtos.PageDto;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.exceptions.FileNotFoundException;
@@ -28,4 +29,6 @@ public interface PhoneService {
     Page<Phone> getPhoneBrandByPahination(int id,int pageNo) throws FileNotFoundException;
     Page<Phone> searchPhoneByStatus(boolean status,int pageNo);
     Page<Phone> searchByPrice(double min, double max,int PageNo);
+    String GetTotalRevenue();
+    List<BrandRevenueDTO> GetBrandRevenue();
 }
