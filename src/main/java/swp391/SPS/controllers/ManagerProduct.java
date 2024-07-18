@@ -145,6 +145,7 @@ public class ManagerProduct {
         Phone p = phoneService.getPhoneByIdForManager(id);
         if(p!=null) {
             model.addAttribute("phone", p);
+            model.addAttribute("listBrand",brandService.findAllBrand());
         }
         else {
             model.addAttribute("check",true);

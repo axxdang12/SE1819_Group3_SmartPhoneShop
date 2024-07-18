@@ -187,12 +187,12 @@ public class PhoneServiceImpl implements PhoneService {
         return null;
     }
 
-    @Override
-    public List<BrandRevenueDTO> GetBrandRevenue() {
-       List<BrandRevenueDTO> list = phoneRepository.ListRevenueOfBrand();
-       if(list==null) return null;
-       return list;
-    }
+//    @Override
+//    public List<BrandRevenueDTO> GetBrandRevenue() {
+//       List<BrandRevenueDTO> list = phoneRepository.ListRevenueOfBrand();
+//       if(list==null) return null;
+//       return list;
+//    }
 
 
 }

@@ -36,7 +36,7 @@ public class ManagerController {
     @GetMapping("/manager")
     public String viewOrderList(Model model) throws FileNotFoundException {
         model.addAttribute("orderList", orderService.getAllOrder());
-        model.addAttribute("listBestSalePhone",phoneService.getbestsale());
+//        model.addAttribute("listBestSalePhone",phoneService.getbestsale());
 //        model.addAttribute("BrandRevenue",phoneService.GetBrandRevenue());
         if(phoneService.GetTotalRevenue() == null)  model.addAttribute("revenue","Unknow");
         else model.addAttribute("revenue", phoneService.GetTotalRevenue() );

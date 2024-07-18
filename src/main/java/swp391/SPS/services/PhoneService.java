@@ -30,5 +30,5 @@ public interface PhoneService {
     Page<Phone> searchPhoneByStatus(boolean status,int pageNo);
     Page<Phone> searchByPrice(double min, double max,int PageNo);
     String GetTotalRevenue();
-    List<BrandRevenueDTO> GetBrandRevenue();
+//    List<BrandRevenueDTO> GetBrandRevenue();
 }

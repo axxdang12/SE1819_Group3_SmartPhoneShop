@@ -67,13 +67,13 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
 //            "order by sum(order_item.quantity) desc LIMIT 3;\n", nativeQuery = true)
 //    Map<Integer,Double> getRevenueOfPhone();
 
-    @Query(value = "select brand.brand_name as brandName, sum(order_item.total) as total " +
-            "from brand join phone on brand.brand_id = phone.brand_id " +
-            "join order_item on order_item.phone_id = phone.phone_id " +
-            "join ordertb on ordertb.order_id = order_item.order_id " +
-            "where ordertb.status = 'Completed' " +
-            "group by brand.brand_id, brand.brand_name", nativeQuery = true)
-    List<BrandRevenueDTO> ListRevenueOfBrand();
+//    @Query(value = "select brand.brand_name as brandName, sum(order_item.total) as total " +
+//            "from brand join phone on brand.brand_id = phone.brand_id " +
+//            "join order_item on order_item.phone_id = phone.phone_id " +
+//            "join ordertb on ordertb.order_id = order_item.order_id " +
+//            "where ordertb.status = 'Completed' " +
+//            "group by brand.brand_id, brand.brand_name", nativeQuery = true)
+//    List<BrandRevenueDTO> ListRevenueOfBrand();
 
 
 

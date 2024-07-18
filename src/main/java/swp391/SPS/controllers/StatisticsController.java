@@ -12,12 +12,12 @@ public class StatisticsController {
     @Autowired
     PhoneService phoneService;
 
-    @GetMapping("/statistics")
-    public String LoadStatistic(Model model) throws FileNotFoundException {
-        model.addAttribute("listBestSalePhone",phoneService.getbestsale());
-        if(phoneService.GetTotalRevenue() == null)  model.addAttribute("revenue","Unknow");
-        else model.addAttribute("revenue", phoneService.GetTotalRevenue() );
-        return"Statistics";
-    }
+//    @GetMapping("/statistics")
+//    public String LoadStatistic(Model model) throws FileNotFoundException {
+//        model.addAttribute("listBestSalePhone",phoneService.getbestsale());
+//        if(phoneService.GetTotalRevenue() == null)  model.addAttribute("revenue","Unknow");
+//        else model.addAttribute("revenue", phoneService.GetTotalRevenue() );
+//        return"Statistics";
+//    }
 
 }

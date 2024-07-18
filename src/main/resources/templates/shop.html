@@ -101,7 +101,7 @@
                                                                                        alt=""></a>
                     </div>
                     <h3 th:text="${phone.productName}"></h3>
-                    <p class="product-price" th:text="${phone.price} + '$'">$</p>
+                    <p class="product-price" th:text="${#numbers.formatDecimal(phone.price, 1, 'COMMA', 2, 'POINT')} + ' $'">$</p>
                     <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn"><i
                             class="fas fa-shopping-cart"></i> Add to Cart</a>
                 </div>
