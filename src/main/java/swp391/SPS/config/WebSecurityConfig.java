@@ -65,7 +65,7 @@ public class WebSecurityConfig {
                                         .requestMatchers("/cart/*", "/checkout", "/detail", "/userorder", "/place-order",
                                                 "/cancel-order/*", "/orderDetail/*", "/report/*", "/submit-report",
                                                 "/delete-report", "/respond", "/cart-single/*", "/profile/*", "/checkout/update", "/user_detail/*").hasAnyAuthority("USER")
-                                        .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login", "/reset-password", "/shop/*", "/shop/brand/*", "/single-product/*", "/cart", "/about", "/profile/password")
+                                        .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login", "/reset-password", "/shop/**", "/shop/brand/*", "/single-product/*", "/cart", "/about", "/profile/password")
                                         .permitAll()
                                         .anyRequest()
                                         .authenticated())

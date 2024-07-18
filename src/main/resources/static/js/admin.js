@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    var currentLogin = $('#username').val();
+
     function saveRole() {
         $('.role-select').change(function () {
             let userId = $(this).attr("data-id");
@@ -33,7 +35,7 @@ $(document).ready(function () {
                         <tr>
                            <td>${value.userId}</td>
                            <td>${value.username}</td>
-                           <td><select class="role-select" data-id="${value.userId}">
+                           <td><select class="role-select" data-id="${value.userId}" ${value.username == currentLogin ? 'disabled' : ''}>
                                 <option value="${data.roles[0].roleName}" ${data.roles[0].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[0].roleName}</option>
                                 <option value="${data.roles[1].roleName}" ${data.roles[1].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[1].roleName}</option>
                                 <option value="${data.roles[2].roleName}" ${data.roles[2].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[2].roleName}</option>
@@ -90,7 +92,7 @@ $(document).ready(function () {
                         <tr>
                            <td>${value.userId}</td>
                            <td>${value.username}</td>
-                           <td><select class="role-select" data-id="${value.userId}">
+                           <td><select class="role-select" data-id="${value.userId}" ${value.username == currentLogin ? 'disabled' : ''}>
                                 <option value="${data.roles[0].roleName}" ${data.roles[0].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[0].roleName}</option>
                                 <option value="${data.roles[1].roleName}" ${data.roles[1].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[1].roleName}</option>
                                 <option value="${data.roles[2].roleName}" ${data.roles[2].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[2].roleName}</option>
@@ -151,7 +153,7 @@ $(document).ready(function () {
                         <tr>
                            <td>${value.userId}</td>
                            <td>${value.username}</td>
-                           <td><select class="role-select" data-id="${value.userId}">
+                           <td><select class="role-select" data-id="${value.userId}" ${value.username == currentLogin ? 'disabled' : ''}>
                                 <option value="${data.roles[0].roleName}" ${data.roles[0].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[0].roleName}</option>
                                 <option value="${data.roles[1].roleName}" ${data.roles[1].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[1].roleName}</option>
                                 <option value="${data.roles[2].roleName}" ${data.roles[2].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[2].roleName}</option>
