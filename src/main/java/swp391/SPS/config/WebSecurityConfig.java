@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -55,7 +54,7 @@ public class WebSecurityConfig {
                                 author
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                                         .permitAll()
-                                        .requestMatchers("/admin-dashboard/*", "/save-role/", "/save-active/", "/search", "/profile/*", "/user_detail/*")
+                                        .requestMatchers("/admin-dashboard", "/admin-dashboard/*", "/save-role/", "/save-active/", "/search", "/profile/*", "/user_detail/*")
                                         .hasAuthority("ADMIN")
                                         .requestMatchers("/manager", "/api/phones", "/api/change-status",
                                                 "/searchorder", "/order-detail-manager/*", "/order-detail",
