@@ -34,9 +34,6 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public Report getReportByOrderId(int orderId) throws FileNotFoundException {
-        if (reportRepository.getReportFromOrder(orderId) == null){
-            throw new FileNotFoundException("Not found report");
-        }
         return reportRepository.getReportFromOrder(orderId);
     }
 
