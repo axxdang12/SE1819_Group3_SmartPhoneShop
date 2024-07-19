@@ -2,6 +2,7 @@ package swp391.SPS.entities;
 // This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
@@ -64,6 +65,7 @@ public class Phone {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "brand_id", referencedColumnName = "brand_id")
+  @JsonIgnore
   private Brand brand;
 
   @OneToOne(cascade = CascadeType.ALL)
