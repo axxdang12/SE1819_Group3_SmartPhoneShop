@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdatePassDto {
+    @NotEmpty(message = "Your password can not be blank")
+    private String oldPass;
     @NotEmpty(message = "New password can not be blank")
     private String newPass;
     @NotEmpty(message = "Confirm password can not be blank")

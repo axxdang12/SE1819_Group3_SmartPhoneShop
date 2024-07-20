@@ -88,16 +88,25 @@ public class UserController {
             model.addAttribute("isPassPage", true);
             return "profile";
         }
-        if (updatePassDto.getNewPass().equalsIgnoreCase(updatePassDto.getConfirmPass())) {
-            User user = userService.findByUsername(authentication.getName());
-            user.setPassword(passwordEncoder.encode(updatePassDto.getNewPass()));
-            userService.save(user);
+        String oldPassEncode = userService.findByUsername(authentication.getName()).getPassword();
+        String oldPassEncodeCheck = passwordEncoder.encode(updatePassDto.getOldPass());
+        if (passwordEncoder.matches(updatePassDto.getOldPass(), oldPassEncode)) {
+            if (updatePassDto.getNewPass().equalsIgnoreCase(updatePassDto.getConfirmPass())) {
+                User user = userService.findByUsername(authentication.getName());
+                user.setPassword(passwordEncoder.encode(updatePassDto.getNewPass()));
+                userService.save(user);
+                model.addAttribute("profileDto", new ProfileDto());
+                model.addAttribute("notice", "Pass change successful");
+                model.addAttribute("isPassPage", true);
+                return "profile";
+            }
+            model.addAttribute("error", "Password not match");
+            model.addAttribute("isLogin", true);
+            model.addAttribute("username", authentication.getName());
             model.addAttribute("profileDto", new ProfileDto());
-            model.addAttribute("notice", "Pass change successful");
             model.addAttribute("isPassPage", true);
-            return "profile";
         }
-        model.addAttribute("error", "Password not match");
+        model.addAttribute("error", "Password not correct");
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
         model.addAttribute("profileDto", new ProfileDto());
