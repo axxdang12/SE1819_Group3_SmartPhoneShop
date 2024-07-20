@@ -27,7 +27,15 @@
                 </div>
                 <button type="button" class="btn btn-primary ml-2" onclick="filterOrders()">Filter Action Needed</button>
             </div>
-
+        </form>
+        <form th:action="@{/filterOrdersByDate}" method="get">
+            <div class="input-group">
+                <input class="form-control" type="date" name="startDate" placeholder="Start Date" aria-label="Start Date" required>
+                <input class="form-control" type="date" name="endDate" placeholder="End Date" aria-label="End Date" required>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success" type="submit">Filter by Date</button>
+                </div>
+            </div>
         </form>
         <div th:if="${message}">
             <div class="alert alert-success" role="alert">
@@ -69,6 +77,7 @@
                                 <a th:if="${order.status == 'Approved'}" ></a>
                                 <a th:if="${order.status == 'Rejected'}" ></a>
                                 <a th:if="${order.status == 'Completed'}" ></a>
+                                <a th:if="${order.status == 'Refunded'}" ></a>
                                 <span th:text="${order.status}"></span>
                             </td>
                             <td>
@@ -83,6 +92,9 @@
                                 <div th:if="${order.status == 'Approved'}">
                                     <form th:action="@{complete/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('complete')">
                                         <button type="submit" class="btn btn-success" style="width: 120px; height: 50px">Complete</button>
+                                    </form>
+                                    <form th:action="@{refund/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('refund')">
+                                        <button type="submit" class="btn btn-danger" style="width: 120px; height: 50px">Refund</button>
                                     </form>
                                 </div>
                             </td>
@@ -99,6 +111,7 @@
                                 <a th:if="${order.status == 'Approved'}"></a>
                                 <a th:if="${order.status == 'Rejected'}"></a>
                                 <a th:if="${order.status == 'Completed'}"></a>
+                                <a th:if="${order.status == 'Refunded'}" ></a>
                                 <span th:text="${order.status}"></span>
                             </td>
                             <td>
@@ -113,6 +126,9 @@
                                 <div th:if="${order.status == 'Approved'}">
                                     <form th:action="@{complete/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('complete')">
                                         <button type="submit" class="btn btn-success" style="width: 120px; height: 50px">Complete</button>
+                                    </form>
+                                    <form th:action="@{refund/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('refund')">
+                                        <button type="submit" class="btn btn-danger" style="width: 120px; height: 50px">Refund</button>
                                     </form>
                                 </div>
                             </td>

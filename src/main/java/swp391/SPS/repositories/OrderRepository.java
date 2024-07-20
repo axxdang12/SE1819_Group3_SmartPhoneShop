@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import swp391.SPS.entities.Order;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -24,5 +25,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
     @Query(value = "select o.order_id, o.order_date, o.user_id, o.total_price, o.status from ordertb o join user u using (user_id) where u.user_name like %:name%", nativeQuery = true)
     List<Order> searchOrderByUserName(@Param("name") String name);
 
-
+    @Query("SELECT o FROM Order o WHERE o.orderDate BETWEEN :startDate AND :endDate")
+    List<Order> findOrdersBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

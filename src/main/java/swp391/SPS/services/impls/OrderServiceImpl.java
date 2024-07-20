@@ -104,4 +104,9 @@ public class OrderServiceImpl implements OrderService {
             order.setStatus(status);
             orderRepository.save(order);        }
     }
+
+    @Override
+    public List<Order> findOrdersBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return orderRepository.findOrdersBetweenDates(startDate, endDate);
+    }
 }
