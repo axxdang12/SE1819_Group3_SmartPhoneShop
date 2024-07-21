@@ -1,6 +1,8 @@
 package swp391.SPS.entities;
 // This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,4 +34,7 @@ public class UserDetail {
     @Column(name = "address")
     private String address;
 
+    @OneToOne(mappedBy = "userDetail")
+    @JsonIgnore
+    private User user;
 }

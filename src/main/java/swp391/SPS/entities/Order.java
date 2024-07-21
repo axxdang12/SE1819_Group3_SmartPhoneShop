@@ -41,6 +41,7 @@ public class Order {
     private List<OrderItem> orderItems;
 
     @OneToOne(mappedBy = "order")
+    @JsonIgnore
     private Report report;
 
 }

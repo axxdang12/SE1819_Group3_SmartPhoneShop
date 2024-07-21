@@ -103,12 +103,16 @@
                         <div class="tab-pane">
                             <div class="card-body pb-2">
                                 <div class="form-group">
+                                    <label class="form-label">Your password</label>
+                                    <input type="password" name="oldPass" class="form-control">
+                                </div>
+                                <div class="form-group">
                                     <label class="form-label">New password</label>
-                                    <input type="password" class="form-control">
+                                    <input type="password" name="newPass" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Repeat new password</label>
-                                    <input type="password" th:field="*{confirmPass}" name="confirmPass"
+                                    <input type="password" name="confirmPass"
                                            class="form-control">
                                 </div>
                             </div>

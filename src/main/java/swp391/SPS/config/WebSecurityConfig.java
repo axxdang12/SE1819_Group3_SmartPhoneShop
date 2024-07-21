@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -54,17 +55,17 @@ public class WebSecurityConfig {
                                 author
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                                         .permitAll()
-                                        .requestMatchers("/admin-dashboard", "/admin-dashboard/*", "/save-role/", "/save-active/", "/search", "/profile/*", "/user_detail/*")
+                                        .requestMatchers("/admin-dashboard/**", "/save-role/", "/save-active/", "/search", "/user_detail/**")
                                         .hasAuthority("ADMIN")
                                         .requestMatchers("/manager", "/api/phones", "/api/change-status",
-                                                "/searchorder", "/order-detail-manager/*", "/order-detail",
-                                                "/approve/*", "/reject/*", "/complete/*", "/manageReport",
-                                                "/report/report-detail/*", "/manageProduct/*", "/searchStatus/json",
-                                                "/add-product", "/edit-product", "/add-brand", "/edit-brand", "/profile/*", "/user_detail/*").hasAuthority("MANAGER")
+                                                "/searchorder", "/order-detail-manager/**", "/order-detail",
+                                                "/approve/**", "/reject/**", "/complete/**", "/manageReport",
+                                                "/report/report-detail/**", "/manageProduct/**", "/searchStatus/json",
+                                                "/add-product", "/edit-product", "/add-brand", "/edit-brand", "/user_detail/**").hasAuthority("MANAGER")
                                         .requestMatchers("/cart/*", "/checkout", "/detail", "/userorder", "/place-order",
-                                                "/cancel-order/*", "/orderDetail/*", "/report/*", "/submit-report",
-                                                "/delete-report", "/respond", "/cart-single/*", "/profile/*", "/checkout/update", "/user_detail/*").hasAnyAuthority("USER")
-                                        .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login", "/reset-password", "/shop/**", "/shop/brand/*", "/single-product/*", "/cart", "/about", "/profile/password")
+                                                "/cancel-order/**", "/orderDetail/**", "/report/*", "/submit-report",
+                                                "/delete-report", "/respond", "/cart-single/*", "/checkout/update", "/user_detail/**").hasAnyAuthority("USER")
+                                        .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login", "/reset-password", "/shop/**", "/shop/brand/**", "/single-product/**", "/cart", "/about", "/profile/**")
                                         .permitAll()
                                         .anyRequest()
                                         .authenticated())

@@ -1,4 +1,5 @@
 package swp391.SPS.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,10 +26,12 @@ public class OrderItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    @JsonIgnore
     private Order order;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "phone_id", referencedColumnName = "phone_id")
+    @JsonIgnore
     private Phone phone;
 
 }
