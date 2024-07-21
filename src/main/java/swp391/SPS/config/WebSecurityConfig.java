@@ -61,7 +61,7 @@ public class WebSecurityConfig {
                                                 "/searchorder", "/order-detail-manager/**", "/order-detail",
                                                 "/approve/**", "/reject/**", "/complete/**", "/manageReport",
                                                 "/report/report-detail/**", "/manageProduct/**", "/searchStatus/json",
-                                                "/add-product", "/edit-product", "/add-brand", "/edit-brand", "/user_detail/**").hasAuthority("MANAGER")
+                                                "/add-product", "/edit-product", "/add-brand", "/edit-brand", "/user_detail/**", "/refund/**", "/filterOrdersByDate/**").hasAuthority("MANAGER")
                                         .requestMatchers("/cart/*", "/checkout", "/detail", "/userorder", "/place-order",
                                                 "/cancel-order/**", "/orderDetail/**", "/report/*", "/submit-report",
                                                 "/delete-report", "/respond", "/cart-single/*", "/checkout/update", "/user_detail/**").hasAnyAuthority("USER")
