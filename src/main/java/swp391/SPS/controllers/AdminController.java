@@ -91,10 +91,11 @@ public class AdminController {
                 return "AddAccount";
             }
             User userByEmail = userService.findByEmail(userAddDto.getEmail());
-            if (userByEmail != null) {
+            User userByName = userService.findByUsername(userAddDto.getUsername());
+            if (userByEmail != null || userByName != null) {
                 model.addAttribute("userAddDto", userAddDto);
                 System.out.println("user not null");
-                model.addAttribute("usernameError", "Your email has been registered!");
+                model.addAttribute("usernameError", "Your username or email has been registered!");
                 return "AddAccount";
             }
             if (userAddDto.getPassword().equals(userAddDto.getRepeatPassword())) {
