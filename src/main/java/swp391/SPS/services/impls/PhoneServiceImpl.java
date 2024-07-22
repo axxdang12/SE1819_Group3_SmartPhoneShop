@@ -13,10 +13,12 @@ import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.repositories.BrandRepository;
 import swp391.SPS.repositories.PhoneRepository;
 //import swp391.SPS.repositories.CategoryRepository;
+//import swp391.SPS.repositories.StatisticRepository;
 import swp391.SPS.services.BrandService;
 import swp391.SPS.services.PhoneService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -28,6 +30,9 @@ public class PhoneServiceImpl implements PhoneService {
     private BrandRepository brandRepository;
     @Autowired
     private BrandService brandService;
+
+//    @Autowired
+//    private StatisticRepository statisticRepository;
 //    @Autowired
 //    private CategoryRepository categoryRepository;
 
@@ -187,12 +192,20 @@ public class PhoneServiceImpl implements PhoneService {
         return null;
     }
 
-//    @Override
-//    public List<BrandRevenueDTO> GetBrandRevenue() {
-//       List<BrandRevenueDTO> list = phoneRepository.ListRevenueOfBrand();
-//       if(list==null) return null;
-//       return list;
-//    }
+    @Override
+    public String GetRevenueByDate(Date start, Date end) {
+        if(phoneRepository.TotalRevenueByDate(start,end)!= null) return phoneRepository.TotalRevenueByDate(start,end);
+        return null;
+    }
+
+
+
+    @Override
+    public List<BrandRevenueDTO> GetBrandRevenue() {
+       List<BrandRevenueDTO> list = brandRepository.ListRevenueOfBrand();
+       if(list==null) return null;
+       return list;
+    }
 
 
 }

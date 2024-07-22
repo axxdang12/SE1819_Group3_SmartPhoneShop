@@ -1,26 +1,19 @@
 package swp391.SPS.dtos;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BrandRevenueDTO {
     private String brandName;
-    private Integer total;
+    private int total;
 
-    public BrandRevenueDTO(String brandName, Integer total) {
-        this.brandName = brandName;
-        this.total = total;
-    }
-    public String getBrandName() {
-        return brandName;
-    }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
 
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
 }

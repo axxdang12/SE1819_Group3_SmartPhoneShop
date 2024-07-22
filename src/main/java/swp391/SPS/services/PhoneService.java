@@ -10,6 +10,8 @@ import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
 import org.springframework.data.domain.Pageable;
+
+import java.util.Date;
 import java.util.List;
 
 public interface PhoneService {
@@ -30,5 +32,6 @@ public interface PhoneService {
     Page<Phone> searchPhoneByStatus(boolean status,int pageNo);
     Page<Phone> searchByPrice(double min, double max,int PageNo);
     String GetTotalRevenue();
-//    List<BrandRevenueDTO> GetBrandRevenue();
+    List<BrandRevenueDTO> GetBrandRevenue();
+    String GetRevenueByDate(Date start, Date end);
 }

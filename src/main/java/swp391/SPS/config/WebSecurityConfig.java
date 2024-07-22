@@ -59,7 +59,7 @@ public class WebSecurityConfig {
                                         .hasAuthority("ADMIN")
                                         .requestMatchers("/manager", "/api/phones", "/api/change-status",
                                                 "/searchorder", "/order-detail-manager/**", "/order-detail",
-                                                "/approve/**", "/reject/**", "/complete/**", "/manageReport",
+                                                "/approve/**", "/reject/**", "/complete/**", "/manageReport","/staticsDate","/statistics",
                                                 "/report/report-detail/**", "/manageProduct/**", "/searchStatus/json",
                                                 "/add-product", "/edit-product", "/add-brand", "/edit-brand", "/profile/*", "/user_detail/**").hasAuthority("MANAGER")
                                         .requestMatchers("/cart/**", "/checkout", "/detail", "/userorder", "/place-order",

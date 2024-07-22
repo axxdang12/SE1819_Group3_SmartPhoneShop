@@ -11,34 +11,73 @@
 
 </nav>
 
+<style>
+    .form-group {
+           display: flex;
+           flex-direction: column;
+       }
+       .date-input {
+           width: 40%;
+           margin-right: 5px;
 
+       }
+       .search-button {
+           align-self: center;
+
+       }
+       .flex-container {
+           display: flex;
+           align-items: center;
+       }
+</style>
 <body>
 
 
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <p class="text-white mt-5 mb-5">Statistics</p>
+    <form th:action="@{/staticsDate}" method="post" >
+        <div class="flex-container">
+            <div class="form-group mb-3  col-xs-6 col-sm-6">
+                <label for="start_date">Start</label>
+                <input id="start_date" name="start_date" type="date" class="form-control validate date-input" required />
+                <label for="end_date">End</label>
+                <input id="end_date" name="end_date" type="date" class="form-control validate date-input" required />
+                <button class="search-button btn btn-primary" type="submit" style="   height: 47px; margin-left: 67px;
+    margin-top: -50px;">Search</button>
+            </div>
         </div>
-    </div>
+    </form>
+
+
     <!-- row -->
     <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
             <div class="tm-bg-primary-dark tm-block">
                 <h4 class="tm-block-title">Revenue</h4>
-                <h2 class="tm-block-title" th:text="'Total: '+${revenue} +'$'" ></h2>
+
+
+                <h2 class="tm-block-title" th:text="'Total: '+${#numbers.formatDecimal(revenue, 1, 'COMMA', 2, 'POINT')} + ' $'" ></h2>
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
             <div class="tm-bg-primary-dark tm-block">
                 <h3 class="tm-block-title">Performance</h3>
-                <h5  th:each="phone: ${listBestSalePhone}" class="tm-block-title" th:text="${phone.productName}"></h5>
+                <h2  th:each="brand: ${listBrand}" class="tm-block-title" th:text="${brand.brandName}"></h2>
+
             </div>
         </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block">
+                <h3 class="tm-block-title">Performance</h3>
+                <!--                <h5  th:each="phone: ${listBestSalePhone}" class="tm-block-title" th:text="${phone.productName}"></h5>-->
 
-
+            </div>
+        </div>
     </div>
 </div>
+<!--<script th:src="@{/js/Statistics.js}"></script>-->
+<script>
+
+</script>
 
 <footer th:replace="~{fragmentManagement::footer}" >
 </footer>

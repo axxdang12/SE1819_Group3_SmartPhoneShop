@@ -28,3 +28,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
   @Query(value = "SELECT u.* FROM user u JOIN ordertb o USING (user_id) WHERE o.order_id = :orderId" , nativeQuery = true)
   User getUserByOrderId(@Param("orderId") int orderId);
 }
+//@Query("SELECT new co.vn.vse.common.dtos.AccountListDto(a.accountId, a.avatar, a.fullName, a.birthDate, a.phoneNumber, a.address, a.email) FROM Account a WHERE a.role.roleName = 'TEACHER'")
+//Page<AccountListDto> findAllTeacher(Pageable pageable);

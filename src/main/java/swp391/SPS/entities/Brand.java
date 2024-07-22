@@ -3,6 +3,7 @@ package swp391.SPS.entities;
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 import jakarta.persistence.*;
 import lombok.*;
+import swp391.SPS.dtos.BrandRevenueDTO;
 
 import java.util.List;
 
