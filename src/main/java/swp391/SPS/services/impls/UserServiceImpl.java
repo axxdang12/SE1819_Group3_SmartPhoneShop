@@ -110,6 +110,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserById(int userId) {
+        if (userRepository.existsById(userId)) {
+            return userRepository.findById(userId).get();
+        }
+        return null;
+    }
+
+    @Override
     public User save(UserDto userDto) {
         User user = new User();
         user.setEmail(userDto.getEmail());
