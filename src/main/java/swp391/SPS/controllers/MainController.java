@@ -66,6 +66,7 @@ public class MainController {
             model.addAttribute("listPhone", phoneService.getbestsale());
             model.addAttribute("isLogin", true);
             model.addAttribute("username", authentication.getName());
+            model.addAttribute("userRole", role);
             return "index";
         }
     }
