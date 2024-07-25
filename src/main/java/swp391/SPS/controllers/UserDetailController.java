@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import swp391.SPS.entities.User;
+import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.services.UserDetailService;
 import swp391.SPS.services.UserService;
 
@@ -20,7 +21,7 @@ public class UserDetailController {
     private UserDetailService userDetailService;
 
     @GetMapping("/user_detail/{id}")
-    public String user_detail(Model model, @PathVariable(name = "id") int userId) {
+    public String user_detail(Model model, @PathVariable(name = "id") int userId) throws FileNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
@@ -29,6 +30,8 @@ public class UserDetailController {
         User user = new User();
         if (userService.findUserById(userId) != null) {
             user = userService.findUserById(userId);
+        } else {
+            throw new FileNotFoundException("Not found detail");
         }
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
