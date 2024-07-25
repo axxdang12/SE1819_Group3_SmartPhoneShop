@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import swp391.SPS.dtos.BrandRevenueDTO;
 import swp391.SPS.dtos.PageDto;
+import swp391.SPS.dtos.PhoneRevenueDTO;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.exceptions.NoDataInListException;
@@ -32,6 +33,8 @@ public interface PhoneService {
     Page<Phone> searchPhoneByStatus(boolean status,int pageNo);
     Page<Phone> searchByPrice(double min, double max,int PageNo);
     String GetTotalRevenue();
-    List<BrandRevenueDTO> GetBrandRevenue();
+    List<PhoneRevenueDTO> BestSalePhone();
+    List<PhoneRevenueDTO> BestSalePhoneByDate(Date start, Date end);
     String GetRevenueByDate(Date start, Date end);
+
 }

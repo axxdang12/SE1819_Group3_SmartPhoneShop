@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BrandRevenueDTO {
-    private String brandName;
-    private Double total;
+public class StatisticsUserOrder {
+    private String userName;
+    private Long totalOrder;
+
 
 }

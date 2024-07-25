@@ -55,7 +55,7 @@
                         <thead>
                         <tr style="text-align: center;">
 
-                            <th scope="col">No.</th>
+
                             <th scope="col">PRODUCT NAME</th>
                             <th scope="col">Price</th>
                             <th scope="col">Action</th>
@@ -64,7 +64,7 @@
                         </thead>
                         <tbody id="tableee">
                         <tr th:each="phone, item: ${listPhone}">
-                            <td class="tm-product-name" th:text="${item.index + 1}"></td>
+<!--                            <td class="tm-product-name" th:text="${item.index + 1}"></td>-->
                             <td th:text = "${phone.productName}"></td>
                             <td th:text="${#numbers.formatDecimal(phone.price, 1, 'COMMA', 2, 'POINT')} + ' $'"></td>
 

@@ -9,6 +9,7 @@ import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.exceptions.UserNotFoundException;
 
+import java.util.Date;
 import java.util.List;
 
 public interface UserService {
@@ -41,4 +42,8 @@ public interface UserService {
     User saveUserRole(int userId, String roleName) throws UserNotFoundException;
 
     void saveUserActive(int userId, String status) throws UserNotFoundException;
+
+    List<StatisticsUserOrder> TotalOderOfUser();
+
+    List<StatisticsUserOrder> TotalOrderOfUserByDate(Date start,Date end);
 }

@@ -71,7 +71,7 @@
                  class="form-control validate" data-large-mode="true" required />
                  </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="sim">Sim</label>
+                  <label>Sim</label>
                   <select class="custom-select tm-select-accounts" name="sim">
 
                     <option value="2 Sim" selected>2 Sim</option>
@@ -100,17 +100,17 @@
                   </select>
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Display
+                  <label >Display
                   </label>
                   <input  name="dis"  id="dis"  type="number" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Origin
+                  <label >Origin
                   </label>
                   <input  name="origin" type="text" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="brand">Brand</label>
+                  <label >Brand</label>
                   <select class="custom-select tm-select-accounts" name="brand">
 
                     <option th:each="brand : ${listBrand}"
@@ -125,22 +125,22 @@
 <!--                  <input name="pid" type="text" value="" class="form-control validate" />-->
 <!--                </div>-->
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Picture Main
+                  <label >Picture Main
                   </label>
                   <input  name="pm" type="text" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Picture Font
+                  <label >Picture Font
                   </label>
                   <input  name="pf" type="text" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Picture Back
+                  <label >Picture Back
                   </label>
                   <input  name="pb" type="text" value="" class="form-control validate" required />
                 </div>
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
-                  <label for="stock">Picture Side
+                  <label>Picture Side
                   </label>
                   <input  name="ps" type="text" value="" class="form-control validate" required />
                 </div>
@@ -188,7 +188,7 @@ document.getElementById('camera').addEventListener('input', function (e) {
     let value = e.target.value;
 
     // Kiểm tra nếu giá trị không phải là số hoặc là số nhưng không lớn hơn 0
-    if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
+    if (!/^\d*$/.test(value) || parseInt(value) < 0) {
         // Hiển thị thông báo lỗi (ví dụ: dùng console.log hoặc alert)
        alert('Giá trị camera không hợp lệ.');
 
@@ -199,7 +199,7 @@ document.getElementById('camera').addEventListener('input', function (e) {
     let value = e.target.value;
 
     // Kiểm tra nếu giá trị không phải là số hoặc là số nhưng không lớn hơn 0
-    if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
+    if (!/^\d*$/.test(value) || parseInt(value) < 0) {
         // Hiển thị thông báo lỗi (ví dụ: dùng console.log hoặc alert)
        alert('Giá trị display không hợp lệ.');
 
@@ -211,7 +211,7 @@ document.getElementById('camera').addEventListener('input', function (e) {
     let value = e.target.value;
 
     // Kiểm tra nếu giá trị không phải là số hoặc là số nhưng không lớn hơn 0
-    if (!/^\d*$/.test(value) || parseInt(value) <= 0) {
+    if (!/^\d*$/.test(value) || parseInt(value) < 0) {
         // Hiển thị thông báo lỗi (ví dụ: dùng console.log hoặc alert)
        alert('Giá trị price không hợp lệ.');
 

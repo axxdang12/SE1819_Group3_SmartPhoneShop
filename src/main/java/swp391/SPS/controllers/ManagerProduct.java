@@ -110,7 +110,7 @@ public class ManagerProduct {
         StringBuilder htmlContent = new StringBuilder();
         for (Phone phone : phones) {
             htmlContent.append("<tr>");
-            htmlContent.append("<td class=\"tm-product-name\">").append(phone.getPhoneId()).append("</td>");
+//            htmlContent.append("<td class=\"tm-product-name\">").append(phone.getPhoneId()).append("</td>");
             htmlContent.append("<td>").append(phone.getProductName()).append("</td>");
             htmlContent.append("<td>").append(phone.getPrice()).append(" $</td>");
             htmlContent.append("<td><a href=\"/edit-product?id=").append(phone.getPhoneId()).append("\" class=\"btn btn-link\" style=\"color: white;\">Edit</a></td>");
