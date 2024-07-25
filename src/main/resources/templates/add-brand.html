@@ -6,7 +6,7 @@
 </head>
 
 
-
+<body>
 <!--PreLoader-->
 <div th:replace="~{fragmentManagement::loader}">
 
@@ -15,7 +15,7 @@
 <nav th:replace="~{fragmentManagement::navbar}" >
 
 </nav>
-<body>
+
 <div class="container tm-mt-big tm-mb-big">
   <div class="row">
     <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
@@ -53,13 +53,7 @@
 
 </div>
 
-<script>
-    $(function () {
-      $("#expire_date").datepicker({
-        defaultDate: "10/22/2020"
-      });
-    });
-  </script>
+
 
 
 </html>

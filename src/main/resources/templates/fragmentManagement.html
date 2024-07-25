@@ -104,24 +104,24 @@
 <!--js-->
 <div th:fragment="js">
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-                const navLinks = document.querySelectorAll('.nav-link');
+<!--        document.addEventListener('DOMContentLoaded', function () {-->
+<!--                const navLinks = document.querySelectorAll('.nav-link');-->
 
-                navLinks.forEach(link => {
-                    link.addEventListener('click', function () {
-                        navLinks.forEach(link => link.classList.remove('active'));
-                        this.classList.add('active');
-                    });
-                });
+<!--                navLinks.forEach(link => {-->
+<!--                    link.addEventListener('click', function () {-->
+<!--                        navLinks.forEach(link => link.classList.remove('active'));-->
+<!--                        this.classList.add('active');-->
+<!--                    });-->
+<!--                });-->
 
-                // Optional: Set active class based on current URL
-                const currentPath = window.location.pathname;
-                navLinks.forEach(link => {
-                    if (link.getAttribute('th:href').replace('@{', '').replace('}', '') === currentPath) {
-                        link.classList.add('active');
-                    }
-                });
-            });
+<!--                // Optional: Set active class based on current URL-->
+<!--                const currentPath = w navLinks.forEach(link => {-->
+<!--                    if (link.getAttribute('th:href').replace('@{', '').replace('}', '') === currentPath) {-->
+<!--                        link.clindow.location.pathname;-->
+<!--               assList.add('active');-->
+<!--                    }-->
+<!--                });-->
+<!--            });-->
     </script>
     <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
     <!-- https://jquery.com/download/ -->
