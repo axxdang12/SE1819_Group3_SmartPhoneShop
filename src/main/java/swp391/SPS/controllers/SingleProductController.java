@@ -1,6 +1,7 @@
 package swp391.SPS.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +33,13 @@ public class SingleProductController {
 
     @GetMapping("/single-product")
     public String SingleProduct(@RequestParam("id") String idPhone, Model model) throws FileNotFoundException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+            String role = userService.findByUsername(authentication.getName()).getRoles().get(0).getRoleName();
+            if ("ADMIN".equalsIgnoreCase(role) || "MANAGER".equalsIgnoreCase(role)) {
+                throw new AccessDeniedException("You do not have permission to access this page");
+            }
+        }
         if(idPhone.isEmpty() || idPhone.equals("")) {
             throw new FileNotFoundException("Not Found");
         }
@@ -39,7 +47,7 @@ public class SingleProductController {
         Phone p = phoneService.getPhoneByID(id);
         if(p!=null){
             model.addAttribute("product",p);
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 model.addAttribute("isLogin", false);
                 model.addAttribute("check", false);

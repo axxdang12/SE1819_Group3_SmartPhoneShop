@@ -1,32 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Product Admin - Dashboard HTML Template</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-    <!-- https://fonts.google.com/specimen/Roboto -->
-    <link rel="stylesheet" th:href="@{/css/fontawesome.min.css}">
-    <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
-    <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" th:href="@{/css/templatemo-style.css}">
-    <!--
-	Product Admin CSS Template
-	https://templatemo.com/tm-524-product-admin
-	-->
-</head>
+<head th:replace="~{fragmentManagement::header}">
 
 <body id="reportsPage">
-<!--PreLoader-->
-<div class="loader">
-    <div class="loader-inner">
-        <div class="circle"></div>
-    </div>
-</div>
-<!--PreLoader Ends-->
+
 <div class="" id="home">
     <nav th:replace="~{fragmentManagement::navbar}" ></nav>
     <div class="container">

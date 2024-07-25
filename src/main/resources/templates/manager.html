@@ -52,11 +52,22 @@
         <div class="row tm-content-row">
             <div class="col-12 tm-block-col">
                 <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-                    <h2 class="tm-block-title">Orders List</h2>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="tm-block-title">Orders List</h2>
+                        <select id="orderStatusFilter" class="form-control" style="width: 200px; height: 0%;">
+                            <option value="all">All</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Canceled">Canceled</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="Refunded">Refunded</option>
+                        </select>
+                    </div>
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Order ID</th>
+<!--                            <th>Order ID</th>-->
                             <th>Order Date</th>
                             <th>Total Price</th>
                             <th>View detail</th>
@@ -68,7 +79,7 @@
 
                         <!-- Default order list -->
                         <tr th:if="${orderList != null}" th:each="order: ${orderList}">
-                            <td th:text="${order.orderId}"></td>
+<!--                            <td th:text="${order.orderId}"></td>-->
                             <td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy')}"></td>
                             <td th:text="${order.totalPrice}+'$'"></td>
                             <td><a class="btn btn-info" th:href="@{order-detail-manager/{id}(id=${order.orderId})}">Details</a></td>
@@ -102,7 +113,7 @@
 
                         <!-- Search results by user ID -->
                         <tr th:if="${listOrderByUser != null}" th:each="order: ${listOrderByUser}">
-                            <td th:text="${order.orderId}"></td>
+<!--                            <td th:text="${order.orderId}"></td>-->
                             <td th:text="${order.orderDate}"></td>
                             <td th:text="${order.totalPrice}+'$'"></td>
                             <td><a class="btn btn-info" th:href="@{order-detail-manager/{id}(id=${order.orderId})}">Details</a></td>
@@ -152,29 +163,6 @@
 
 </div>
 <script>
-    Chart.defaults.global.defaultFontColor = 'white';
-    let ctxLine,
-        ctxBar,
-        ctxPie,
-        optionsLine,
-        optionsBar,
-        optionsPie,
-        configLine,
-        configBar,
-        configPie,
-        lineChart;
-    barChart, pieChart;
-    // DOM is ready
-    $(function () {
-        drawLineChart(); // Line Chart
-        drawBarChart(); // Bar Chart
-        drawPieChart(); // Pie Chart
-
-        $(window).resize(function () {
-            updateLineChart();
-            updateBarChart();
-        });
-    })
     function handleAction(action, button) {
         alert(action + ' clicked!');
         // Additional logic can be added here
@@ -185,7 +173,7 @@
     function filterOrders() {
         const rows = document.querySelectorAll('#orderTableBody tr');
         rows.forEach(row => {
-            const status = row.querySelector('td:nth-child(5) span').innerText;
+            const status = row.querySelector('td:nth-child(4) span').innerText;
             if (status === 'Pending' || status === 'Approved') {
                 row.style.display = '';
             } else {
@@ -193,6 +181,22 @@
             }
         });
     }
+
+    $(document).ready(function() {
+        $('#orderStatusFilter').on('change', function() {
+            const selectedStatus = $(this).val();
+            $('#orderTableBody tr').each(function() {
+                const rowStatus = $(this).find('td:nth-child(4) span').text();
+                if (selectedStatus === 'all') {
+                    $(this).show();
+                } else if (rowStatus === selectedStatus) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
 </script>
 </body>
 
