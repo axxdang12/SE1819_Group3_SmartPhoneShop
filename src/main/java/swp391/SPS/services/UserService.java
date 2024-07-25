@@ -41,4 +41,6 @@ public interface UserService {
     User saveUserRole(int userId, String roleName) throws UserNotFoundException;
 
     void saveUserActive(int userId, String status) throws UserNotFoundException;
+
+    User findUserById(int userId);
 }
