@@ -33,12 +33,13 @@
             <div class="col-lg-8 offset-lg-2 text-center">
                 <div class="breadcrumb-text">
                     <p>MODERN & FASHION</p>
-                    <h1>Smartphones Shop</h1>
+                    <h1>All Products</h1>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<input type="hidden" id="userRole" th:value="${userRole}" />
 
 
 <div class="product-section mt-150 mb-150" style="margin-top: -10px">
@@ -102,13 +103,14 @@
                     </div>
                     <h3 th:text="${phone.productName}"></h3>
                     <p class="product-price" th:text="${phone.price} + '$'">$</p>
-                    <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn"><i
+                    <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn" onclick="showAlert()"><i
                             class="fas fa-shopping-cart"></i> Add to Cart</a>
                 </div>
             </div>
 
 
         </div>
+
         <div th:if="${!check}" class="row">
             <div class="col-lg-12 text-center">
                 <div class="pagination-wrap">
@@ -188,8 +190,14 @@
 
 
 <div th:replace="~{fragments::script}"></div>
-
-
+<script>
+    function showAlert() {
+        var userRole = document.getElementById("userRole").value;
+        if (userRole == 'USER') {
+            alert("Product added to cart successfully!");
+        }
+    }
+</script>
 </body>
 </html>
 

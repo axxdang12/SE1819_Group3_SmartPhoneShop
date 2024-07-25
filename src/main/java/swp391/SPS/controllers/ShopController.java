@@ -16,6 +16,7 @@ import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.services.BrandService;
 //import swp391.SPS.services.CategoryService;
 import swp391.SPS.services.PhoneService;
+import swp391.SPS.services.UserService;
 
 import java.util.List;
 import java.util.Objects;
@@ -27,6 +28,8 @@ public class ShopController {
     BrandService brandService;
     @Autowired
     PhoneService phoneService;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/shop")
     public String shop(Model model,@RequestParam(name = "keyword", required = false) String name,
@@ -43,7 +46,8 @@ public class ShopController {
 
             }else{
                 model.addAttribute("isLogin", true);
-
+                String role = userService.findByUsername(authentication.getName()).getRoles().get(0).getRoleName();
+                model.addAttribute("userRole", role);
                 model.addAttribute("username", authentication.getName());
             }
             if(name !=null && !name.isEmpty()){
@@ -87,10 +91,7 @@ public class ShopController {
             model.addAttribute("listPhone", list);
             model.addAttribute("totalPage", list.getTotalPages());
             model.addAttribute("currentPage", page);
-
-
         return "shop";
-
         }
 
 //@GetMapping("/shop/price")
