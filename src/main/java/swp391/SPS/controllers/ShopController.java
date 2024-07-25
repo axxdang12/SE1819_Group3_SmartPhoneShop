@@ -1,6 +1,7 @@
 package swp391.SPS.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,10 +38,17 @@ public class ShopController {
                                     @RequestParam (name = "minPrice", required = false) String minPrice,
                                     @RequestParam (name="maxPrice", required = false) String maxPrice) throws FileNotFoundException {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+            String role = userService.findByUsername(authentication.getName()).getRoles().get(0).getRoleName();
+            if ("ADMIN".equalsIgnoreCase(role) || "MANAGER".equalsIgnoreCase(role)) {
+                throw new AccessDeniedException("You do not have permission to access this page");
+            }
+        }
         model.addAttribute("listBrand", brandService.findAllBrand());
             Page<Phone> list = phoneService.viewphoneforshop(page);
 
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
                 model.addAttribute("isLogin", false);
 
@@ -93,31 +101,6 @@ public class ShopController {
             model.addAttribute("currentPage", page);
         return "shop";
         }
-
-//@GetMapping("/shop/price")
-//public String searchPrice( @RequestParam (name = "minPrice") double minPrice,
-//                           @RequestParam (name="maxPrice") double maxPrice,
-//                           @RequestParam(name = "pageNo",defaultValue = "1") int pageno,
-//                           Model model){
-//    model.addAttribute("listBrand", brandService.findAllBrand());
-//    Page<Phone> list = phoneService.searchByPrice(minPrice,maxPrice,pageno);
-//    model.addAttribute("listPhone", list);
-//    model.addAttribute("totalPage", list.getTotalPages());
-//    model.addAttribute("currentPage", pageno);
-//    model.addAttribute("minPrice",minPrice);
-//    model.addAttribute("maxPrice",maxPrice);
-//
-//    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-//        model.addAttribute("isLogin", false);
-//        return "shop";
-//    }
-//    model.addAttribute("isLogin", true);
-//    model.addAttribute("username", authentication.getName());
-//    return "shop";
-//
-//}
-
 
     @GetMapping("/shop/brand")
     public String ProductByBrand(@RequestParam("id") String idBrand, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page) throws FileNotFoundException {
