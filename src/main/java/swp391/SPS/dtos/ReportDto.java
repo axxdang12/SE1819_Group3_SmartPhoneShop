@@ -1,11 +1,15 @@
 package swp391.SPS.dtos;
 
+import java.time.LocalDate;
+
 public class ReportDto {
     private int reportId;
     private int userId;
     private int orderId;
     private String description;
     private String status;
+    private String userName; // Add this field
+    private LocalDate orderDate;
 
     public int getReportId() {
         return reportId;
@@ -45,5 +49,20 @@ public class ReportDto {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
     }
 }

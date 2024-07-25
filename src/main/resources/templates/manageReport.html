@@ -24,20 +24,22 @@
         </div>
         <!-- Search by Username -->
         <form th:action="@{/searchReport}" method="POST">
-            <div class="form-group">
-                <label for="name">Search by User Name</label>
-                <input type="text" class="form-control" id="name" name="name">
+            <div class="input-group">
+                <input class="form-control" type="search" name="name" placeholder="Search by User Name" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Search</button>
         </form>
-
-        <!-- Search by Order ID -->
-        <form th:action="@{/searchReport}" method="POST">
-            <div class="form-group">
-                <label for="orderId">Search by Order ID</label>
-                <input type="text" class="form-control" id="orderId" name="orderId">
+        <!-- Search by Date Range -->
+        <form th:action="@{/searchReportsByDate}" method="POST">
+            <div class="input-group">
+                <input class="form-control" type="date" name="startDate" placeholder="Start Date" aria-label="Start Date" required>
+                <input class="form-control" type="date" name="endDate" placeholder="End Date" aria-label="End Date" required>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success" type="submit">Filter by Date</button>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Search</button>
         </form>
         <div th:if="${error}">
             <div class="alert alert-danger" role="alert">
@@ -54,9 +56,9 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Report ID</th>
-                            <th>User ID</th>
                             <th>Order ID</th>
+                            <th>Order Date</th>
+                            <th>Username</th>
                             <th>View detail</th>
                         </tr>
                         </thead>
@@ -64,9 +66,9 @@
 
                         <!-- Default report list -->
                         <tr th:each="report: ${reportList}">
-                            <td th:text="${report.reportId}"></td>
-                            <td th:text="${report.userId}"></td>
                             <td th:text="${report.orderId}"></td>
+                            <td th:text="${report.orderDate}"></td>
+                            <td th:text="${report.userName}"></td>
                             <td><a th:href="@{/report/report-detail/{reportId}(reportId=${report.reportId})}" class="btn btn-info">Details</a></td>
 
                         </tr>

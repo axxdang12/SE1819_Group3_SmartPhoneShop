@@ -10,6 +10,7 @@ import swp391.SPS.repositories.*;
 import swp391.SPS.services.OrderService;
 import swp391.SPS.services.ReportService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,6 +63,8 @@ public class ReportServiceImpl implements ReportService {
         dto.setOrderId(report.getOrder().getOrderId());
         dto.setDescription(report.getDescription());
         dto.setStatus(report.getStatus());
+        dto.setUserName(report.getUser().getUsername());
+        dto.setOrderDate(report.getOrder().getOrderDate());
         return dto;
     }
 
@@ -73,13 +76,10 @@ public class ReportServiceImpl implements ReportService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<ReportDto> searchReportByOrderId(int orderId) {
-        List<Report> reports = reportRepository.searchReportByOrderId(orderId);
+    public List<ReportDto> findReportsBetweenDates(LocalDate startDate, LocalDate endDate) {
+        List<Report> reports = reportRepository.findReportsBetweenDates(startDate, endDate);
         return reports.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
-
-
 }
