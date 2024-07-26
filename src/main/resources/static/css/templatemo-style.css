@@ -6,6 +6,26 @@ https://templatemo.com/tm-524-product-admin
 
 */
 
+.logout-btn {
+    background-color: #e74c3c; /* Màu nền đỏ */
+    color: white; /* Màu chữ trắng */
+    padding: 10px 20px; /* Khoảng cách bên trong */
+    border-radius: 5px; /* Góc bo tròn */
+    font-weight: bold; /* Chữ đậm */
+    text-align: center; /* Canh giữa chữ */
+    transition: background-color 0.3s, transform 0.3s; /* Hiệu ứng chuyển đổi */
+}
+
+.logout-btn:hover {
+    background-color: #c0392b; /* Màu nền đỏ đậm khi hover */
+    transform: scale(1.05); /* Phóng to nút khi hover */
+}
+
+.logout-btn:active {
+    background-color: #a93226; /* Màu nền khi nhấn */
+}
+
+
 html {
     font-size: 16px;
     overflow-x: hidden;

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 @Controller
 public class RegisterController {
@@ -30,6 +31,8 @@ public class RegisterController {
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     private EmailService emailService;
+
+    public static String EMAIL_PATTERN = "^(?=.{0,64}@(\\S))[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{1,})(\\S)$";
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -45,7 +48,6 @@ public class RegisterController {
         List<FieldError> fieldErrors = result.getFieldErrors();
 
         try {
-
             if (result.hasErrors()) {
                 for (FieldError fieldError : fieldErrors) {
                     messageList.add(fieldError.getDefaultMessage());
@@ -60,6 +62,10 @@ public class RegisterController {
                 model.addAttribute("userDto", userDto);
                 System.out.println("user not null");
                 model.addAttribute("usernameError", "Your username or email has been registered!");
+                return "register";
+            }
+            if (Pattern.matches(EMAIL_PATTERN, userDto.getEmail()) == false) {
+                model.addAttribute("passwordError", "Email invalid!");
                 return "register";
             }
             if (userDto.getPassword().equals(userDto.getRepeatPassword())) {

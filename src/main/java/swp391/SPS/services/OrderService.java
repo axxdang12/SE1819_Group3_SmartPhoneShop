@@ -2,11 +2,13 @@ package swp391.SPS.services;
 
 //import swp391.SPS.entities.Accessory;
 import org.aspectj.weaver.ast.Or;
+import org.springframework.data.repository.query.Param;
 import swp391.SPS.entities.Order;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.exceptions.FileNotFoundException;
 
 import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface OrderService {
@@ -19,4 +21,5 @@ public interface OrderService {
     void updateOrderStatus(int id, String status);
     int totalOrder();
     int totalOrderByDate(Date start, Date end);
+    List<Order> findOrdersBetweenDates(LocalDate startDate,LocalDate endDate);
 }

@@ -12,7 +12,7 @@
 
 <nav th:replace="~{fragmentManagement::navbar}" ></nav>
 <div class="" id="home">
-  
+
     <div class="container">
 
 
@@ -21,6 +21,16 @@
                 <input class="form-control" type="search" name="name" placeholder="Search by User Name" aria-label="Search">
                 <div class="input-group-append">
                     <button class="btn btn-outline-success" type="submit">Search</button>
+                </div>
+                <button type="button" class="btn btn-primary ml-2" onclick="filterOrders()">Filter Action Needed</button>
+            </div>
+        </form>
+        <form th:action="@{/filterOrdersByDate}" method="get">
+            <div class="input-group">
+                <input class="form-control" type="date" name="startDate" placeholder="Start Date" aria-label="Start Date" required>
+                <input class="form-control" type="date" name="endDate" placeholder="End Date" aria-label="End Date" required>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success" type="submit">Filter by Date</button>
                 </div>
             </div>
         </form>
@@ -39,11 +49,22 @@
         <div class="row tm-content-row">
             <div class="col-12 tm-block-col">
                 <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-                    <h2 class="tm-block-title">Orders List</h2>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="tm-block-title">Orders List</h2>
+                        <select id="orderStatusFilter" class="form-control" style="width: 200px; height: 0%;">
+                            <option value="all">All</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Canceled">Canceled</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Rejected">Rejected</option>
+                            <option value="Refunded">Refunded</option>
+                        </select>
+                    </div>
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Order ID</th>
+<!--                            <th>Order ID</th>-->
                             <th>Order Date</th>
                             <th>Total Price</th>
                             <th>View detail</th>
@@ -51,12 +72,12 @@
                             <th>Action</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="orderTableBody">
 
                         <!-- Default order list -->
                         <tr th:if="${orderList != null}" th:each="order: ${orderList}">
-                            <td th:text="${order.orderId}"></td>
-                            <td th:text="${order.orderDate}"></td>
+<!--                            <td th:text="${order.orderId}"></td>-->
+                            <td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy')}"></td>
                             <td th:text="${order.totalPrice}+'$'"></td>
                             <td><a class="btn btn-info" th:href="@{order-detail-manager/{id}(id=${order.orderId})}">Details</a></td>
                             <td>
@@ -64,6 +85,7 @@
                                 <a th:if="${order.status == 'Approved'}" ></a>
                                 <a th:if="${order.status == 'Rejected'}" ></a>
                                 <a th:if="${order.status == 'Completed'}" ></a>
+                                <a th:if="${order.status == 'Refunded'}" ></a>
                                 <span th:text="${order.status}"></span>
                             </td>
                             <td>
@@ -78,6 +100,9 @@
                                 <div th:if="${order.status == 'Approved'}">
                                     <form th:action="@{complete/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('complete')">
                                         <button type="submit" class="btn btn-success" style="width: 120px; height: 50px">Complete</button>
+                                    </form>
+                                    <form th:action="@{refund/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('refund')">
+                                        <button type="submit" class="btn btn-danger" style="width: 120px; height: 50px">Refund</button>
                                     </form>
                                 </div>
                             </td>
@@ -85,15 +110,16 @@
 
                         <!-- Search results by user ID -->
                         <tr th:if="${listOrderByUser != null}" th:each="order: ${listOrderByUser}">
-                            <td th:text="${order.orderId}"></td>
+<!--                            <td th:text="${order.orderId}"></td>-->
                             <td th:text="${order.orderDate}"></td>
                             <td th:text="${order.totalPrice}+'$'"></td>
                             <td><a class="btn btn-info" th:href="@{order-detail-manager/{id}(id=${order.orderId})}">Details</a></td>
                             <td>
-                                <a th:if="${order.status == 'Pending'}" class="tm-status-circle pending"></a>
-                                <a th:if="${order.status == 'Approved'}" class="tm-status-circle moving"></a>
-                                <a th:if="${order.status == 'Rejected'}" class="tm-status-circle cancelled"></a>
-                                <a th:if="${order.status == 'Completed'}" class="tm-status-circle completed"></a>
+                                <a th:if="${order.status == 'Pending'}"></a>
+                                <a th:if="${order.status == 'Approved'}"></a>
+                                <a th:if="${order.status == 'Rejected'}"></a>
+                                <a th:if="${order.status == 'Completed'}"></a>
+                                <a th:if="${order.status == 'Refunded'}" ></a>
                                 <span th:text="${order.status}"></span>
                             </td>
                             <td>
@@ -108,6 +134,9 @@
                                 <div th:if="${order.status == 'Approved'}">
                                     <form th:action="@{complete/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('complete')">
                                         <button type="submit" class="btn btn-success" style="width: 120px; height: 50px">Complete</button>
+                                    </form>
+                                    <form th:action="@{refund/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('refund')">
+                                        <button type="submit" class="btn btn-danger" style="width: 120px; height: 50px">Refund</button>
                                     </form>
                                 </div>
                             </td>
@@ -130,6 +159,42 @@
 <div th:replace="~{fragmentManagement::js}">
 
 </div>
+<script>
+    function handleAction(action, button) {
+        alert(action + ' clicked!');
+        // Additional logic can be added here
+    }
+    function confirmAction(action) {
+        return confirm('Are you sure you want to ' + action + ' this order?');
+    }
+    function filterOrders() {
+        const rows = document.querySelectorAll('#orderTableBody tr');
+        rows.forEach(row => {
+            const status = row.querySelector('td:nth-child(4) span').innerText;
+            if (status === 'Pending' || status === 'Approved') {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        $('#orderStatusFilter').on('change', function() {
+            const selectedStatus = $(this).val();
+            $('#orderTableBody tr').each(function() {
+                const rowStatus = $(this).find('td:nth-child(4) span').text();
+                if (selectedStatus === 'all') {
+                    $(this).show();
+                } else if (rowStatus === selectedStatus) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 

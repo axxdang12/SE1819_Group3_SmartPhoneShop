@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    var isCurrentLogin = $('#currentLogin').val();
+
     function saveRole() {
         $('.role-select').change(function () {
             let userId = $(this).attr("data-id");
@@ -33,14 +35,14 @@ $(document).ready(function () {
                         <tr>
                            <td>${value.userId}</td>
                            <td>${value.username}</td>
-                           <td><select class="role-select" data-id="${value.userId}">
+                           <td><select class="role-select" data-id="${value.userId}" ${value.username == isCurrentLogin ? 'disabled' : ''}>
                                 <option value="${data.roles[0].roleName}" ${data.roles[0].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[0].roleName}</option>
                                 <option value="${data.roles[1].roleName}" ${data.roles[1].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[1].roleName}</option>
                                 <option value="${data.roles[2].roleName}" ${data.roles[2].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[2].roleName}</option>
                            </select></td>
                            <td><a class="btn btn-info" href="/user_detail/${value.userId}">Details</a></td>
                            <td>
-                                <button class="btn btnChange ${value.status === 'ACTIVE' ? 'btn-success' : 'btn-danger'}" data-id="${value.userId}" value="${value.status}">${value.status}</button>
+                                <button class="btn btnChange ${value.status === 'ACTIVE' ? 'btn-success' : 'btn-danger'}" data-id="${value.userId}" value="${value.status}" ${value.username == isCurrentLogin ? 'disabled' : ''}>${value.status}</button>
                            </td>
                         </tr>
                     `);
@@ -90,14 +92,14 @@ $(document).ready(function () {
                         <tr>
                            <td>${value.userId}</td>
                            <td>${value.username}</td>
-                           <td><select class="role-select" data-id="${value.userId}">
+                           <td><select class="role-select" data-id="${value.userId}" ${value.username == isCurrentLogin ? 'disabled' : ''}>
                                 <option value="${data.roles[0].roleName}" ${data.roles[0].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[0].roleName}</option>
                                 <option value="${data.roles[1].roleName}" ${data.roles[1].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[1].roleName}</option>
                                 <option value="${data.roles[2].roleName}" ${data.roles[2].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[2].roleName}</option>
                            </select></td>
                            <td><a class="btn btn-info" href="/user_detail/${value.userId}">Details</a></td>
                            <td>
-                                <button class="btn btnChange ${value.status === 'ACTIVE' ? 'btn-success' : 'btn-danger'}" data-id="${value.userId}" value="${value.status}">${value.status}</button>
+                                <button class="btn btnChange ${value.status === 'ACTIVE' ? 'btn-success' : 'btn-danger'}" data-id="${value.userId}" value="${value.status}" ${value.username == isCurrentLogin ? 'disabled' : ''}>${value.status}</button>
                            </td>
                         </tr>
                     `);
@@ -151,14 +153,14 @@ $(document).ready(function () {
                         <tr>
                            <td>${value.userId}</td>
                            <td>${value.username}</td>
-                           <td><select class="role-select" data-id="${value.userId}">
+                           <td><select class="role-select" data-id="${value.userId}" ${value.username == isCurrentLogin ? 'disabled' : ''}>
                                 <option value="${data.roles[0].roleName}" ${data.roles[0].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[0].roleName}</option>
                                 <option value="${data.roles[1].roleName}" ${data.roles[1].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[1].roleName}</option>
                                 <option value="${data.roles[2].roleName}" ${data.roles[2].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[2].roleName}</option>
                            </select></td>
                            <td><a class="btn btn-info" href="/user_detail/${value.userId}">Details</a></td>
                            <td>
-                                <button class="btn btnChange ${value.status === 'ACTIVE' ? 'btn-success' : 'btn-danger'}" data-id="${value.userId}" value="${value.status}">${value.status}</button>
+                                <button class="btn btnChange ${value.status === 'ACTIVE' ? 'btn-success' : 'btn-danger'}" data-id="${value.userId}" value="${value.status}" ${value.username == isCurrentLogin ? 'disabled' : ''}>${value.status}</button>
                            </td>
                         </tr>
                     `);

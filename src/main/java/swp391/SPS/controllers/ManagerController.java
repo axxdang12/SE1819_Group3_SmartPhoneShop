@@ -18,6 +18,7 @@ import swp391.SPS.services.OrderService;
 import swp391.SPS.services.PhoneService;
 import swp391.SPS.services.UserService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -106,5 +107,23 @@ public class ManagerController {
         orderService.updateOrderStatus(id, "Completed");
         redirectAttributes.addFlashAttribute("message", "Order completed successfully");
         return "redirect:/manager";
+    }
+
+    @GetMapping("/refund/{id}")
+    public String refundOrder(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        orderService.updateOrderStatus(id, "Refunded");
+        redirectAttributes.addFlashAttribute("message", "Order refunded successfully");
+        return "redirect:/manager";
+    }
+
+    @GetMapping("/filterOrdersByDate")
+    public String filterOrdersByDate(@RequestParam("startDate") String startDate,
+                                     @RequestParam("endDate") String endDate,
+                                     Model model) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+        List<Order> orders = orderService.findOrdersBetweenDates(start, end);
+        model.addAttribute("orderList", orders);
+        return "manager";
     }
 }

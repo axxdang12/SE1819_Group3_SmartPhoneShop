@@ -22,6 +22,8 @@
          class="alert alert-danger text-left"></div>
     <div th:if="${notice}" class="alert alert-success text-left" th:text="${notice}">
     </div>
+    <div th:if="${noticee}" class="alert alert-success text-left" th:text="${noticee}">
+    </div>
     <div class="card overflow-hidden">
         <div class="row no-gutters row-bordered row-border-light">
             <div class="col-md-3 pt-0">
@@ -92,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="text-right mt-3">
-                                <button type="submit" class="btn btn-primary">Save changes</button>&nbsp;
+                                <button type="submit" class="btn btn-primary" onclick="confirmSave(event)">Save changes</button>&nbsp;
                                 <a class="btn btn-primary" th:href="@{/}">Back to home</a>
                             </div>
                             <br>
@@ -103,17 +105,21 @@
                         <div class="tab-pane">
                             <div class="card-body pb-2">
                                 <div class="form-group">
+                                    <label class="form-label">Your password</label>
+                                    <input type="password" name="oldPass" class="form-control">
+                                </div>
+                                <div class="form-group">
                                     <label class="form-label">New password</label>
-                                    <input type="password" class="form-control">
+                                    <input type="password" name="newPass" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Repeat new password</label>
-                                    <input type="password" th:field="*{confirmPass}" name="confirmPass"
+                                    <input type="password" name="confirmPass"
                                            class="form-control">
                                 </div>
                             </div>
                             <div class="text-right mt-3">
-                                <button type="submit" class="btn btn-primary">Save changes</button>&nbsp;
+                                <button type="submit" class="btn btn-primary" onclick="confirmSave(event)">Save changes</button>&nbsp;
                                 <a class="btn btn-primary" th:href="@{/}">Back to home</a>
                             </div>
                             <br>
@@ -134,7 +140,14 @@
 
 <div th:replace="~{fragments::script}"></div>
 <script th:src="@{/js/profile.js}"></script>
-
+<script type="text/javascript">
+    function confirmSave(event) {
+        var result = confirm("Are you sure you want to save changes?");
+        if (!result) {
+            event.preventDefault();
+        }
+    }
+</script>
 </body>
 
 </html>

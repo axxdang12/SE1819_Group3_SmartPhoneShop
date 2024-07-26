@@ -112,6 +112,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserById(int userId) {
+        if (userRepository.existsById(userId)) {
+            return userRepository.findById(userId).get();
+        }
+        return null;
+    }
+
+    @Override
     public List<StatisticsUserOrder> TotalOderOfUser() {
        if(userRepository.ListTotalOrderOfUser()==null) return null;
        List<StatisticsUserOrder> list = userRepository.ListTotalOrderOfUser();

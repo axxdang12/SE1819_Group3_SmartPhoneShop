@@ -19,7 +19,7 @@ public class UserAddDto {
     private String password;
     private String repeatPassword;
 
-    @Pattern(regexp = "^.+@.+$", message = "Email input invalid, try again!")
+    @Pattern(regexp = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$", message = "Email input invalid, try again!")
     private String email;
 
     String role;

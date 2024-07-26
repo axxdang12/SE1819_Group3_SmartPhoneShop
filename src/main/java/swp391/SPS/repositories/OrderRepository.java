@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import swp391.SPS.entities.Order;
 
 import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -22,9 +23,11 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
 
     @Modifying
     @Transactional
-    @Query(value = "SELECT u.user_id, ud.user_detail_id , CONCAT(ud.first_name, ' ', ud.last_name) AS username,  o.order_date,  o.order_id, o.total_price, o.status FROM ordertb o JOIN user u USING(user_id) JOIN userdtl ud USING(user_detail_id) WHERE CONCAT(ud.first_name, ' ', ud.last_name) LIKE %:name%", nativeQuery = true)
+    @Query(value = "select o.order_id, o.order_date, o.user_id, o.total_price, o.status from ordertb o join user u using (user_id) where u.user_name like %:name%", nativeQuery = true)
     List<Order> searchOrderByUserName(@Param("name") String name);
 
+    @Query("SELECT o FROM Order o WHERE o.orderDate BETWEEN :startDate AND :endDate")
+    List<Order> findOrdersBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
     @Query(value = "select count(ordertb.order_id) as totalOrder from ordertb\n" +
             "where ordertb.status = 'Completed'", nativeQuery = true)
     String TotalOrder();

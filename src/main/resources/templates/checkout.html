@@ -71,7 +71,7 @@
 											<input type="tel" class="form-control" th:field="*{phoneNumber}" placeholder="Phone Number">
 											<div class="invalid-feedback d-block" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
 										</div>
-										<button type="submit" class="btn btn-primary" id="bt">Save changes</button>&nbsp;
+										<button type="submit" class="btn btn-primary" id="bt" onclick="confirmSave(event)">Save changes</button>&nbsp;
 									</form>
 						        </div>
 						      </div>
@@ -115,11 +115,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- end check out section -->
-
-	<!-- logo carousel -->
-	
-	<!-- end logo carousel -->
 
 	<!-- footer -->
 	<div th:replace="~{fragments::footer}"></div>
@@ -144,6 +139,13 @@
         }
 
         return confirm("Are you sure you want to place order ?");
+    }
+
+		    function confirmSave(event) {
+        var result = confirm("Are you sure you want to save changes?");
+        if (!result) {
+            event.preventDefault();
+        }
     }
 	</script>
 

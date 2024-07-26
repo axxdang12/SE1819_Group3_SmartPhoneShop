@@ -46,4 +46,6 @@ public interface UserService {
     List<StatisticsUserOrder> TotalOderOfUser();
 
     List<StatisticsUserOrder> TotalOrderOfUserByDate(Date start,Date end);
+
+    User findUserById(int userId);
 }

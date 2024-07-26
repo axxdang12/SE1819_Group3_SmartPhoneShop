@@ -37,6 +37,9 @@
     </div>
 </div>
 
+<input type="hidden" id="userRole" th:value="${userRole}" />
+
+
 <!-- product section -->
 <div class="product-section mt-150 mb-150">
     <div class="container">
@@ -59,7 +62,7 @@
                     </div>
                     <h3 th:text="${phone.productName}"></h3>
                     <p class="product-price" th:text="${phone.price} + '$'" ><span></span>  </p>
-                    <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                    <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn" onclick="showAlert()"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                 </div>
             </div>
 
@@ -83,7 +86,7 @@
                         <div class="client-meta">
                             <h3>Mr Khanh <span>Local shop owner</span></h3>
                             <p class="testimonial-body">
-                                " Fear doesn't shut you down, it wakes you up. "
+                                "Our store guarantees to provide the best quality products at reasonable prices."
                             </p>
                             <div class="last-icon">
                                 <i class="fas fa-quote-right"></i>
@@ -97,7 +100,7 @@
                         <div class="client-meta">
                             <h3>Mr Long<span>Local shop owner</span></h3>
                             <p class="testimonial-body">
-                                "If you change nothing, nothing will change."
+                                "Shop providing the latest and most popular products on the market"
                             </p>
                             <div class="last-icon">
                                 <i class="fas fa-quote-right"></i>
@@ -111,7 +114,7 @@
                         <div class="client-meta">
                             <h3>Mr Hien <span>Local shop owner</span></h3>
                             <p class="testimonial-body">
-                                "Boys will be boys"
+                                "We have good support service, can respond to customers as quickly as possible."
                             </p>
                             <div class="last-icon">
                                 <i class="fas fa-quote-right"></i>
@@ -154,5 +157,13 @@
 <!-- end copyright -->
 
 <div th:replace="~{fragments::script}"></div>
+<script>
+    function showAlert() {
+        var userRole = document.getElementById("userRole").value;
+        if (userRole == 'USER') {
+            alert("Product added to cart successfully!");
+        }
+    }
+</script>
 </body>
 </html>

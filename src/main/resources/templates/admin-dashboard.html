@@ -87,6 +87,7 @@
 <!-- check out section -->
 <div class="wrapper">
     <div class="container">
+        <input id="currentLogin" hidden="hidden" th:value="${username}">
         <div class="rowOne">
             <div class="input-group rounded">
                 <input type="search" id="searchText" th:name="search" class="form-control rounded" placeholder="Search"
@@ -101,7 +102,7 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>User ID</th>
+<!--                            <th>User ID</th>-->
                             <th>User Name</th>
                             <th>User Role</th>
                             <th>View detail</th>
@@ -110,7 +111,7 @@
                         </thead>
                         <tbody id="table">
                         <tr th:each="item: ${listFirstLoad}">
-                            <td th:text="${item.userId}"></td>
+<!--                            <td th:text="${item.userId}"></td>-->
                             <td th:text="${item.username}"></td>
                             <td><select class="role-select" th:attr="data-id=${item.userId}"
                                         th:disabled="${item.username == username}">

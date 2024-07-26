@@ -55,17 +55,17 @@ public class WebSecurityConfig {
                                 author
                                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                                         .permitAll()
-                                        .requestMatchers("/admin-dashboard/**", "/save-role/", "/save-active/", "/search", "/profile/*", "/user_detail/**")
+                                        .requestMatchers("/admin-dashboard/**", "/save-role/", "/save-active/", "/search", "/user_detail/**")
                                         .hasAuthority("ADMIN")
                                         .requestMatchers("/manager", "/api/phones", "/api/change-status",
                                                 "/searchorder", "/order-detail-manager/**", "/order-detail",
-                                                "/approve/**", "/reject/**", "/complete/**", "/manageReport","/staticsDate","/statistics",
+                                                "/approve/**", "/reject/**", "/complete/**", "/manageReport",
                                                 "/report/report-detail/**", "/manageProduct/**", "/searchStatus/json",
-                                                "/add-product", "/edit-product", "/add-brand", "/edit-brand", "/profile/*", "/user_detail/**").hasAuthority("MANAGER")
-                                        .requestMatchers("/cart/**", "/checkout", "/detail", "/userorder", "/place-order",
-                                                "/cancel-order/**", "/orderDetail/**", "/report/**", "/submit-report",
-                                                "/delete-report", "/respond", "/cart-single/*", "/profile/*", "/checkout/update", "/user_detail/**").hasAnyAuthority("USER")
-                                        .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login", "/reset-password", "/shop/**", "/shop/brand/**", "/single-product/**", "/cart", "/about", "/profile/password")
+                                                "/add-product", "/edit-product", "/add-brand", "/edit-brand", "/user_detail/**", "/refund/**", "/filterOrdersByDate/**").hasAuthority("MANAGER")
+                                        .requestMatchers("/cart/*", "/checkout", "/detail", "/userorder", "/place-order",
+                                                "/cancel-order/**", "/orderDetail/**", "/report/*", "/submit-report",
+                                                "/delete-report", "/respond", "/cart-single/*", "/checkout/update", "/user_detail/**").hasAnyAuthority("USER")
+                                        .requestMatchers("/forgot-password", "/register", "/register-new", "/", "/page/login", "/reset-password", "/shop/**", "/shop/brand/**", "/single-product/**", "/cart", "/about", "/profile/**")
                                         .permitAll()
                                         .anyRequest()
                                         .authenticated())
