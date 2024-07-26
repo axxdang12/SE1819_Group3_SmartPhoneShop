@@ -144,8 +144,8 @@
 
 <script>
 	function validateQuantity(input) {
-		if (input.value < 1) {
-			alert('Invalid quantity. The quantity must be greater than or equal to 1.');
+		if (input.value < 1 || input.value > 10) {
+			alert('Invalid quantity. The quantity must be greater than or equal to 1 and lower or equal than 10.');
 			input.value = 1;
 		}
 		input.form.submit();
