@@ -56,7 +56,7 @@
     <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
             <div class="tm-bg-primary-dark tm-block">
-                <h4 class="tm-block-title" style="text-align: center; color: #ffc107;font-weight: 900; ">Revenue</h4>
+                <h4 class="tm-block-title" style="text-align: center; color: #ffc107;font-weight: 900;font-size: 23px; ">Revenue</h4>
                 <h2 class="tm-block-title" th:text="'Total: '+${#numbers.formatDecimal(revenue, 1, 'COMMA', 2, 'POINT')} + ' $'" ></h2>
                 <h2 class="tm-block-title" th:text="'Total of order: ' + ${TotalOrder} " ></h2>
 
@@ -64,21 +64,21 @@
         </div>
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
             <div class="tm-bg-primary-dark tm-block">
-                <h3 class="tm-block-title" style="text-align: center; color: #ffc107;font-weight: 900;">Top revenue of brand</h3>
+                <h3 class="tm-block-title" style="text-align: center; color: #ffc107;font-weight: 900;font-size: 23px;">Top revenue of brand</h3>
                 <h2 th:if="${listBrand!=null}" th:each="brand: ${listBrand}" class="tm-block-title" th:text="${brand.brandName} + ' : ' +${#numbers.formatDecimal(brand.total, 1, 'COMMA', 2, 'POINT')} + ' $' "></h2>
 
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
             <div class="tm-bg-primary-dark tm-block">
-                <h3 class="tm-block-title" style="text-align: center; color: #ffc107;font-weight: 900;">List total orders of users</h3>
+                <h3 class="tm-block-title" style="text-align: center; color: #ffc107;font-weight: 900;font-size: 23px;">List total orders of users</h3>
                 <h2 th:if="${listUser!=null}"  th:each="user: ${listUser}" class="tm-block-title" th:text="${user.userName} + ' : '+ ${user.totalOrder}"></h2>
 
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
             <div class="tm-bg-primary-dark tm-block">
-                <h3 class="tm-block-title" style="text-align: center; color: #ffc107;font-weight: 900;">Top 5 best sale phone</h3>
+                <h3 class="tm-block-title" style="text-align: center; color: #ffc107;font-weight: 900;font-size: 23px;">Top 5 best sale phone</h3>
                 <h2 th:if="${listPhone!=null}"  th:each="phone: ${listPhone}" class="tm-block-title" th:text="${phone.phoneName} + ' : '+ ${phone.total}"></h2>
 
             </div>
