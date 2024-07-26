@@ -248,6 +248,10 @@ td{
         </div>
     </div>
 </div>
+
+<input type="hidden" id="userRole" th:value="${userRole}" />
+
+
 <!-- end breadcrumb section -->
 <div th:if="${check}" class="full-height-section error-section">
     <div class="full-height-tablecell">
@@ -340,12 +344,8 @@ td{
                     <div class="single-product-form">
                         <form th:action="@{/cart-single/phone/{id}(id=${product.phoneId})}" method="post" class="add-to-cart-form">
                             <input style="border: solid 1px;" type="number" id="quantityInput" name="quantity" min="1" placeholder="0">
-                            <button type="submit" class="cart-btn" id="bt" style="margin-left: 7%;"><i class="fas fa-shopping-cart"  ></i> Add to Cart</button>
+                            <button type="submit" class="cart-btn" onclick="showAlert()" id="bt" style="margin-left: 7%;"><i class="fas fa-shopping-cart" ></i> Add to Cart</button>
                         </form>
-<!--                        <form action="index.html">-->
-<!--                            <input type="number" placeholder="0">-->
-<!--                        </form>-->
-<!--                        <a th:href="@{/cart/phone/{id}(id=${product.phoneId})}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>-->
                     </div>
                 </div>
             </div>
@@ -407,6 +407,14 @@ td{
             quantityInput.value = 1; // Set quantity to 1
         }
     });
+
+        function showAlert() {
+        var quantityInput = document.getElementById('quantityInput');
+        var userRole = document.getElementById("userRole").value;
+        if (userRole == 'USER' && quantityInput.value != 0 && quantityInput.value != "") {
+            alert("Product added to cart successfully!");
+        }
+    }
 </script>
 </body>
 </html>

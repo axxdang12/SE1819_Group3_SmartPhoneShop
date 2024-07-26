@@ -86,10 +86,6 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public void addPhoneSingleToCart(String userName, int phoneId, int quantity) {
             Phone phone = phoneRepository.findById(phoneId).orElse(null);
-            if (phone == null) {
-                return; // Handle case where phone is not found
-            }
-
             User user = userRepository.findByUsername(userName);
             Cart cart = user.getCart();
             List<CartItem> cartItems = cart.getItems();

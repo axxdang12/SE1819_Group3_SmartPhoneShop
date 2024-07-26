@@ -1,4 +1,3 @@
-/*
 package swp391.SPS;
 
 import org.junit.jupiter.api.Test;
@@ -101,4 +100,3 @@ public class CartItemControllerTest {
 		assertEquals("cart", result);
 	}
 }
-*/

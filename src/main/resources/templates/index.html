@@ -37,6 +37,9 @@
     </div>
 </div>
 
+<input type="hidden" id="userRole" th:value="${userRole}" />
+
+
 <!-- product section -->
 <div class="product-section mt-150 mb-150">
     <div class="container">
@@ -59,7 +62,7 @@
                     </div>
                     <h3 th:text="${phone.productName}"></h3>
                     <p class="product-price" th:text="${phone.price} + '$'" ><span></span>  </p>
-                    <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                    <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn" onclick="showAlert()"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                 </div>
             </div>
 
@@ -154,5 +157,13 @@
 <!-- end copyright -->
 
 <div th:replace="~{fragments::script}"></div>
+<script>
+    function showAlert() {
+        var userRole = document.getElementById("userRole").value;
+        if (userRole == 'USER') {
+            alert("Product added to cart successfully!");
+        }
+    }
+</script>
 </body>
 </html>
