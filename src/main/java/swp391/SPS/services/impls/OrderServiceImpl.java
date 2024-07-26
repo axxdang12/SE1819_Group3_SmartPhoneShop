@@ -104,4 +104,18 @@ public class OrderServiceImpl implements OrderService {
             order.setStatus(status);
             orderRepository.save(order);        }
     }
+
+    @Override
+    public int totalOrder() {
+        if(orderRepository.TotalOrder()==null) return 0;
+        int total = Integer.parseInt(orderRepository.TotalOrder());
+        return total;
+    }
+
+    @Override
+    public int totalOrderByDate(Date start, Date end) {
+        if(orderRepository.TotalOrderByDate(start, end)==null) return 0;
+        int total = Integer.parseInt(orderRepository.TotalOrderByDate(start, end));
+        return total;
+    }
 }

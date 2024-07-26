@@ -6,6 +6,7 @@ import swp391.SPS.entities.Order;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.exceptions.FileNotFoundException;
 
+import java.util.Date;
 import java.util.List;
 
 public interface OrderService {
@@ -16,4 +17,6 @@ public interface OrderService {
     void cancelOrder(int orderId);
     List<Order> searchOrderByUserName(String name);
     void updateOrderStatus(int id, String status);
+    int totalOrder();
+    int totalOrderByDate(Date start, Date end);
 }

@@ -32,10 +32,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
   @Query(value = "SELECT u.* FROM user u JOIN ordertb o USING (user_id) WHERE o.order_id = :orderId" , nativeQuery = true)
   User getUserByOrderId(@Param("orderId") int orderId);
 
-    @Query("select new swp391.SPS.dtos.StatisticsUserOrder( u.username as userName, COUNT(o.orderId) as totalOrder) FROM Order o JOIN User u ON o.user.userId = u.userId GROUP BY  u.userId ,u.username ORDER BY COUNT(o.orderId) DESC ")
+    @Query("select new swp391.SPS.dtos.StatisticsUserOrder( u.username as userName, COUNT(o.orderId) as totalOrder) FROM Order o JOIN User u ON o.user.userId = u.userId   where o.status ='completed'  GROUP BY  u.userId ,u.username ORDER BY COUNT(o.orderId) DESC ")
     List<StatisticsUserOrder> ListTotalOrderOfUser();
 
-    @Query("select new swp391.SPS.dtos.StatisticsUserOrder( u.username as userName, COUNT(o.orderId) as totalOrder) FROM Order o JOIN User u ON o.user.userId = u.userId where o.orderDate >= :start and o.orderDate <= :end GROUP BY  u.userId ,u.username ORDER BY COUNT(o.orderId) DESC ")
+    @Query("select new swp391.SPS.dtos.StatisticsUserOrder( u.username as userName, COUNT(o.orderId) as totalOrder) FROM Order o JOIN User u ON o.user.userId = u.userId where o.status ='completed' and o.orderDate >= :start and o.orderDate <= :end GROUP BY  u.userId ,u.username ORDER BY COUNT(o.orderId) DESC ")
     List<StatisticsUserOrder> ListTotalOrderOfUserByDate(@Param("start") LocalDate  start,@Param("end") LocalDate end);
 
 }

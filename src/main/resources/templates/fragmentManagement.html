@@ -54,6 +54,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto h-100">
                 <li class="nav-item">
+                    <a class="nav-link" th:href="@{/statistics}">
+                        <i class="fas fa-chart-line"></i>
+                        Statistics
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/manager}">
                         <i class="fas fa-tachometer-alt"></i> Orders
                         <span class="sr-only">(current)</span>
@@ -70,12 +76,7 @@
                         Reports
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/statistics}">
-                        <i class="fas fa-chart-line"></i>
-                        Statistics
-                    </a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/profile}">
                         <i class="far fa-user"></i>
