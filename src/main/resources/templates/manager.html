@@ -25,7 +25,7 @@
                 <button type="button" class="btn btn-primary ml-2" onclick="filterOrders()">Filter Action Needed</button>
             </div>
         </form>
-        <form th:action="@{/filterOrdersByDate}" method="get">
+        <form th:action="@{/filterOrdersByDate}" method="post">
             <div class="input-group">
                 <input class="form-control" type="date" name="startDate" placeholder="Start Date" aria-label="Start Date" required>
                 <input class="form-control" type="date" name="endDate" placeholder="End Date" aria-label="End Date" required>

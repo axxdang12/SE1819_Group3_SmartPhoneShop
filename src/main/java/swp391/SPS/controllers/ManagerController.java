@@ -116,7 +116,7 @@ public class ManagerController {
         return "redirect:/manager";
     }
 
-    @GetMapping("/filterOrdersByDate")
+    @PostMapping("/filterOrdersByDate")
     public String filterOrdersByDate(@RequestParam("startDate") String startDate,
                                      @RequestParam("endDate") String endDate,
                                      Model model) {
