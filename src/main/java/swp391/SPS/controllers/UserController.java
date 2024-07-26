@@ -62,6 +62,7 @@ public class UserController {
             model.addAttribute("user", userService.findByUsername(authentication.getName()));
             return "profile";
         }
+        model.addAttribute("noticee", "Successful update");
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
         model.addAttribute("updatePassDto", new UpdatePassDto());
@@ -97,6 +98,9 @@ public class UserController {
                 userService.save(user);
                 model.addAttribute("profileDto", new ProfileDto());
                 model.addAttribute("notice", "Pass change successful");
+                model.addAttribute("user", user);
+                model.addAttribute("profileDto", new ProfileDto(user.getUserDetail().getFirstName(), user.getUserDetail().getLastName(),
+                        user.getUserDetail().getPhoneNumber(), user.getEmail(), user.getUserDetail().getGender(), user.getUserDetail().getAddress()));
                 model.addAttribute("isPassPage", true);
                 return "profile";
             }

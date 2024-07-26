@@ -22,6 +22,8 @@
          class="alert alert-danger text-left"></div>
     <div th:if="${notice}" class="alert alert-success text-left" th:text="${notice}">
     </div>
+    <div th:if="${noticee}" class="alert alert-success text-left" th:text="${noticee}">
+    </div>
     <div class="card overflow-hidden">
         <div class="row no-gutters row-bordered row-border-light">
             <div class="col-md-3 pt-0">
@@ -142,7 +144,7 @@
     function confirmSave(event) {
         var result = confirm("Are you sure you want to save changes?");
         if (!result) {
-            event.preventDefault(); // Ngăn không cho form gửi nếu người dùng không xác nhận
+            event.preventDefault();
         }
     }
 </script>
