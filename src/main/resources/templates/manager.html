@@ -111,7 +111,7 @@
                         <!-- Search results by user ID -->
                         <tr th:if="${listOrderByUser != null}" th:each="order: ${listOrderByUser}">
 <!--                            <td th:text="${order.orderId}"></td>-->
-                            <td th:text="${order.orderDate}"></td>
+                            <td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy')}"></td>
                             <td th:text="${order.totalPrice}+'$'"></td>
                             <td><a class="btn btn-info" th:href="@{order-detail-manager/{id}(id=${order.orderId})}">Details</a></td>
                             <td>

@@ -184,7 +184,7 @@ public class ManagerProduct {
         Phone phone = new Phone();
         phone = Phone.builder().productName(productName).status(status).phoneId(pid).cpu(cpu).ram(ram).sim(sim).price(price).camera(camera).memory(memory).origin(origin).brand(b).picture(picture).releaseDate(date.toLocalDate()).display(dis).build();
         phoneService.editPhone(phone);
-        redirectAttributes.addFlashAttribute("message", "Chỉnh sửa thành công sản phẩm "+phone.getProductName() +" !");
+        redirectAttributes.addFlashAttribute("message", phone.getProductName() +" is updated successfully!");
         return "redirect:/manageProduct";
     }
 
@@ -215,7 +215,7 @@ public class ManagerProduct {
                             @RequestParam("name") String name, Model model, RedirectAttributes redirectAttributes) {
         Brand brand = Brand.builder().brandId(id).brandName(name).build();
         brandService.editBrand(brand);
-        redirectAttributes.addFlashAttribute("message", "Chỉnh sửa brand thành công!");
+        redirectAttributes.addFlashAttribute("message", "Brand is updated successfully!");
         return "redirect:/manageProduct";
     }
 
@@ -229,11 +229,11 @@ public class ManagerProduct {
         for (Brand b : lb) {
             if (b.equals(brand)) {
                 model.addAttribute("listBrand", brandService.findAllBrand());
-                model.addAttribute("mess", "Thêm brand thành công!");
+                model.addAttribute("mess", "Brand is added successfully!");
                 return "add-brand";
             }
         }
-        model.addAttribute("mess", "Thêm sản phẩm không thành công!");
+        model.addAttribute("mess", " Adding brand is fail!");
         return "add-brand";
     }
 
@@ -270,12 +270,12 @@ public class ManagerProduct {
         for (Phone p : lphone) {
             if (p.equals(phone)) {
                 model.addAttribute("listBrand", brandService.findAllBrand());
-                model.addAttribute("mess", "Đã thêm thành công "+ phone.getProductName()+" !");
+                model.addAttribute("mess",  phone.getProductName()+" is added successfully!");
                 return "add-product";
             }
         }
         model.addAttribute("listBrand", brandService.findAllBrand());
-        model.addAttribute("mess", "Thêm sản phẩm không thành công");
+        model.addAttribute("mess", "Adding phone is fail!");
         return "add-product";
     }
 
