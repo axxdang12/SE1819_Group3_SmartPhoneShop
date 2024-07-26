@@ -19,6 +19,7 @@ import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.services.*;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,11 +109,23 @@ public class ManagerProduct {
 
     private String generateHtmlContent(List<Phone> phones) {
         StringBuilder htmlContent = new StringBuilder();
+        DecimalFormat decimalFormat = new DecimalFormat("#0"); // Định dạng số với 1 chữ số thập phân
+        DecimalFormat intFormat = new DecimalFormat("#0"); // Định dạng số nguyên
+
+
         for (Phone phone : phones) {
+            String priceFormatted = decimalFormat.format(phone.getPrice());
+            String memoryFormatted = intFormat.format(phone.getMemory());
             htmlContent.append("<tr>");
 //            htmlContent.append("<td class=\"tm-product-name\">").append(phone.getPhoneId()).append("</td>");
             htmlContent.append("<td>").append(phone.getProductName()).append("</td>");
-            htmlContent.append("<td>").append(phone.getPrice()).append(" $</td>");
+            htmlContent.append("<td>").append(phone.getRam()).append("GB</td>");
+            htmlContent.append("<td>").append(memoryFormatted).append("GB</td>");
+            htmlContent.append("<td>").append(phone.getOrigin()).append("</td>");
+            htmlContent.append("<td>").append(priceFormatted).append(" $</td>");
+
+
+
             htmlContent.append("<td><a href=\"/edit-product?id=").append(phone.getPhoneId()).append("\" class=\"btn btn-link\" style=\"color: white;\">Edit</a></td>");
             htmlContent.append("<td class=\"action-links\">");
             if (phone.getStatus()) {

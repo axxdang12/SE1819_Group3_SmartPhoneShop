@@ -66,14 +66,14 @@ public interface PhoneRepository extends JpaRepository<Phone, Integer> {
             "and ordertb.order_date >= :start and order_date <= :end", nativeQuery = true)
     String TotalRevenueByDate(@Param("start") Date start, @Param("end") Date end);
 
-    @Query("select new swp391.SPS.dtos.PhoneRevenueDTO(p.productName as phoneName, count(oi.orderItemId) as total) from Phone p \n" +
+    @Query("select new swp391.SPS.dtos.PhoneRevenueDTO(CONCAT(p.productName, ' - ', p.ram, 'GB/',p.memory,'GB',' - ',p.origin) as phoneName, count(oi.orderItemId) as total) from Phone p \n" +
             "join OrderItem oi on oi.phone.phoneId= p.phoneId join Order o on o.orderId = oi.order.orderId\n" +
             "where o.status = 'Completed'\n" +
             "group by p.phoneId, p.productName\n" +
             "order by  total desc")
     List<PhoneRevenueDTO> TotalRevenueOfPhone();
 
-    @Query("select new swp391.SPS.dtos.PhoneRevenueDTO(p.productName as phoneName, count(oi.orderItemId) as total) from Phone p \n" +
+    @Query("select new swp391.SPS.dtos.PhoneRevenueDTO(CONCAT(p.productName, ' - ', p.ram, 'GB/',p.memory,'GB',' - ',p.origin) as phoneName, count(oi.orderItemId) as total) from Phone p \n" +
             "join OrderItem oi on oi.phone.phoneId= p.phoneId join Order o on o.orderId = oi.order.orderId\n" +
             "where o.status = 'Completed'\n" +
             "and o.orderDate >= :start and o.orderDate <= :end group by p.phoneId, p.productName\n" +

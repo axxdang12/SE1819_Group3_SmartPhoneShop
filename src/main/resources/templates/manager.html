@@ -78,7 +78,7 @@
                         <tr th:if="${orderList != null}" th:each="order: ${orderList}">
 <!--                            <td th:text="${order.orderId}"></td>-->
                             <td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy')}"></td>
-                            <td th:text="${order.totalPrice}+'$'"></td>
+                            <td th:text="${#numbers.formatDecimal(order.totalPrice, 1, 'COMMA', 2, 'POINT') + ' $'}"></td>
                             <td><a class="btn btn-info" th:href="@{order-detail-manager/{id}(id=${order.orderId})}">Details</a></td>
                             <td>
                                 <a th:if="${order.status == 'Pending'}" ></a>

@@ -61,8 +61,8 @@
                         <!-- Iterate over order items -->
                         <tr th:each="item : ${listItemByO}">
                             <td><img th:src="@{${item.phone.picture.main}}" alt="" style="width: 100px;"></td>
-                            <td th:text="${item.phone.productName}"></td>
-                            <td th:text="${item.phone.price} + '$'"></td>
+                            <td class="product-name" th:text="${item.phone.productName + ' - ' + item.phone.ram + 'GB/' + #numbers.formatDecimal(item.phone.memory, 0, 'COMMA', 0,'POINT') + 'GB' +' - '+ item.phone.origin}"></td>
+                            <td class="product-price" th:text="${#numbers.formatDecimal(item.phone.price, 1, 'COMMA', 2, 'POINT') + ' $'}"></td>
                             <td th:text="${item.quantity}"></td>
                         </tr>
                         </tbody>
@@ -71,14 +71,7 @@
             </div>
         </div>
     </div>
-    <footer class="tm-footer row tm-mt-small">
-        <div class="col-12 font-weight-light">
-            <p class="text-center text-white mb-0 px-4 small">
-                Copyright &copy; <b>2018</b> All rights reserved.
-
-                Design: <a rel="nofollow noopener" class="tm-footer-link">Template Mo</a>
-            </p>
-        </div>
+    <footer th:replace="~{fragmentManagement::footer}" >
     </footer>
 </div>
 
