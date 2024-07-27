@@ -10,6 +10,7 @@ import swp391.SPS.entities.Brand;
 import swp391.SPS.entities.Report;
 import swp391.SPS.entities.User;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -30,6 +31,11 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
     List<Report> searchReportByUserName(@Param("name") String name);
 
     @Transactional
-    @Query(value = "SELECT * FROM sps.report WHERE report.order_id LIKE %:oID%", nativeQuery = true)
-    List<Report> searchReportByOrderId(@Param("oID") int orderId);
+    @Query(value = "SELECT r.report_id, r.description, r.status, u.user_id, u.user_name, o.order_id, o.order_date " +
+            "FROM report r " +
+            "JOIN user u ON r.user_id = u.user_id " +
+            "JOIN ordertb o ON r.order_id = o.order_id " +
+            "WHERE o.order_date BETWEEN '2024-03-01' And '2024-04-01'", nativeQuery = true)
+    List<Report> findReportsBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
 }
