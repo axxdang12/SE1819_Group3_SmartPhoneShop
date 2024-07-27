@@ -35,10 +35,10 @@ $(document).ready(function () {
                         <tr>
 <!--                           <td>${value.userId}</td>-->
                            <td>${value.username}</td>
-                           <td><select class="role-select" data-id="${value.userId}" ${value.username == isCurrentLogin ? 'disabled' : ''}>
+                           <td><select class="role-select" data-id="${value.userId}" ${value.username == isCurrentLogin || value.roles[0].roleName == 'USER' ? 'disabled' : ''}>
                                 <option value="${data.roles[0].roleName}" ${data.roles[0].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[0].roleName}</option>
                                 <option value="${data.roles[1].roleName}" ${data.roles[1].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[1].roleName}</option>
-                                <option value="${data.roles[2].roleName}" ${data.roles[2].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[2].roleName}</option>
+                                <option value="${data.roles[2].roleName}" ${data.roles[2].roleName === value.roles[0].roleName ? 'selected' : ''} hidden=${value.roles[0].roleName == 'ADMIN' || value.roles[0].roleName == "MANAGER" ? 'hidden' : ''}>${data.roles[2].roleName}</option>
                            </select></td>
                            <td><a class="btn btn-info" href="/user_detail/${value.userId}">Details</a></td>
                            <td>
@@ -92,10 +92,10 @@ $(document).ready(function () {
                         <tr>
 <!--                           <td>${value.userId}</td>-->
                            <td>${value.username}</td>
-                           <td><select class="role-select" data-id="${value.userId}" ${value.username == isCurrentLogin ? 'disabled' : ''}>
+                           <td><select class="role-select" data-id="${value.userId}" ${value.username == isCurrentLogin || value.roles[0].roleName == 'USER' ? 'disabled' : ''}>
                                 <option value="${data.roles[0].roleName}" ${data.roles[0].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[0].roleName}</option>
                                 <option value="${data.roles[1].roleName}" ${data.roles[1].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[1].roleName}</option>
-                                <option value="${data.roles[2].roleName}" ${data.roles[2].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[2].roleName}</option>
+                                <option value="${data.roles[2].roleName}" ${data.roles[2].roleName === value.roles[0].roleName ? 'selected' : ''} hidden=${value.roles[0].roleName == 'ADMIN' || value.roles[0].roleName == "MANAGER" ? 'hidden' : ''}>${data.roles[2].roleName}</option>
                            </select></td>
                            <td><a class="btn btn-info" href="/user_detail/${value.userId}">Details</a></td>
                            <td>
@@ -153,10 +153,10 @@ $(document).ready(function () {
                         <tr>
 <!--                           <td>${value.userId}</td>-->
                            <td>${value.username}</td>
-                           <td><select class="role-select" data-id="${value.userId}" ${value.username == isCurrentLogin ? 'disabled' : ''}>
+                           <td><select class="role-select" data-id="${value.userId}" ${value.username == isCurrentLogin || value.roles[0].roleName == 'USER' ? 'disabled' : ''}>
                                 <option value="${data.roles[0].roleName}" ${data.roles[0].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[0].roleName}</option>
                                 <option value="${data.roles[1].roleName}" ${data.roles[1].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[1].roleName}</option>
-                                <option value="${data.roles[2].roleName}" ${data.roles[2].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[2].roleName}</option>
+                                <option value="${data.roles[2].roleName}" ${data.roles[2].roleName === value.roles[0].roleName ? 'selected' : ''} hidden=${value.roles[0].roleName == 'ADMIN' || value.roles[0].roleName == "MANAGER" ? 'hidden' : ''}>${data.roles[2].roleName}</option>
                            </select></td>
                            <td><a class="btn btn-info" href="/user_detail/${value.userId}">Details</a></td>
                            <td>

@@ -102,7 +102,7 @@
                     <table class="table">
                         <thead>
                         <tr>
-<!--                            <th>User ID</th>-->
+                            <!--                            <th>User ID</th>-->
                             <th>User Name</th>
                             <th>User Role</th>
                             <th>View detail</th>
@@ -111,13 +111,14 @@
                         </thead>
                         <tbody id="table">
                         <tr th:each="item: ${listFirstLoad}">
-<!--                            <td th:text="${item.userId}"></td>-->
+                            <!--                            <td th:text="${item.userId}"></td>-->
                             <td th:text="${item.username}"></td>
                             <td><select class="role-select" th:attr="data-id=${item.userId}"
-                                        th:disabled="${item.username == username}">
+                                        th:disabled="${item.username == username || item.roles[0].roleName == 'USER'}">
                                 <option th:each="role: ${listRole}" th:value="${role.roleName}"
                                         th:selected="${role.roleName == item.roles[0].roleName}"
-                                        th:text="${role.roleName}"></option>
+                                        th:text="${role.roleName}"
+                                        th:hidden="${(item.roles[0].roleName == 'ADMIN' || item.roles[0].roleName == 'MANAGER') && role.roleName == 'USER'}"></option>
                             </select></td>
                             <td><a class="btn btn-info" th:href="@{/user_detail/{id}(id=${item.userId})}">Details</a>
                             </td>
