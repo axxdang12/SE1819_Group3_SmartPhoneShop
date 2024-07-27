@@ -40,20 +40,14 @@ public class ForgotPasswordController {
     }
 
     @PostMapping("/forgot-password")
-    public String processForgotPassword(HttpServletRequest request, Model model) {
+    public String processForgotPassword(HttpServletRequest request, Model model) throws UserNotFoundException, MessagingException, UnsupportedEncodingException {
         String email = request.getParameter("email");
         String token = RandomString.make(30);
 
-        try {
-            userService.updateResetPasswordToken(token, email);
-            String resetPasswordLink = Utility.getSiteURL(request) + "/reset-password?token=" + token;
-            emailService.sendEmail(email, resetPasswordLink);
-            model.addAttribute("message", "We have sent a reset password link to your email. Please check.");
-
-        } catch (UserNotFoundException | MessagingException | UnsupportedEncodingException ex) {
-            model.addAttribute("error", ex.getMessage());
-        }
-
+        userService.updateResetPasswordToken(token, email);
+        String resetPasswordLink = Utility.getSiteURL(request) + "/reset-password?token=" + token;
+        emailService.sendEmail(email, resetPasswordLink);
+        model.addAttribute("message", "We have sent a reset password link to your email. Please check.");
         return "forgot-password-form";
     }
 

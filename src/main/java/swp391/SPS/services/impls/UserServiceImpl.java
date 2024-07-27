@@ -40,12 +40,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateResetPasswordToken(String token, String email) throws UserNotFoundException {
         User user = userRepository.findByEmail(email);
-        if (user != null) {
-            user.setResetPasswordToken(token);
-            userRepository.save(user);
-        } else {
+        if (user == null) {
             throw new UserNotFoundException("Could not find any customer with the email " + email);
         }
+        user.setResetPasswordToken(token);
+        userRepository.save(user);
     }
 
     @Override
@@ -121,11 +120,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<StatisticsUserOrder> TotalOderOfUser() {
-       if(userRepository.ListTotalOrderOfUser()==null) return null;
-       List<StatisticsUserOrder> list = userRepository.ListTotalOrderOfUser();
+        if (userRepository.ListTotalOrderOfUser() == null) return null;
+        List<StatisticsUserOrder> list = userRepository.ListTotalOrderOfUser();
         int size = Math.min(10, list.size());
 
-       return list.subList(0,size);
+        return list.subList(0, size);
     }
 
     @Override
@@ -135,12 +134,13 @@ public class UserServiceImpl implements UserService {
 
         List<StatisticsUserOrder> results = userRepository.ListTotalOrderOfUserByDate(startDate, endDate);
         int size = Math.min(10, results.size());
-        return results != null ? results.subList(0,size) : null;
+        return results != null ? results.subList(0, size) : null;
     }
 
     private LocalDate convertToLocalDate(Date date) {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
+
     @Override
     public User save(UserDto userDto) {
         User user = new User();

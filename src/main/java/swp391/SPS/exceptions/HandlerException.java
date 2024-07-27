@@ -22,7 +22,7 @@ public class HandlerException {
     public String handlerUserNotFoundException(
             UserNotFoundException exception, Model model) {
         model.addAttribute("message",
-                exception.getMessage());
+                "Could not find any customer with the email");
         return "forgot-password-form";
     }
 
