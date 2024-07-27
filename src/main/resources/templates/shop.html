@@ -25,6 +25,10 @@
     .product-filters ul li {
         border: 3px solid #051922;
     }
+    .single-product-item{
+        height: 500px;
+
+    }
 </style>
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
@@ -101,9 +105,9 @@
                         <a th:href="@{/single-product(id=${phone.phoneId})}"><img th:src="@{${phone.picture.main}}"
                                                                                        alt=""></a>
                     </div>
-                    <h3 th:text="${phone.productName}"></h3>
-                    <p class="product-price" th:text="${phone.price} + '$'">$</p>
-                    <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn" onclick="showAlert()"><i
+                    <h3 th:text="${phone.productName + ' - ' + phone.ram + 'GB/' + #numbers.formatDecimal(phone.memory, 0, 'COMMA', 0,'POINT') + 'GB' +' - '+ phone.origin}"></h3>
+                    <p class="product-price" th:text="${#numbers.formatDecimal(phone.price, 1, 'COMMA', 2, 'POINT') + ' $'}"></p>
+                    <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn"><i
                             class="fas fa-shopping-cart"></i> Add to Cart</a>
                 </div>
             </div>

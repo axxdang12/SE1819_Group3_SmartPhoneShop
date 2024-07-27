@@ -50,10 +50,12 @@
 							<tbody>
 								<tr class="table-body-row" th:each="items: ${listItemByO}">
 									<td class="product-image"><img th:src="@{${items.phone.picture.main}}" alt=""></td>
-									<td class="product-name" th:text="${items.phone.productName}"></td>
-									<td class="product-price" th:text ="${items.phone.price} + '$'"></td>
+									<td class="product-name" th:text="${items.phone.productName + ' - ' + items.phone.ram + 'GB/' + #numbers.formatDecimal(items.phone.memory, 0, 'COMMA', 0,'POINT') + 'GB' +' - '+ items.phone.origin}"></td>
+
+									<td class="product-price" th:text="${#numbers.formatDecimal(items.phone.price, 1, 'COMMA', 2, 'POINT') + ' $'}"></td>
+
 									<td class="product-quantity" th:text ="${items.quantity}"></td>
-									<td class="product-total" th:text="${items.total} + '$'"></td>
+									<td class="product-total" th:text="${#numbers.formatDecimal(items.total, 1, 'COMMA', 2, 'POINT') + ' $'}"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -72,7 +74,7 @@
 							<tbody>
 								<tr class="total-data">
 									<td><strong>Total: </strong></td>
-									<td th:text="${orderByOrderId.totalPrice}+'$'"></td>
+									<td th:text="${#numbers.formatDecimal(orderByOrderId.totalPrice, 1, 'COMMA', 2, 'POINT') + ' $'}"></td>
 								</tr>
 							</tbody>
 						</table>

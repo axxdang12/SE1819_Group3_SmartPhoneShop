@@ -34,7 +34,7 @@
                 <div th:if="${!check}" class="row tm-edit-product-row">
                     <div class="col-xl-12 col-lg-12 col-md-12">
                         <form th:action="@{/editbrand}" method="post" class="tm-edit-product-form">
-                            <div class="form-group mb-3">
+                            <div class="form-group mb-3" hidden="hidden">
                                 <label >Brand ID
                                 </label>
                                 <input  name="id" type="number" th:value="${brand.brandId}" class="form-control validate" readonly />
@@ -61,13 +61,7 @@
 
 </div>
 
-<script>
-        $(function () {
-          $("#expire_date").datepicker({
-            defaultDate: "10/22/2020"
-          });
-        });
-    </script>
+
 </body>
 
 </html>

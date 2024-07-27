@@ -21,6 +21,8 @@ import swp391.SPS.repositories.RoleRepository;
 import swp391.SPS.repositories.UserRepository;
 import swp391.SPS.services.UserService;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @Service
@@ -117,6 +119,28 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+    @Override
+    public List<StatisticsUserOrder> TotalOderOfUser() {
+       if(userRepository.ListTotalOrderOfUser()==null) return null;
+       List<StatisticsUserOrder> list = userRepository.ListTotalOrderOfUser();
+        int size = Math.min(10, list.size());
+
+       return list.subList(0,size);
+    }
+
+    @Override
+    public List<StatisticsUserOrder> TotalOrderOfUserByDate(Date start, Date end) {
+        LocalDate startDate = convertToLocalDate(start);
+        LocalDate endDate = convertToLocalDate(end);
+
+        List<StatisticsUserOrder> results = userRepository.ListTotalOrderOfUserByDate(startDate, endDate);
+        int size = Math.min(10, results.size());
+        return results != null ? results.subList(0,size) : null;
+    }
+
+    private LocalDate convertToLocalDate(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
     @Override
     public User save(UserDto userDto) {
         User user = new User();

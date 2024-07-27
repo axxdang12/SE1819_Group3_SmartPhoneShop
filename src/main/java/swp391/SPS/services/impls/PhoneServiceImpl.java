@@ -1,28 +1,28 @@
 package swp391.SPS.services.impls;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import swp391.SPS.dtos.PageDto;
+import swp391.SPS.dtos.BrandRevenueDTO;
+import swp391.SPS.dtos.PhoneRevenueDTO;
+import swp391.SPS.dtos.StatisticsUserOrder;
 import swp391.SPS.entities.Brand;
 //import swp391.SPS.entities.Category;
 import swp391.SPS.entities.Phone;
-import swp391.SPS.entities.User;
 import swp391.SPS.exceptions.FileNotFoundException;
-import swp391.SPS.exceptions.NoDataInListException;
-import swp391.SPS.exceptions.OutOfPageException;
 import swp391.SPS.repositories.BrandRepository;
 import swp391.SPS.repositories.PhoneRepository;
 //import swp391.SPS.repositories.CategoryRepository;
+//import swp391.SPS.repositories.StatisticRepository;
 import swp391.SPS.services.BrandService;
 import swp391.SPS.services.PhoneService;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -34,6 +34,9 @@ public class PhoneServiceImpl implements PhoneService {
     private BrandRepository brandRepository;
     @Autowired
     private BrandService brandService;
+
+//    @Autowired
+//    private StatisticRepository statisticRepository;
 //    @Autowired
 //    private CategoryRepository categoryRepository;
 
@@ -186,6 +189,43 @@ public class PhoneServiceImpl implements PhoneService {
         Pageable pageable = PageRequest.of(PageNo-1,6);
         return phoneRepository.findByPriceRangeAndStatus(min,max,pageable);
     }
+
+    @Override
+    public String GetTotalRevenue() {
+        if(phoneRepository.TotalRevenue()!= null) return phoneRepository.TotalRevenue();
+        return null;
+    }
+
+    @Override
+    public List<PhoneRevenueDTO> BestSalePhone() {
+        List<PhoneRevenueDTO> list = phoneRepository.TotalRevenueOfPhone();
+        return list!=null? list : null;
+    }
+
+    @Override
+    public List<PhoneRevenueDTO> BestSalePhoneByDate(Date start, Date end) {
+        LocalDate startDate = convertToLocalDate(start);
+        LocalDate endDate = convertToLocalDate(end);
+
+        List<PhoneRevenueDTO> results = phoneRepository.TotalRevenueOfPhoneByList(startDate, endDate);
+        int size = Math.min(5, results.size());
+        return results != null ? results.subList(0,size) : null;
+    }
+
+    private LocalDate convertToLocalDate(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
+    @Override
+    public String GetRevenueByDate(Date start, Date end) {
+        if(phoneRepository.TotalRevenueByDate(start,end)!= null) return phoneRepository.TotalRevenueByDate(start,end);
+        return null;
+    }
+
+
+
+
+
 
 
 }

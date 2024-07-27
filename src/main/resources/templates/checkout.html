@@ -88,7 +88,7 @@
 							<thead>
 								<tr>
 									<th>Your order Details</th>
-									<th>Price</th>
+									<th>Price of all products</th>
 								</tr>
 							</thead>
 							<tbody class="order-details-body">
@@ -97,14 +97,14 @@
 									<td>Total</td>
 								</tr>
 								<tr th:each="items : ${listPByC}" th:if="${items.phone.status}">
-									<td th:text="${items.phone.productName}"></td>
-									<td th:text="${items.total} + '$'"></td>
+									<td th:text="${items.phone.productName + ' - ' + items.phone.ram + 'GB/' + #numbers.formatDecimal(items.phone.memory, 0, 'COMMA', 0,'POINT') + 'GB' +' - '+ items.phone.origin}"></td>
+									<td th:text="${#numbers.formatDecimal(items.total, 1, 'COMMA', 2, 'POINT') + ' $'}" ></td>
 								</tr>
 							</tbody>
 							<tbody class="checkout-details">
 								<tr>
 									<td>Total</td>
-									<td th:text="${cartTotal} + '$'"></td>
+									<td th:text="${#numbers.formatDecimal(cartTotal, 1, 'COMMA', 2, 'POINT') + ' $'} " ></td>
 								</tr>
 							</tbody>
 						</table>

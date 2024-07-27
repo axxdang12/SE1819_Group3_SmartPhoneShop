@@ -106,6 +106,20 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public int totalOrder() {
+        if(orderRepository.TotalOrder()==null) return 0;
+        int total = Integer.parseInt(orderRepository.TotalOrder());
+        return total;
+    }
+
+    @Override
+    public int totalOrderByDate(Date start, Date end) {
+        if(orderRepository.TotalOrderByDate(start, end)==null) return 0;
+        int total = Integer.parseInt(orderRepository.TotalOrderByDate(start, end));
+        return total;
+    }
+
+    @Override
     public List<Order> findOrdersBetweenDates(LocalDate startDate, LocalDate endDate) {
         return orderRepository.findOrdersBetweenDates(startDate, endDate);
     }

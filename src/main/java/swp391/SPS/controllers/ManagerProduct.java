@@ -19,6 +19,7 @@ import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.services.*;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,11 +109,23 @@ public class ManagerProduct {
 
     private String generateHtmlContent(List<Phone> phones) {
         StringBuilder htmlContent = new StringBuilder();
+        DecimalFormat decimalFormat = new DecimalFormat("#0"); // Định dạng số với 1 chữ số thập phân
+        DecimalFormat intFormat = new DecimalFormat("#0"); // Định dạng số nguyên
+
+
         for (Phone phone : phones) {
+            String priceFormatted = decimalFormat.format(phone.getPrice());
+            String memoryFormatted = intFormat.format(phone.getMemory());
             htmlContent.append("<tr>");
-            htmlContent.append("<td class=\"tm-product-name\">").append(phone.getPhoneId()).append("</td>");
+//            htmlContent.append("<td class=\"tm-product-name\">").append(phone.getPhoneId()).append("</td>");
             htmlContent.append("<td>").append(phone.getProductName()).append("</td>");
-            htmlContent.append("<td>").append(phone.getPrice()).append(" $</td>");
+            htmlContent.append("<td>").append(phone.getRam()).append("GB</td>");
+            htmlContent.append("<td>").append(memoryFormatted).append("GB</td>");
+            htmlContent.append("<td>").append(phone.getOrigin()).append("</td>");
+            htmlContent.append("<td>").append(priceFormatted).append(" $</td>");
+
+
+
             htmlContent.append("<td><a href=\"/edit-product?id=").append(phone.getPhoneId()).append("\" class=\"btn btn-link\" style=\"color: white;\">Edit</a></td>");
             htmlContent.append("<td class=\"action-links\">");
             if (phone.getStatus()) {
@@ -145,6 +158,7 @@ public class ManagerProduct {
         Phone p = phoneService.getPhoneByIdForManager(id);
         if(p!=null) {
             model.addAttribute("phone", p);
+            model.addAttribute("listBrand",brandService.findAllBrand());
         }
         else {
             model.addAttribute("check",true);
@@ -183,7 +197,7 @@ public class ManagerProduct {
         Phone phone = new Phone();
         phone = Phone.builder().productName(productName).status(status).phoneId(pid).cpu(cpu).ram(ram).sim(sim).price(price).camera(camera).memory(memory).origin(origin).brand(b).picture(picture).releaseDate(date.toLocalDate()).display(dis).build();
         phoneService.editPhone(phone);
-        redirectAttributes.addFlashAttribute("message", "Chỉnh sửa thành công sản phẩm "+phone.getProductName() +" !");
+        redirectAttributes.addFlashAttribute("message", phone.getProductName() +" is updated successfully!");
         return "redirect:/manageProduct";
     }
 
@@ -214,7 +228,7 @@ public class ManagerProduct {
                             @RequestParam("name") String name, Model model, RedirectAttributes redirectAttributes) {
         Brand brand = Brand.builder().brandId(id).brandName(name).build();
         brandService.editBrand(brand);
-        redirectAttributes.addFlashAttribute("message", "Chỉnh sửa brand thành công!");
+        redirectAttributes.addFlashAttribute("message", "Brand is updated successfully!");
         return "redirect:/manageProduct";
     }
 
@@ -228,11 +242,11 @@ public class ManagerProduct {
         for (Brand b : lb) {
             if (b.equals(brand)) {
                 model.addAttribute("listBrand", brandService.findAllBrand());
-                model.addAttribute("mess", "Thêm brand thành công!");
+                model.addAttribute("mess", "Brand is added successfully!");
                 return "add-brand";
             }
         }
-        model.addAttribute("mess", "Thêm sản phẩm không thành công!");
+        model.addAttribute("mess", " Adding brand is fail!");
         return "add-brand";
     }
 
@@ -269,12 +283,12 @@ public class ManagerProduct {
         for (Phone p : lphone) {
             if (p.equals(phone)) {
                 model.addAttribute("listBrand", brandService.findAllBrand());
-                model.addAttribute("mess", "Đã thêm thành công "+ phone.getProductName()+" !");
+                model.addAttribute("mess",  phone.getProductName()+" is added successfully!");
                 return "add-product";
             }
         }
         model.addAttribute("listBrand", brandService.findAllBrand());
-        model.addAttribute("mess", "Thêm sản phẩm không thành công");
+        model.addAttribute("mess", "Adding phone is fail!");
         return "add-product";
     }
 

@@ -54,21 +54,31 @@
                     <table class="table table-hover tm-table-small tm-product-table">
                         <thead>
                         <tr style="text-align: center;">
-                            <th scope="col">PRODUCT ID</th>
+
+
                             <th scope="col">PRODUCT NAME</th>
+                            <th scope="col">Ram</th>
+                            <th scope="col">Memory</th>
+                            <th scope="col">Origin</th>
                             <th scope="col">Price</th>
                             <th scope="col">Action</th>
                             <th scope="col">Status</th>
                         </tr>
                         </thead>
                         <tbody id="tableee">
-                        <tr th:each = "phone: ${listPhone}">
-                            <td class="tm-product-name" th:text = "${phone.phoneId}"><a></a></td>
-                            <td th:text = "${phone.productName}"></td>
-                            <td th:text ="${phone.price} + '$'"></td>
+                        <tr th:each="phone: ${listPhone}">
+<!--                            <td class="tm-product-name" th:text="${item.index + 1}"></td>-->
+                            <td th:text="${phone.productName}"></td>
+                            <td th:text="${phone.ram} + 'GB'"></td>
+                            <td th:text="${#numbers.formatDecimal(phone.memory, 0, 'COMMA', 0,'POINT')} + 'GB'"></td>
+                            <td th:text="${phone.origin}"></td>
+                            <td th:text="${#numbers.formatDecimal(phone.price, 1, 'COMMA', 2, 'POINT')} + ' $'"></td>
+
                             <td>
                                 <a th:href="@{/edit-product(id=${phone.phoneId})}" class="btn btn-link" style="color: white;">Edit</a>
+
                             </td>
+
                             <td class="action-links">
                                 <a  th:if="${phone.status}" href="#" onclick="changeStatus(this); return false;" class="stock active" style="color: green;" th:data-id="${phone.phoneId}" >
                                     <i class="fas fa-check-circle" data-toggle="tooltip" title="In Stock"></i>

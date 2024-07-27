@@ -50,7 +50,7 @@
 						<tbody>
 							<tr th:each="order: ${orderListByUid}">
 								<td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy')}"></td>
-								<td style="padding-left: 25px;" th:text="${order.totalPrice}+'$'"></td>
+								<td style="padding-left: 25px;" th:text="${#numbers.formatDecimal(order.totalPrice, 1, 'COMMA', 2, 'POINT') + ' $'}"></td>
 								<td><a class="btn btn-info" th:href="@{/orderDetail/{id}(id=${order.orderId})}">Details</a></td>
 								<td th:text="${order.status}"></td>
 								<td>

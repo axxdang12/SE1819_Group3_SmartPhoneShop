@@ -34,7 +34,7 @@ public class ShopController {
 
     @GetMapping("/shop")
     public String shop(Model model,@RequestParam(name = "keyword", required = false) String name,
-                                    @RequestParam(name = "pageNo", defaultValue = "1") int page,
+                                    @RequestParam(name = "pageNo", defaultValue = "1") String pageNo,
                                     @RequestParam (name = "minPrice", required = false) String minPrice,
                                     @RequestParam (name="maxPrice", required = false) String maxPrice) throws FileNotFoundException {
 
@@ -46,6 +46,12 @@ public class ShopController {
             }
         }
         model.addAttribute("listBrand", brandService.findAllBrand());
+
+            int page = Integer.parseInt(pageNo);
+            if(page <=0 ){
+                model.addAttribute("check", true);
+                return "shop";
+            }
             Page<Phone> list = phoneService.viewphoneforshop(page);
 
 //            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -70,6 +76,11 @@ public class ShopController {
                 }
             }
             else if (minPrice != null && maxPrice != null ) {
+                if(minPrice.isEmpty() || maxPrice.isEmpty()){
+                    model.addAttribute("check", true);
+                    return "shop";
+                }
+
                 Double max = Double.parseDouble(maxPrice);
                 Double min = Double.parseDouble(minPrice);
                 list = phoneService.searchByPrice(min,max,page);
@@ -101,6 +112,34 @@ public class ShopController {
             model.addAttribute("currentPage", page);
         return "shop";
         }
+@GetMapping("/shop?minPrice=&maxPrice=")
+public String exceptionPrice() throws FileNotFoundException {
+        throw  new FileNotFoundException("Not Found");
+}
+//@GetMapping("/shop/price")
+//public String searchPrice( @RequestParam (name = "minPrice") double minPrice,
+//                           @RequestParam (name="maxPrice") double maxPrice,
+//                           @RequestParam(name = "pageNo",defaultValue = "1") int pageno,
+//                           Model model){
+//    model.addAttribute("listBrand", brandService.findAllBrand());
+//    Page<Phone> list = phoneService.searchByPrice(minPrice,maxPrice,pageno);
+//    model.addAttribute("listPhone", list);
+//    model.addAttribute("totalPage", list.getTotalPages());
+//    model.addAttribute("currentPage", pageno);
+//    model.addAttribute("minPrice",minPrice);
+//    model.addAttribute("maxPrice",maxPrice);
+//
+//    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//    if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//        model.addAttribute("isLogin", false);
+//        return "shop";
+//    }
+//    model.addAttribute("isLogin", true);
+//    model.addAttribute("username", authentication.getName());
+//    return "shop";
+//
+//}
+
 
     @GetMapping("/shop/brand")
     public String ProductByBrand(@RequestParam("id") String idBrand, Model model,@RequestParam(name = "pageNo", defaultValue = "1") int page) throws FileNotFoundException {

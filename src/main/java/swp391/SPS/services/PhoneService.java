@@ -3,12 +3,16 @@ package swp391.SPS.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import swp391.SPS.dtos.BrandRevenueDTO;
 import swp391.SPS.dtos.PageDto;
+import swp391.SPS.dtos.PhoneRevenueDTO;
 import swp391.SPS.entities.Phone;
 import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
 import org.springframework.data.domain.Pageable;
+
+import java.util.Date;
 import java.util.List;
 
 public interface PhoneService {
@@ -28,4 +32,9 @@ public interface PhoneService {
     Page<Phone> getPhoneBrandByPahination(int id,int pageNo) throws FileNotFoundException;
     Page<Phone> searchPhoneByStatus(boolean status,int pageNo);
     Page<Phone> searchByPrice(double min, double max,int PageNo);
+    String GetTotalRevenue();
+    List<PhoneRevenueDTO> BestSalePhone();
+    List<PhoneRevenueDTO> BestSalePhoneByDate(Date start, Date end);
+    String GetRevenueByDate(Date start, Date end);
+
 }

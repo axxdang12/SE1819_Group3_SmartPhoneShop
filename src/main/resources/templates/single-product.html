@@ -281,7 +281,7 @@ td{
             <div class="col-md-7">
                 <div class="single-product-content">
                     <h3 th:text="${product.productName}"></h3>
-                    <p style="color: #FF0000" class="single-product-pricing" th:text = "${product.price} + '$'"><span></span></p>
+                    <p style="color: #FF0000" class="single-product-pricing" th:text="${#numbers.formatDecimal(product.price, 1, 'COMMA', 2,'POINT')} + '$'"><span></span></p>
 <!--                    <p th:text="${product.cpu}">CPU: </p>     <p th:text="${product.camera}">Camera: </p>-->
 <!--                    <p th:text="${product.ram}">RAM: </p>     <p th:text="${product.origin}">Origin: </p>-->
 <!--                    <p th:text="${product.memory}">Memory: </p>  <p th:text="${product.sim}">Sim: </p>-->
@@ -309,17 +309,17 @@ td{
                             </tr>
                             <tr>
                                 <th scope="row">Memory</th>
-                                <td data-title="Released" th:text="${product.memory}+'GB'" ></td>
+                                <td data-title="Released" th:text="${#numbers.formatDecimal(product.memory, 0, 'COMMA', 0,'POINT')} + 'GB'" ></td>
 
                             </tr>
                             <tr>
                                 <th scope="row" >Display</th>
-                                <td data-title="Released" th:text="${product.display}+'Hz'" ></td>
+                                <td data-title="Released" th:text="${#numbers.formatDecimal(product.display, 0, 'COMMA', 0,'POINT')} + 'Hz'" ></td>
 
                             </tr>
                             <tr>
                                 <th scope="row">Camera</th>
-                                <td data-title="Released" th:text="${product.camera}+'px'" ></td>
+                                <td data-title="Released" th:text="${#numbers.formatDecimal(product.camera, 0, 'COMMA', 0,'POINT')} + 'px'" ></td>
 
                             </tr>
                             <tr>
@@ -334,7 +334,7 @@ td{
                             </tr>
                             <tr>
                                 <th scope="row">Date</th>
-                                <td data-title="Released" th:text="${product.releaseDate}" ></td>
+                                <td data-title="Released" th:text="${#temporals.format(product.releaseDate, 'dd/MM/yyyy')}" ></td>
 
                             </tr>
                             </tbody>
