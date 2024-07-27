@@ -155,8 +155,8 @@
                 <div class="form-group mb-3 col-xs-12 col-sm-6">
                   <label >Status</label>
                   <select class="custom-select tm-select-accounts" name="status" >
-                    <option th:if="phone.status" th:value="1">In-stock</option>
-                    <option th:if="phone.status == false" th:value="0">Out-stock</option>
+                    <option th:if="${phone.status}" th:value="1">In-stock</option>
+                    <option th:if="${!phone.status}" th:value="0">Out-stock</option>
                     <option value="1" >In-stock</option>
                     <option value="0" >Out-stock</option>
                   </select>

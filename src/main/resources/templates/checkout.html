@@ -6,7 +6,7 @@
 	<!--PreLoader-->
 	<div th:replace="~{fragments::loader}"></div>
 	<!--PreLoader Ends-->
-	
+
 	<!-- header -->
 	<div th:replace="~{fragments::headerNav}">
 	</div>
@@ -15,7 +15,7 @@
 	<!-- search area -->
 	<div th:replace="~{fragments::search}"></div>
 	<!-- end search area -->
-	
+
 	<!-- breadcrumb-section -->
 	<div class="breadcrumb-section breadcrumb-bg">
 		<div class="container">
@@ -108,7 +108,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<a class="boxed-btn" th:href="@{/place-order}" th:if="${cartTotal > 0}" onclick="return validateAndConfirmOrder()">Place Order</a>
+						<a th:class="${isProfileComplete == false ? 'btn btn-secondary btn-lg disabled' : 'boxed-btn'}" role="button" th:aria-disabled="${isProfileComplete==false}" th:href="@{/place-order}" th:if="${cartTotal > 0}" onclick="return validateAndConfirmOrder()">Place Order</a>
 						<p th:if="${cartTotal == 0}" style="padding-right: 145px;font-weight: bold;padding-top: 30px;">Your cart is empty or have Inactive Product so you cannot Place Order.</p>
 					</div>
 				</div>
@@ -119,7 +119,7 @@
 	<!-- footer -->
 	<div th:replace="~{fragments::footer}"></div>
 	<!-- end footer -->
-	
+
 	<!-- copyright -->
 	<div th:replace="~{fragments::copyright}"></div>
 	<!-- end copyright -->

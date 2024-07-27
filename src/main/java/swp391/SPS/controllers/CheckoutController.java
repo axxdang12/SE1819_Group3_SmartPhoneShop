@@ -10,6 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp391.SPS.dtos.ProfileDto;
 import swp391.SPS.entities.Cart;
 import swp391.SPS.entities.User;
+import swp391.SPS.entities.UserDetail;
 import swp391.SPS.exceptions.FileNotFoundException;
 import swp391.SPS.exceptions.NoDataInListException;
 import swp391.SPS.exceptions.OutOfPageException;
@@ -45,6 +46,15 @@ public class CheckoutController {
         model.addAttribute("user", user);
         model.addAttribute("profileDto", new ProfileDto(user.getUserDetail().getFirstName(), user.getUserDetail().getLastName(),
         user.getUserDetail().getPhoneNumber(), user.getEmail(), user.getUserDetail().getGender(), user.getUserDetail().getAddress()));
-            return "checkout";
+        model.addAttribute("isProfileComplete", isProfileComplete(user));
+        return "checkout";
         }
+
+    private boolean isProfileComplete(User user) {
+        UserDetail userDetail = user.getUserDetail();
+        return userDetail.getFirstName() != null && !userDetail.getFirstName().isEmpty() &&
+                userDetail.getLastName() != null && !userDetail.getLastName().isEmpty() &&
+                userDetail.getAddress() != null && !userDetail.getAddress().isEmpty() &&
+                userDetail.getPhoneNumber() != null && !userDetail.getPhoneNumber().isEmpty();
+    }
 }

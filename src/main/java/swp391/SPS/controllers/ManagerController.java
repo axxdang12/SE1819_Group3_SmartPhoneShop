@@ -109,10 +109,10 @@ public class ManagerController {
         return "redirect:/manager";
     }
 
-    @GetMapping("/refund/{id}")
-    public String refundOrder(@PathVariable int id, RedirectAttributes redirectAttributes) {
-        orderService.updateOrderStatus(id, "Refunded");
-        redirectAttributes.addFlashAttribute("message", "Order refunded successfully");
+    @GetMapping("/inCompleted/{id}")
+    public String inCompletedOrder(@PathVariable int id, RedirectAttributes redirectAttributes) {
+        orderService.updateOrderStatus(id, "InCompleted");
+        redirectAttributes.addFlashAttribute("message", "Order Incomplete successfully");
         return "redirect:/manager";
     }
 

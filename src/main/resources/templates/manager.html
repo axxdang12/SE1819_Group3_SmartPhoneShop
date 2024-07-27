@@ -58,7 +58,7 @@
                             <option value="Canceled">Canceled</option>
                             <option value="Completed">Completed</option>
                             <option value="Rejected">Rejected</option>
-                            <option value="Refunded">Refunded</option>
+                            <option value="InCompleted">InCompleted</option>
                         </select>
                     </div>
                     <table class="table">
@@ -85,7 +85,7 @@
                                 <a th:if="${order.status == 'Approved'}" ></a>
                                 <a th:if="${order.status == 'Rejected'}" ></a>
                                 <a th:if="${order.status == 'Completed'}" ></a>
-                                <a th:if="${order.status == 'Refunded'}" ></a>
+                                <a th:if="${order.status == 'InCompleted'}" ></a>
                                 <span th:text="${order.status}"></span>
                             </td>
                             <td>
@@ -101,8 +101,8 @@
                                     <form th:action="@{complete/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('complete')">
                                         <button type="submit" class="btn btn-success" style="width: 120px; height: 50px">Complete</button>
                                     </form>
-                                    <form th:action="@{refund/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('refund')">
-                                        <button type="submit" class="btn btn-danger" style="width: 120px; height: 50px">Refund</button>
+                                    <form th:action="@{inCompleted/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('incomplete')">
+                                        <button type="submit" class="btn btn-danger" style="width: 120px; height: 50px">Incomplete</button>
                                     </form>
                                 </div>
                             </td>
@@ -119,7 +119,7 @@
                                 <a th:if="${order.status == 'Approved'}"></a>
                                 <a th:if="${order.status == 'Rejected'}"></a>
                                 <a th:if="${order.status == 'Completed'}"></a>
-                                <a th:if="${order.status == 'Refunded'}" ></a>
+                                <a th:if="${order.status == 'InCompleted'}" ></a>
                                 <span th:text="${order.status}"></span>
                             </td>
                             <td>
@@ -135,8 +135,8 @@
                                     <form th:action="@{complete/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('complete')">
                                         <button type="submit" class="btn btn-success" style="width: 120px; height: 50px">Complete</button>
                                     </form>
-                                    <form th:action="@{refund/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('refund')">
-                                        <button type="submit" class="btn btn-danger" style="width: 120px; height: 50px">Refund</button>
+                                    <form th:action="@{inCompleted/{id}(id=${order.orderId})}" method="get" onsubmit="return confirmAction('incomplete')">
+                                        <button type="submit" class="btn btn-danger" style="width: 120px; height: 50px">Incomplete</button>
                                     </form>
                                 </div>
                             </td>
