@@ -1,7 +1,4 @@
-//
-//
-//    // Activate tooltip
-// $('[data-toggle="tooltip"]').tooltip();
+
 
 function changeStatus(btn) {
     var isActive = btn.classList.contains('active'); // Check if the button has the 'active' class
@@ -29,11 +26,11 @@ function changeStatus(btn) {
                 btn.querySelector('i').classList.add('fa-check-circle');
             }
 
-            alert('Chỉnh sửa trạng thái sản phẩm thành công!');
+            alert('Product status edited successfully!');
         },
         error: function(error) {
-            console.log("Lỗi khi chỉnh sửa trạng thái sản phẩm: ", error);
-            alert('Có lỗi xảy ra khi chỉnh sửa trạng thái sản phẩm.');
+            console.log("Error while editing product status ", error);
+            alert('An error occurred while editing the product status.');
         }
     });
 }
@@ -48,13 +45,13 @@ function changeStatus(btn) {
   $(document).ready(function(){
 
      $('#statusSelect').change(function() {
-         const selectedValue = $(this).val(); // Lấy giá trị của select option đã chọn
-         console.log('Selected value:', selectedValue); // In ra giá trị đã chọn để kiểm tra
+         const selectedValue = $(this).val();
+         console.log('Selected value:', selectedValue);
         $('#search-form input[name="keyword"]').val('');
          if (selectedValue == -1) {
-             loadPage(1); // Gọi hàm loadPage với trang đầu tiên khi chọn "All"
+             loadPage(1);
          } else {
-             loadPageStatus(1, selectedValue); // Gọi hàm loadPageStatus với trang đầu tiên và giá trị đã chọn
+             loadPageStatus(1, selectedValue);
          }
      });
 
@@ -95,7 +92,7 @@ function changeStatus(btn) {
 
                                                      $('#tableee').html(response.htmlContent);
                                                      updatePaginationLinks(page, response.totalPages);
-                                                     alert('Không có sản phẩm nào!');
+                                                     alert('Not found!');
                                               }else{
                                                 $('#tableee').html(response.htmlContent);
                                                updatePaginationLinks(page, response.totalPages);
@@ -144,7 +141,7 @@ function changeStatus(btn) {
 
                                                        $('#tableee').html(response.htmlContent);
                                                        updatePaginationLinks(page, response.totalPages);
-                                                       alert('Không có sản phẩm nào!');
+                                                       alert('Not found!');
                                                  }else{
                                                   $('#tableee').html(response.htmlContent);
                                             updatePaginationLinks(page, response.totalPages);
@@ -164,46 +161,6 @@ function changeStatus(btn) {
 
       });
 
-//////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-//        function updatePaginationLinksStatus(currentPage, totalPages) {
-//            $('#page a').removeClass('active');
-//            $('#page-link-' + currentPage).addClass('active');
-//
-//            var currentTotalPages = $('#page li').length - 2; // Exclude "Prev" and "Next" links
-//            if (totalPages !== currentTotalPages) {
-//                $('#page li').slice(1, -1).remove(); // Remove current pagination links
-//                for (var i = 1; i <= totalPages; i++) {
-//                    var activeClass = (i === currentPage) ? 'active' : '';
-//                    $('#page-link-next').before('<li><a href="#" id="page-link-' + i + '" data-page="' + i + '" class="' + activeClass + '">' + i + '</a></li>');
-//
-//                }
-//            }
-//
-//            if (currentPage <= 1) {
-//                $('#page-link-prev').hide();
-//            } else {
-//                $('#page-link-prev').show().data('page', currentPage - 1);
-//            }
-//            if (currentPage >= totalPages) {
-//                $('#page-link-next').hide();
-//            } else {
-//                $('#page-link-next').show().data('page', currentPage + 1);
-//            }
-//        }
-//
-//        $(document).on('click', '#page a', function(e) {
-//            e.preventDefault();
-//            var page = $(this).data('page');
-//            var selectedValue = $('input[name="radio"]:checked').val(); // Get the currently selected radio value
-//            loadPageStatus(page, selectedValue);
-//        });
 
 
 
