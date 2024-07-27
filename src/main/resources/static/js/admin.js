@@ -33,7 +33,7 @@ $(document).ready(function () {
                     $.each(data.resultList, function (key, value) {
                         $('#table').append(`
                         <tr>
-                           <td>${value.userId}</td>
+<!--                           <td>${value.userId}</td>-->
                            <td>${value.username}</td>
                            <td><select class="role-select" data-id="${value.userId}" ${value.username == isCurrentLogin ? 'disabled' : ''}>
                                 <option value="${data.roles[0].roleName}" ${data.roles[0].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[0].roleName}</option>
@@ -90,7 +90,7 @@ $(document).ready(function () {
                     $.each(data.resultList, function (key, value) {
                         $('#table').append(`
                         <tr>
-                           <td>${value.userId}</td>
+<!--                           <td>${value.userId}</td>-->
                            <td>${value.username}</td>
                            <td><select class="role-select" data-id="${value.userId}" ${value.username == isCurrentLogin ? 'disabled' : ''}>
                                 <option value="${data.roles[0].roleName}" ${data.roles[0].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[0].roleName}</option>
@@ -151,7 +151,7 @@ $(document).ready(function () {
                             $.each(data.resultList, function (key, value) {
                                 $('#table').append(`
                         <tr>
-                           <td>${value.userId}</td>
+<!--                           <td>${value.userId}</td>-->
                            <td>${value.username}</td>
                            <td><select class="role-select" data-id="${value.userId}" ${value.username == isCurrentLogin ? 'disabled' : ''}>
                                 <option value="${data.roles[0].roleName}" ${data.roles[0].roleName === value.roles[0].roleName ? 'selected' : ''}>${data.roles[0].roleName}</option>

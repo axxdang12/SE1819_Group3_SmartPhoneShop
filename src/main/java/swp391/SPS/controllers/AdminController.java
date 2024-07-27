@@ -28,6 +28,7 @@ import swp391.SPS.services.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -41,6 +42,8 @@ public class AdminController {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    public static String EMAIL_PATTERN = "^(?=.{0,64}@(\\S))[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{1,})(\\S)$";
 
     @RequestMapping(value = {"/admin-dashboard"}, method = RequestMethod.GET)
     public String adminDashBoard(Model model,
@@ -88,6 +91,10 @@ public class AdminController {
                     messageList.add(fieldError.getDefaultMessage());
                 }
                 model.addAttribute("messageList", messageList);
+                return "AddAccount";
+            }
+            if (Pattern.matches(EMAIL_PATTERN, userAddDto.getEmail()) == false) {
+                model.addAttribute("usernameError", "Email invalid!");
                 return "AddAccount";
             }
             User userByEmail = userService.findByEmail(userAddDto.getEmail());
