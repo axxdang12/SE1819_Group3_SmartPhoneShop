@@ -35,7 +35,7 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
             "FROM report r " +
             "JOIN user u ON r.user_id = u.user_id " +
             "JOIN ordertb o ON r.order_id = o.order_id " +
-            "WHERE o.order_date BETWEEN '2024-03-01' And '2024-04-01'", nativeQuery = true)
+            "WHERE o.order_date BETWEEN :startDate AND :endDate", nativeQuery = true)
     List<Report> findReportsBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
 }

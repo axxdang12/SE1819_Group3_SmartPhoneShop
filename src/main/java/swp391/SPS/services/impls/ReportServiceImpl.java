@@ -65,6 +65,7 @@ public class ReportServiceImpl implements ReportService {
         dto.setStatus(report.getStatus());
         dto.setUserName(report.getUser().getUsername());
         dto.setOrderDate(report.getOrder().getOrderDate());
+        dto.setEmail(report.getUser().getEmail());
         return dto;
     }
 

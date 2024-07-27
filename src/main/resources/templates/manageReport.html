@@ -56,9 +56,9 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Order ID</th>
-                            <th>Order Date</th>
                             <th>Username</th>
+                            <th>Email</th>
+                            <th>Order Date</th>
                             <th>View detail</th>
                         </tr>
                         </thead>
@@ -66,9 +66,9 @@
 
                         <!-- Default report list -->
                         <tr th:each="report: ${reportList}">
-                            <td th:text="${report.orderId}"></td>
-                            <td th:text="${report.orderDate}"></td>
                             <td th:text="${report.userName}"></td>
+                            <td th:text="${report.email}"></td>
+                            <td th:text="${report.orderDate}"></td>
                             <td><a th:href="@{/report/report-detail/{reportId}(reportId=${report.reportId})}" class="btn btn-info">Details</a></td>
 
                         </tr>

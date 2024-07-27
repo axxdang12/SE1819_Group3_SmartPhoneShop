@@ -10,6 +10,16 @@ public class ReportDto {
     private String status;
     private String userName; // Add this field
     private LocalDate orderDate;
+    private String email;
+
+    public String getEmail(){
+        return email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+
 
     public int getReportId() {
         return reportId;
