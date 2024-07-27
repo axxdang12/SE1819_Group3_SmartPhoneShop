@@ -41,12 +41,6 @@ public class MainController {
     @CrossOrigin
     public String index(Model model) throws FileNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
-            String role = userService.findByUsername(authentication.getName()).getRoles().get(0).getRoleName();
-            if ("ADMIN".equalsIgnoreCase(role) || "MANAGER".equalsIgnoreCase(role)) {
-                throw new AccessDeniedException("You do not have permission to access this page");
-            }
-        }
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("listPhone", phoneService.getbestsale());
             model.addAttribute("isLogin", false);
