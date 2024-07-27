@@ -29,11 +29,11 @@ function changeStatus(btn) {
                 btn.querySelector('i').classList.add('fa-check-circle');
             }
 
-            alert('Chỉnh sửa trạng thái sản phẩm thành công!');
+            alert('Status is updated successfully!');
         },
         error: function(error) {
-            console.log("Lỗi khi chỉnh sửa trạng thái sản phẩm: ", error);
-            alert('Có lỗi xảy ra khi chỉnh sửa trạng thái sản phẩm.');
+            console.log("Failed when change to status: ", error);
+            alert('Failed when change to status');
         }
     });
 }
@@ -65,7 +65,7 @@ function changeStatus(btn) {
                 console.log("selectedValue: "+selectedValue );
                  var keyword = $('#search-form input[name="keyword"]').val();
 
-                 if (keyword != ''&& keyword != null ) { // Kiểm tra nếu keyword không trống và selectedValue là "All"
+                 if (keyword != ''&& keyword != null ) {
                              loadPage(page, keyword);
                          } else {
                              if(selectedValue==null) selectedValue = -1;
@@ -95,7 +95,7 @@ function changeStatus(btn) {
 
                                                      $('#tableee').html(response.htmlContent);
                                                      updatePaginationLinks(page, response.totalPages);
-                                                     alert('Không có sản phẩm nào!');
+                                                     alert('Not found!');
                                               }else{
                                                 $('#tableee').html(response.htmlContent);
                                                updatePaginationLinks(page, response.totalPages);
@@ -144,7 +144,7 @@ function changeStatus(btn) {
 
                                                        $('#tableee').html(response.htmlContent);
                                                        updatePaginationLinks(page, response.totalPages);
-                                                       alert('Không có sản phẩm nào!');
+                                                       alert('Not found!');
                                                  }else{
                                                   $('#tableee').html(response.htmlContent);
                                             updatePaginationLinks(page, response.totalPages);

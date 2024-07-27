@@ -74,8 +74,7 @@ public class ShopController {
                 }else{
                     model.addAttribute("check", false);
                 }
-            }
-            else if (minPrice != null && maxPrice != null ) {
+            }else if (minPrice != null && maxPrice != null ) {
                 if(minPrice.isEmpty() || maxPrice.isEmpty()){
                     model.addAttribute("check", true);
                     return "shop";

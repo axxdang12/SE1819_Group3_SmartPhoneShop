@@ -23,7 +23,7 @@ public class Phone {
   @Id
   @Column(name = "phone_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int phoneId;
+    private int phoneId;
 
   @Column(name = "product_name")
   private String productName;
