@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="~{fragmentManagement::header}">
+
+</head>
+
+<body>
+<!--PreLoader-->
+<div th:replace="~{fragmentManagement::loader}">
+
+</div>
+<!--PreLoader Ends-->
+<nav th:replace="~{fragmentManagement::navbar}" >
+</nav>
+<style>
+    .form-control:disabled, .form-control[readonly] {
+    background-color: #54657d;
+    opacity: 1;
+}
+</style>
+<div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+        <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="tm-block-title d-inline-block">Edit Brand</h2>
+                    </div>
+                    <div th:if="${check}" class="col-12">
+                        <h2 class="tm-block-title d-inline-block" style="color:white">The selected brand is non-existent in system!</h2>
+                    </div>
+                </div>
+                <div th:if="${!check}" class="row tm-edit-product-row">
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+                        <form th:action="@{/editbrand}" method="post" class="tm-edit-product-form">
+                            <div class="form-group mb-3" hidden="hidden">
+                                <label >Brand ID
+                                </label>
+                                <input  name="id" type="number" th:value="${brand.brandId}" class="form-control validate" readonly />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label>Brand Name
+                                </label>
+                                <input  name="name" type="text" th:value="${brand.brandName}" class="form-control validate" required />
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="~{fragmentManagement::footer}" >
+</footer>
+
+<div th:replace="~{fragmentManagement::js}">
+
+</div>
+
+
+</body>
+
+</html>

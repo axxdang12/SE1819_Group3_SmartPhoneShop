@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::header}">
+    <title>Order Feedback</title>
+</head>
+<body>
+
+<!--PreLoader-->
+<div th:replace="~{fragments::loader}"></div>
+<!--PreLoader Ends-->
+
+<!-- header -->
+<div th:replace="~{fragments::headerNav}"></div>
+<!-- end header -->
+
+<!-- search area -->
+<div th:replace="~{fragments::search}"></div>
+<!-- end search area -->
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Order Feedback</p>
+                    <h1>Report Issue</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- feedback section -->
+<div class="feedback-section mt-30 mb-30" style="margin-right: 10%;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="form-title">
+                    <h2>Report an Issue</h2>
+                    <p>Please fill out the form below to report any issues with your order.</p>
+                </div>
+                <div class="feedback-form">
+                    <form th:action="@{/submit-report}" method="post">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" name="orderId" th:value="${order}" />
+                                <p><textarea name="description" id="description" cols="30" rows="10" placeholder="Describe the issue" th:attr="disabled=${reportNormal}" th:text="${existingReport?.description}" required></textarea></p>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary" id="bt" th:attr="hidden=${reportNormal}" onclick="return confirmSubmit()">Submit Report</button>
+                            </div>
+                        </div>
+                    </form>
+                    <form th:action="@{/delete-report}" method="post" th:if="${existingReport}">
+                        <input type="hidden" name="reportId" th:value="${existingReport.reportId}" />
+                        <button id="bt" type="submit" class="btn btn-danger mt-2" onclick="return confirmDelete()">Delete Report</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="order-info" style="width: 144%">
+                    <h3>Order Information</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="product-image">Product Image</th>
+                            <th class="product-remove">Product Name</th>
+                            <th class="product-price">Price</th>
+                            <th class="product-quantity">Quantity</th>
+                            <th class="product-total">Total</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="items: ${listItemByO}">
+                            <td class="product-image"><img th:src="@{${items.phone.picture.main}}" alt=""></td>
+                            <td class="product-name" th:text="${items.phone.productName}"></td>
+                            <td class="product-price" th:text ="${items.phone.price} + '$'"></td>
+                            <td class="product-quantity" th:text ="${items.quantity}"></td>
+                            <td class="product-total" th:text="${items.total} + '$'"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end feedback section -->
+
+<!-- footer -->
+<div th:replace="~{fragments::footer}"></div>
+<!-- end footer -->
+
+<!-- copyright -->
+<div th:replace="~{fragments::copyright}"></div>
+<!-- end copyright -->
+
+<!-- jquery -->
+<div th:replace="~{fragments::script}"></div>
+
+<script>
+    function confirmDelete() {
+            return confirm("Are you sure you delete this report ?");
+        }
+
+        function confirmSubmit() {
+            return confirm("Are you sure you submit this report ?");
+        }
+</script>
+</body>
+</html>

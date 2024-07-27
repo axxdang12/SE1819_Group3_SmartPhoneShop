@@ -1,0 +1,42 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::header}"></head>
+<body>
+	
+	<!--PreLoader-->
+	<div th:replace="~{fragments::loader}"></div>
+    <!--PreLoader Ends-->
+
+		<div class="breadcrumb-section breadcrumb-bg">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8 offset-lg-2 text-center">
+						<div class="breadcrumb-text">
+							<p>LKTH SmartPhone Shop</p>
+							<h1>404 - Not Found</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- end breadcrumb section -->
+		<!-- error section -->
+		<div class="full-height-section error-section">
+			<div class="full-height-tablecell">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8 offset-lg-2 text-center">
+							<div class="error-text">
+								<i class="far fa-sad-cry"></i>
+								<h1>Oops! Not Found.</h1>
+								<p>The page you requested for is not found.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- jquery -->
+	<div th:replace="~{fragments::script}"></div>
+
+</body>
+</html>

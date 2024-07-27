@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::header}">
+</head>
+<body>
+<style>
+
+    .pagination {
+        display: inline-block;
+    }
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .pagination a.active {
+        background-color: #4CAF50;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .pagination a:hover:not(.active) {
+        background-color: #ddd;
+        border-radius: 5px;
+    }
+
+    .page-link {
+        color: #333;
+    }
+
+    .page-item.active .page-link {
+        background-color: #ffd200 !important;
+        border-color: #333;
+
+    }
+
+    .pagination {
+        display: flex;
+    }
+
+    .member-page-item {
+        list-style: none;
+    }
+
+    .input-group {
+        width: 350px;
+        margin-bottom: 20px;
+    }
+
+    .wrapper {
+        margin: 50px 0 50px 0;
+    }
+
+    .rowOne {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+</style>
+<!--PreLoader-->
+<div th:replace="~{fragments::loader}"></div>
+<!--PreLoader Ends-->
+
+<!-- header -->
+<div th:replace="~{fragments::headerNavAdmin}"></div>
+<!-- end header -->
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Admin Dashboard</p>
+                    <h1>Admin manager</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- check out section -->
+<div class="wrapper">
+    <div class="container">
+        <input id="currentLogin" hidden="hidden" th:value="${username}">
+        <div class="rowOne">
+            <div class="input-group rounded">
+                <input type="search" id="searchText" th:name="search" class="form-control rounded" placeholder="Search"
+                       aria-label="Search" aria-describedby="search-addon"/>
+            </div>
+            <a th:href="@{/admin-dashboard/add-account}" class="btn btn-secondary btn-lg" role="button"
+               aria-disabled="true">Add new account</a>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="order-table">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <!--                            <th>User ID</th>-->
+                            <th>User Name</th>
+                            <th>User Role</th>
+                            <th>View detail</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="table">
+                        <tr th:each="item: ${listFirstLoad}">
+                            <!--                            <td th:text="${item.userId}"></td>-->
+                            <td th:text="${item.username}"></td>
+                            <td><select class="role-select" th:attr="data-id=${item.userId}"
+                                        th:disabled="${item.username == username || item.roles[0].roleName == 'USER'}">
+                                <option th:each="role: ${listRole}" th:value="${role.roleName}"
+                                        th:selected="${role.roleName == item.roles[0].roleName}"
+                                        th:text="${role.roleName}"
+                                        th:hidden="${(item.roles[0].roleName == 'ADMIN' || item.roles[0].roleName == 'MANAGER') && role.roleName == 'USER'}"></option>
+                            </select></td>
+                            <td><a class="btn btn-info" th:href="@{/user_detail/{id}(id=${item.userId})}">Details</a>
+                            </td>
+                            <td>
+                                <button th:class="'btn btnChange ' + ${item.status == 'ACTIVE' ? 'btn-success' : 'btn-danger'}"
+                                        th:attr="data-id=${item.userId}"
+                                        th:value="${item.status}"
+                                        th:text="${item.status}"
+                                        th:disabled="${item.username == username}"
+                                ></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="test"></div>
+
+                    <ul class="pagination">
+                        <th:block th:if="${pageDto.currentPage > 1}">
+                            <li class="page-item member-page-item">
+                                <a class="page-link" type="button"
+                                   th:href="@{/admin-dashboard(page=${pageDto.currentPage - 1})}">Previous</a>
+                            </li>
+                        </th:block>
+                        <th:block th:if="${pageDto.currentPage == 1}">
+                            <li class="page-item member-page-item disabled"
+                                th:attr="data-page=${pageDto.currentPage - 1}"><a class="page-link"
+                                                                                  type="button">Previous</a></li>
+                        </th:block>
+                        <div th:each="page: ${pageNumbers}">
+                            <th:block th:if="${page == pageDto.currentPage}">
+                                <li class="page-item member-page-item active"
+                                    th:attr="data-page=${page}" th:href="@{/admin-dashboard(page=${page})}"><a
+                                        class="page-link" type="button">[[${page}]]<span
+                                        class="sr-only"></span></a></li>
+                            </th:block>
+
+                            <th:block
+                                    th:if="${page != pageDto.currentPage && page >= pageDto.currentPage - 1 && page <= pageDto.currentPage + 2}">
+                                <li class="page-item member-page-item" th:attr="data-page=${page}"><a
+                                        class="page-link" type="button" th:href="@{/admin-dashboard(page=${page})}">[[${page}]]</a>
+                                </li>
+                            </th:block>
+
+                        </div>
+                        <th:block th:if="${pageDto.currentPage < pageDto.totalPage}">
+                            <li class="page-item member-page-item">
+                                <a class="page-link" type="button"
+                                   th:href="@{/admin-dashboard(page=${pageDto.currentPage + 1})}">Next</a>
+                            </li>
+                        </th:block>
+                        <th:block th:if="${pageDto.currentPage == pageDto.totalPage}">
+                            <li class="page-item member-page-item disabled">
+                                <a class="page-link" type="button">Next</a>
+                            </li>
+                        </th:block>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end check out section -->
+
+<!-- jquery -->
+<div th:replace="~{fragments::script}"></div>
+<script th:src="@{/js/admin.js}"></script>
+
+</body>
+</html>

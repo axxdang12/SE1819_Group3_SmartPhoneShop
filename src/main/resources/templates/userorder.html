@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::header}">
+</head>
+<body>
+	
+	<!--PreLoader-->
+	<div th:replace="~{fragments::loader}"></div>
+	<!--PreLoader Ends-->
+	
+	<!-- header -->
+	<div th:replace="~{fragments::headerNav}"></div>
+	<!-- end header -->
+
+	<!-- search area -->
+	<div th:replace="~{fragments::search}"></div>
+	<!-- end search arewa -->
+	
+	<!-- breadcrumb-section -->
+	<div class="breadcrumb-section breadcrumb-bg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2 text-center">
+					<div class="breadcrumb-text">
+						<p>Smartphones</p>
+						<h1>My Orders</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- check out section -->
+<div class="checkout-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="order-table">
+                    <table class="table">
+						<thead>
+							<tr>
+								<th>Order Date</th>
+								<th>Total Price</th>
+								<th>View detail</th>
+								<th>Status</th>
+								<th>Action</th>
+								<th>Feedback</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="order: ${orderListByUid}">
+								<td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy')}"></td>
+								<td style="padding-left: 25px;" th:text="${#numbers.formatDecimal(order.totalPrice, 1, 'COMMA', 2, 'POINT') + ' $'}"></td>
+								<td><a class="btn btn-info" th:href="@{/orderDetail/{id}(id=${order.orderId})}">Details</a></td>
+								<td th:text="${order.status}"></td>
+								<td>
+									<a th:if="${order.status == 'Pending'}"
+									   class="btn btn-danger cancel-order"
+									   th:href="@{cancel-order/{id}(id=${order.orderId})}"
+									   onclick="return confirmCancel()">Cancel</a>
+									<button th:unless="${order.status == 'Pending'}"
+											class="btn btn-danger"
+											disabled>Cancel</button>
+								</td>
+								<td>
+									<a th:if="${order.status == 'Completed'}"
+									   class="btn btn-info"
+									   th:href="@{report/{id}(id=${order.orderId})}">Report</a>
+									<button th:unless="${order.status == 'Completed'}"
+											class="btn btn-info"
+											disabled>Report</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>					
+                </div>
+				<div>
+					<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></p>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end check out section -->
+
+
+	<!-- footer -->
+	<div th:replace="~{fragments::footer}"></div>
+	<!-- end footer -->
+	
+	<!-- copyright -->
+	<div th:replace="~{fragments::copyright}"></div>
+	<!-- end copyright -->
+	
+	<!-- jquery -->
+	<div th:replace="~{fragments::script}"></div>
+
+	<script>
+		function confirmCancel() {
+                return confirm("Are you sure you want to cancel this order?");
+            }
+	</script>
+</body>
+</html>

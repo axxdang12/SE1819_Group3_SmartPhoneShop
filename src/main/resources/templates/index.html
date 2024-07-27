@@ -1,10 +1,177 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="ISO-8859-1">
-    <title>Hello World App</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::header}">
 </head>
+<style>
+    .single-product-item{
+        height: 580px;
+
+    }
+</style>
 <body>
-<h1 th:text="'Thymeleaf ' + ${message} + ' App'"> </h1>
+<div th:replace="~{fragments::headerNav}">
+</div>
+<!--PreLoader-->
+<div class="loader">
+    <div class="loader-inner">
+        <div class="circle"></div>
+    </div>
+</div>
+<!--PreLoader Ends-->
+
+
+<!-- search area -->
+<div th:replace="~{fragments::search}"></div>
+<!-- end search area -->
+
+<!-- hero area -->
+<div class="hero-area hero-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 offset-lg-2 text-center">
+                <div class="hero-text">
+                    <div class="hero-text-tablecell">
+                        <p class="subtitle">Modern & Fashion</p>
+                        <h1>Smartphone Shop</h1>
+                        <div class="hero-btns">
+                            <a th:href="@{/shop}" class="boxed-btn">SmartPhones Collection</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="userRole" th:value="${userRole}" />
+
+
+<!-- product section -->
+<div class="product-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="section-title">
+                    <h3>Best <span class="orange-text">Sale</span> </h3>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div th:each="phone: ${listPhone}" class="col-lg-4 col-md-6 text-center" >
+                <div class="single-product-item">
+                    <div class="product-image">
+                        <a th:href="@{/single-product(id=${phone.phoneId})}"><img
+                                th:src="@{${phone.picture.main}}"
+                                alt=""></a>
+                    </div>
+                    <h3 th:text="${phone.productName + ' - ' + phone.ram + 'GB/' + #numbers.formatDecimal(phone.memory, 0, 'COMMA', 0,'POINT') + 'GB' +' - '+ phone.origin}"></h3>
+                    <p class="product-price" th:text="${#numbers.formatDecimal(phone.price, 1, 'COMMA', 2, 'POINT') + ' $'}"></p>
+
+
+                    <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" class="cart-btn" onclick="showAlert()"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- end product section -->
+
+
+<!-- testimonail-section -->
+<div class="testimonail-section mt-150 mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 text-center">
+                <div class="testimonial-sliders">
+                    <div class="single-testimonial-slider">
+                        <div class="client-avater">
+                            <img src="images/avaters/khanh.jpg" alt="">
+                        </div>
+                        <div class="client-meta">
+                            <h3>Mr Khanh <span>Local shop owner</span></h3>
+                            <p class="testimonial-body">
+                                "Our store guarantees to provide the best quality products at reasonable prices."
+                            </p>
+                            <div class="last-icon">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-testimonial-slider">
+                        <div class="client-avater">
+                            <img src="images/avaters/Long.jpg" alt="">
+                        </div>
+                        <div class="client-meta">
+                            <h3>Mr Long<span>Local shop owner</span></h3>
+                            <p class="testimonial-body">
+                                "Shop providing the latest and most popular products on the market"
+                            </p>
+                            <div class="last-icon">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-testimonial-slider">
+                        <div class="client-avater">
+                            <img src="images/avaters/hien.jpg" alt="">
+                        </div>
+                        <div class="client-meta">
+                            <h3>Mr Hien <span>Local shop owner</span></h3>
+                            <p class="testimonial-body">
+                                "We have good support service, can respond to customers as quickly as possible."
+                            </p>
+                            <div class="last-icon">
+                                <i class="fas fa-quote-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end testimonail-section -->
+
+<!-- advertisement section -->
+<div class="abt-section mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="abt-bg">
+                    <img src="https://images.samsung.com/is/image/samsung/assets/vn/p6_initial_explore_detail/brand/2024-olympic/im0106_home-explore-banner_pc_684x684.jpg?$684_684_PNG$"
+                         class="video-play-btn popup-youtube">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="abt-text">
+                    <p class="top-sub">Since Year 2024</p>
+                    <h2>We are <span class="orange-text">LKHT</span></h2>
+                    <p>Our shop always provides the best products at the most preferential prices, suitable for user needs.</p>
+                    <p>Highly professional team, can respond to your review in the fastest time.</p>
+                    <a th:href="@{/about}" class="boxed-btn mt-4">know more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end advertisement section -->
+<div th:replace="~{fragments::footer}"></div>
+<!-- copyright -->
+<div th:replace="~{fragments::copyright}"></div>
+<!-- end copyright -->
+
+<div th:replace="~{fragments::script}"></div>
+<script>
+    function showAlert() {
+        var userRole = document.getElementById("userRole").value;
+        if (userRole == 'USER') {
+            alert("Product added to cart successfully!");
+        }
+    }
+</script>
 </body>
 </html>

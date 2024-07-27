@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentManagement::header}">
+
+<body id="reportsPage">
+
+<div class="" id="home">
+    <nav th:replace="~{fragmentManagement::navbar}" ></nav>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="text-white mt-5 mb-5">Welcome back, <b>Manager</b></p>
+            </div>
+        </div>
+
+        <!-- row -->
+        <div class="row tm-content-row">
+            <div class="col-12 tm-block-col">
+                <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                    <h2 class="tm-block-title">Reports Detail</h2>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control" id="description" rows="5" th:text="${report.description}" readonly style="background-color: #54657d;"></textarea>
+                    </div>
+                    <h3 class="tm-block-title">Order Items</h3>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Product Image</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item : ${listItemByO}">
+                            <td><img th:src="@{${item.phone.picture.main}}" alt="" style="width: 100px;"></td>
+                            <td th:text="${item.phone.productName}"></td>
+                            <td th:text="${item.phone.price} + '$'"></td>
+                            <td th:text="${item.quantity}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="~{fragmentManagement::footer}" >
+    </footer>
+</div>
+
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<!-- https://jquery.com/download/ -->
+<script th:src="@{/js/moment.min.js}"></script>
+<!-- https://momentjs.com/ -->
+<script th:src="@{/js/Chart.min.js}"></script>
+<!-- http://www.chartjs.org/docs/latest/ -->
+<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+<!-- https://getbootstrap.com/ -->
+<script th:src="@{/js/tooplate-scripts.js}"></script>
+<script>
+    Chart.defaults.global.defaultFontColor = 'white';
+    let ctxLine,
+        ctxBar,
+        ctxPie,
+        optionsLine,
+        optionsBar,
+        optionsPie,
+        configLine,
+        configBar,
+        configPie,
+        lineChart;
+    barChart, pieChart;
+    // DOM is ready
+    $(function () {
+        drawLineChart(); // Line Chart
+        drawBarChart(); // Bar Chart
+        drawPieChart(); // Pie Chart
+
+        $(window).resize(function () {
+            updateLineChart();
+            updateBarChart();
+        });
+    })
+    function handleAction(action, button) {
+        alert(action + ' clicked!');
+        // Additional logic can be added here
+    }
+
+</script>
+</body>
+
+</html>

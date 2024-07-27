@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragmentManagement::header}">
+
+</head>
+<div th:replace="~{fragmentManagement::loader}">
+
+</div>
+<!--PreLoader Ends-->
+<nav th:replace="~{fragmentManagement::navbar}" >
+
+</nav>
+
+<style>
+    .form-group {
+           display: flex;
+           flex-direction: column;
+       }
+       .date-input {
+           width: 40%;
+           margin-right: 5px;
+
+       }
+       .search-button {
+           align-self: center;
+
+       }
+       .flex-container {
+           display: flex;
+           align-items: center;
+       }
+    .tm-block-title{
+        font-weight: 600;
+    }
+</style>
+<body>
+
+
+<div class="container">
+    <form th:action="@{/staticsDate}" method="post" onsubmit="return validateDates()" >
+        <div class="flex-container">
+            <div class="form-group mb-3  col-xs-6 col-sm-6" style="margin-top: 24px;">
+                <label for="start_date">Start</label>
+                <input id="start_date" name="start_date" type="date" th:value="${start_date }" class="form-control validate date-input" required />
+                <label for="end_date" style="margin-top: 15px;" >End</label>
+                <input id="end_date" name="end_date" type="date" th:value="${end_date}" class="form-control validate date-input" required />
+                <button class="search-button btn btn-primary" type="submit" style="   height: 47px; margin-left: 67px;
+    margin-top: -50px;">Search</button>
+            </div>
+        </div>
+        <span id="dateError" style="color: red; display: none;">Start date must be before end date!</span>
+    </form>
+
+
+    <!-- row -->
+    <div class="row tm-content-row">
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block">
+                <h4 class="tm-block-title" style="text-align: center; color: #ffc107;font-weight: 900;font-size: 23px; ">Revenue</h4>
+                <h2 class="tm-block-title" th:text="'Total: '+${#numbers.formatDecimal(revenue, 1, 'COMMA', 2, 'POINT')} + ' $'" ></h2>
+                <h2 class="tm-block-title" th:text="'Total of order: ' + ${TotalOrder} " ></h2>
+
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block">
+                <h3 class="tm-block-title" style="text-align: center; color: #ffc107;font-weight: 900;font-size: 23px;">Top revenue of brand</h3>
+                <h2 th:if="${listBrand!=null}" th:each="brand: ${listBrand}" class="tm-block-title" th:text="${brand.brandName} + ' : ' +${#numbers.formatDecimal(brand.total, 1, 'COMMA', 2, 'POINT')} + ' $' "></h2>
+
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block">
+                <h3 class="tm-block-title" style="text-align: center; color: #ffc107;font-weight: 900;font-size: 23px;">List total orders of users</h3>
+                <h2 th:if="${listUser!=null}"  th:each="user: ${listUser}" class="tm-block-title" th:text="${user.userName} + ' : '+ ${user.totalOrder}"></h2>
+
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block">
+                <h3 class="tm-block-title" style="text-align: center; color: #ffc107;font-weight: 900;font-size: 23px;">Top 5 best sale phone</h3>
+                <h2 th:if="${listPhone!=null}"  th:each="phone: ${listPhone}" class="tm-block-title" th:text="${phone.phoneName} + ' : '+ ${phone.total}"></h2>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script th:src="@{/js/Statistics.js}"></script>-->
+<script>
+    function validateDates() {
+        const startDate = document.getElementById('start_date').value;
+        const endDate = document.getElementById('end_date').value;
+        const dateError = document.getElementById('dateError');
+
+        if (new Date(startDate) > new Date(endDate)) {
+            dateError.style.display = 'block';
+            return false; // Ngăn chặn gửi biểu mẫu
+        } else {
+            dateError.style.display = 'none';
+            return true; // Cho phép gửi biểu mẫu
+        }
+    }
+</script>
+
+<footer th:replace="~{fragmentManagement::footer}" >
+</footer>
+<div th:replace="~{fragmentManagement::js}"></div>
+</body>
+</html>

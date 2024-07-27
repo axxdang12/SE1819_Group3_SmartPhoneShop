@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="~{fragmentManagement::header}">
+
+</head>
+
+
+<body>
+<!--PreLoader-->
+<div th:replace="~{fragmentManagement::loader}">
+
+</div>
+<!--PreLoader Ends-->
+<nav th:replace="~{fragmentManagement::navbar}" >
+
+</nav>
+
+<div class="container tm-mt-big tm-mb-big">
+  <div class="row">
+    <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+      <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="tm-block-title d-inline-block">Add Brand</h2>
+          </div>
+          <div class="col-12">
+            <h2 class="tm-block-title d-inline-block" style="color: #ffc107;" th:text="${mess}"></h2>
+          </div>
+        </div>
+        <div class="row tm-edit-product-row">
+          <div class="col-xl-12 col-lg-12 col-md-12">
+            <form th:action="@{/addBrand}" method="post" class="tm-edit-product-form">
+
+              <div class="form-group mb-3">
+                <label for="name">Brand Name
+                </label>
+                <input id="name" name="name" type="text"  class="form-control validate" required />
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Now</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer th:replace="~{fragmentManagement::footer}" >
+  </footer>
+</body>
+<div th:replace="~{fragmentManagement::js}">
+
+</div>
+
+
+
+
+</html>
