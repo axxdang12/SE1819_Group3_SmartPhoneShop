@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import swp391.SPS.dtos.ReportDto;
 import swp391.SPS.entities.Report;
+import swp391.SPS.services.OrderItemService;
 import swp391.SPS.services.ReportService;
 
 import java.time.LocalDate;
@@ -19,12 +20,22 @@ import java.util.List;
 public class ManageReportController {
     @Autowired
     private ReportService reportService;
+    @Autowired
+    private OrderItemService orderItemService;
 
     @GetMapping("/manageReport")
     public String viewReportList(Model model) {
         List<ReportDto> reportList = reportService.getAllReport();
         model.addAttribute("reportList", reportList);
         return "manageReport";
+    }
+
+    @GetMapping("/report/report-detail/{reportId}")
+    public String viewReportDetails(@PathVariable("reportId") int reportId, Model model) {
+        Report report = reportService.getReport(reportId);
+        model.addAttribute("report", report);
+        model.addAttribute("listItemByO", orderItemService.listOrderItemByOrderId(report.getOrder().getOrderId()));
+        return "report-detail";
     }
 
     @PostMapping("/searchReport")
@@ -48,12 +59,12 @@ public class ManageReportController {
     }
 
 
-    @GetMapping("/report/report-detail/{reportId}")
-    public String viewReportDetails(@PathVariable("reportId") int reportId, Model model) {
-        Report report = reportService.getReport(reportId);
-        model.addAttribute("report", report);
-        return "report-detail";
-    }
+//    @GetMapping("/report/report-detail/{reportId}")
+//    public String viewReportDetails(@PathVariable("reportId") int reportId, Model model) {
+//        Report report = reportService.getReport(reportId);
+//        model.addAttribute("report", report);
+//        return "report-detail";
+//    }
 
     @PostMapping("/searchReportsByDate")
     public String searchReportsByDate(@RequestParam("startDate") String startDate,
