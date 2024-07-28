@@ -3,6 +3,7 @@ package swp391.SPS.entities;
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: https://pvs-studio.com
 import jakarta.persistence.*;
 import lombok.*;
+import swp391.SPS.dtos.BrandRevenueDTO;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
+
 @Data
 public class Brand {
     @Id
@@ -25,6 +27,5 @@ public class Brand {
     @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Phone> phones;
 
-    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Accessory> accessories;
+
 }

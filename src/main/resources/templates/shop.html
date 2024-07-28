@@ -1,312 +1,207 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
 <head th:replace="~{fragments::header}"></head>
 <body>
-<link rel="stylesheet" th:href="@{/css1/style.css}">
+<!--<link rel="stylesheet" th:href="@{/css1/style.css}">-->
 <!--PreLoader-->
 <div th:replace="~{fragments::loader}"></div>
 <!--PreLoader Ends-->
+
 
 <!-- header -->
 <div th:replace="~{fragments::headerNav}"></div>
 <!-- end header -->
 
-	<!-- search area -->
-	<div class="search-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="close-btn"><i class="fas fa-window-close"></i></span>
-					<div class="search-bar">
-						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end search arewa -->
-	
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<p>MODERN & FASHION</p>
-						<h1>Smartphones Shop</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end breadcrumb section -->
-<section class="ftco-section">
-	<div class="container">
-		<div class="row justify-content-center">
-		</div>
-	</div>
-	<div class="container">
-		<nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" id="ftco-navbar">
-			<div class="container">
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-						aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="fa fa-bars"></span> Menu
-				</button>
-				<div class="collapse navbar-collapse" id="ftco-nav">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item dropdown position-static">
-							<a class="nav-link dropdown-toggle" href="#" id="drop_down04" data-toggle="dropdown"
-							   aria-haspopup="true" aria-expanded="false">Color</a>
-							<div class="dropdown-menu p-4" aria-labelledby="dropdown04">
-								<div class="row">
-									<div class="col-md-3">
-										<a class="dropdown-item" href="#">Page 1</a>
-										<a class="dropdown-item" href="#">Page 2</a>
-										<a class="dropdown-item" href="#">Page 3</a>
-										<a class="dropdown-item" href="#">Page 4</a>
-									</div>
-									<div class="col-md-3">
-										<a class="dropdown-item" href="#">Page 1</a>
-										<a class="dropdown-item" href="#">Page 2</a>
-										<a class="dropdown-item" href="#">Page 3</a>
-										<a class="dropdown-item" href="#">Page 4</a>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown position-static">
-							<a class="nav-link dropdown-toggle" href="#" id="drop_down04" data-toggle="dropdown"
-							   aria-haspopup="true" aria-expanded="false">Ram</a>
-							<div class="dropdown-menu p-4" aria-labelledby="dropdown04">
-								<div class="row">
-									<div class="col-md-3">
-										<a class="dropdown-item" href="#">Page 1</a>
-										<a class="dropdown-item" href="#">Page 1</a>
-									</div>
 
-								</div>
-							</div>
-						</li>
-						<li class="nav-item dropdown position-static">
-							<a class="nav-link dropdown-toggle" href="#" id="drop_down04" data-toggle="dropdown"
-							   aria-haspopup="true" aria-expanded="false">Memory</a>
-							<div class="dropdown-menu p-4" aria-labelledby="dropdown04">
-								<div class="row">
-									<div class="col-md-3">
-										<a class="dropdown-item" href="#">Page 1</a>
-										<a class="dropdown-item" href="#">Page 1</a>
-										<a class="dropdown-item" href="#">Page 1</a>
-										<a class="dropdown-item" href="#">Page 1</a>
-									</div>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<!-- END nav -->
-	</div>
-</section>
-	<!-- products -->
-	<div class="product-section mt-150 mb-150">
-		<div class="container">
+<!-- search area -->
+<div th:replace="~{fragments::search}"></div>
+<!-- end search area -->
+<style>
+    li a{
+    color: black
+    }
+    .product-filters ul li {
+        border: 3px solid #051922;
+    }
+    .single-product-item{
+        height: 525px;
 
-			<div class="row">
-                <div class="col-md-12">
-                    <div class="product-filters">
-                        <ul style="display: flex; justify-content: center">
-                            <li class="active" data-filter="*">All</li>
-							<div th:each = "brand: ${listBrand}">
-								<li data-filter=".strawberry" th:text="${brand.brandName}"></li>
-							</div>
-                        </ul>
+    }
+</style>
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>MODERN & FASHION</p>
+                    <h1>All Products</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="userRole" th:value="${userRole}" />
+
+
+<div class="product-section mt-150 mb-150" style="margin-top: -10px">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="    margin: 57px 0px -77px 0px;">
+                <div class="product-filters">
+                    <ul>
+                        <li > <a th:href="@{/shop}" style="color: black">All</a></li>
+                        <li th:each="brand: ${listBrand}">
+                            <a  th:href="@{/shop/brand(id=${brand.brandId})}"
+                                th:text="${brand.brandName}" style="color: black" ></a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12" style=" margin-bottom: -64px;">
+                <div class="product-filters">
+                    <ul>
+
+
+                        <li><a th:href="@{/shop?minPrice=0&maxPrice=200}" >Under 200$</a></li>
+                        <li><a th:href="@{/shop?minPrice=200&maxPrice=500}" >200$ - 500$</a></li>
+                        <li><a th:href="@{/shop?minPrice=500&maxPrice=1000}" >500$ - 1000$</a></li>
+                        <li><a th:href="@{/shop?minPrice=1000&maxPrice=1500}" >1000$ - 1500$</a></li>
+                        <li><a th:href="@{/shop?minPrice=1500&maxPrice=10000}" >1500$ - 10000$</a></li>
+
+
+
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div th:if="${check}" class="full-height-section error-section">
+            <div class="full-height-tablecell">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 offset-lg-2 text-center">
+                            <div class="error-text">
+                                <i class="far fa-sad-cry"></i>
+                                <h1>Oops! Not Found.</h1>
+                                <p>We apologize for the inconvenience, but it appears the product you're looking for is currently unavailable.</p>
+                                <a th:href="@{/shop}" class="boxed-btn">Back to Shop</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row product-lists">
+            <div th:each="phone: ${listPhone}" class="col-lg-4 col-md-6 text-center "  style="padding: 43px;">
+                <div class="single-product-item">
+                    <div class="product-image">
+                        <a th:href="@{/single-product(id=${phone.phoneId})}"><img th:src="@{${phone.picture.main}}"
+                                                                                       alt=""></a>
+                    </div>
+                    <h3 th:text="${phone.productName + ' - ' + phone.ram + 'GB/' + #numbers.formatDecimal(phone.memory, 0, 'COMMA', 0,'POINT') + 'GB' +' - '+ phone.origin}"></h3>
+                    <p class="product-price" th:text="${#numbers.formatDecimal(phone.price, 1, 'COMMA', 2, 'POINT') + ' $'}"></p>
+                    <a th:href="@{/cart/phone/{id}(id=${phone.phoneId})}" onclick="showAlert()" class="cart-btn"><i
+                            class="fas fa-shopping-cart" ></i> Add to Cart</a>
+                </div>
+            </div>
 
-			<div class="row product-lists">
-				<div class="col-lg-4 col-md-6 text-center strawberry">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
-						</div>
-						<h3>Iphone 15 Promax</h3>
-						<p class="product-price"> 85$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center berry">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-2.jpg" alt=""></a>
-						</div>
-						<h3>Samsung A20</h3>
-						<p class="product-price"> 70$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center lemon">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-3.jpg" alt=""></a>
-						</div>
-						<h3>Vivo</h3>
-						<p class="product-price"> 35$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-4.jpg" alt=""></a>
-						</div>
-						<h3>Xiaomi</h3>
-						<p class="product-price"> 50$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-5.jpg" alt=""></a>
-						</div>
-						<h3>Huawei</h3>
-						<p class="product-price"> 45$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center strawberry">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-6.jpg" alt=""></a>
-						</div>
-						<h3>Blackberry</h3>
-						<p class="product-price"> 80$ </p>
-						<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-					</div>
-				</div>
-			</div>
 
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="pagination-wrap">
-						<ul>
-							<li><a href="#">Prev</a></li>
-							<li><a href="#">1</a></li>
-							<li><a class="active" href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">Next</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end products -->
+        </div>
 
-	<!-- logo carousel -->
-	<div class="logo-carousel-section">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="logo-carousel-inner">
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/1.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/2.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/3.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/4.png" alt="">
-						</div>
-						<div class="single-logo-item">
-							<img src="assets/img/company-logos/5.png" alt="">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end logo carousel -->
+        <div th:if="${!check}" class="row">
+            <div class="col-lg-12 text-center">
+                <div class="pagination-wrap">
+                    <ul>
+                        <li th:if="${currentPage > 1}">
+                            <a th:href="@{'/shop?'
+                     +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
+                     + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
+                     + 'pageNo=' + ${currentPage - 1}}">Prev</a>
+                        </li>
+                        <li th:each="pageNo : ${#numbers.sequence(1, totalPage)}">
+                            <a th:href="@{'/shop?'
+                     +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
+                     + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
+                     + 'pageNo=' + ${pageNo}}"
+                               th:classappend="${currentPage == pageNo} ? 'active' : ''"
+                               th:text="${pageNo}">Page</a>
+                        </li>
+                        <li th:if="${currentPage < totalPage}">
+                            <a th:href="@{'/shop?'
+                     +(${keyword != null && keyword != ''} ? 'keyword=' + ${keyword} + '&' : '')
+                     + (${minPrice != null && maxPrice != null} ? 'minPrice=' + ${minPrice} + '&maxPrice=' + ${maxPrice} + '&' : '')
+                     + 'pageNo=' + ${currentPage + 1}}">Next</a>
+                        </li>
+                    </ul>
 
-	<!-- footer -->
-	<div class="footer-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box about-widget">
-						<h2 class="widget-title">About us</h2>
-						<p>Shop will provide users with the best phone products at preferential prices with an extremely attractive warranty policy.</p>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box get-in-touch">
-						<h2 class="widget-title">Get in Touch</h2>
-						<ul>
-							<li>Nguyen Sieu street, Hang Buom, Hoan Kiem, Ha Noi.</li>
-							<li>support@LKHT.com</li>
-							<li>0978262446</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box pages">
-						<h2 class="widget-title">Pages</h2>
-						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="about.html">About</a></li>
-							<li><a href="checkout.html">Checkout</a></li>
-							<li><a href="shop.html">Shop</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6">
-					<div class="footer-box subscribe">
-						<h2 class="widget-title">Subscribe</h2>
-						<p>Subscribe to our mailing list to get the latest updates.</p>
-						<form action="index.html">
-							<input type="email" placeholder="Email">
-							<button type="submit"><i class="fas fa-paper-plane"></i></button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end footer -->
-	
-	<!-- copyright -->
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.</p>
-				</div>
-				<div class="col-lg-6 text-right col-md-12">
-					<div class="social-icons">
-						<ul>
-							<li><a href="https://www.facebook.com/profile.php?id=100009172256835" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-							<li><a href="https://www.instagram.com/_.nkhanhh/" target="_blank"><i class="fab fa-instagram"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-linkedin"></i></a></li>
-							<li><a href="#" target="_blank"><i class="fab fa-dribbble"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end copyright -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- end products -->
+
+
+<!-- logo carousel -->
+<div class="logo-carousel-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="logo-carousel-inner">
+                    <div class="single-logo-item">
+                        <img th:src="@{images/company-logos/1.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{images/company-logos/2.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{images/company-logos/3.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{images/company-logos/4.png}" alt="">
+                    </div>
+                    <div class="single-logo-item">
+                        <img th:src="@{images/company-logos/5.png}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end logo carousel -->
+
+
+<!-- footer -->
+<div th:replace="~{fragments::footer}"></div>
+<!-- end footer -->
+
+
+<!-- copyright -->
+<div th:replace="~{fragments::copyright}"></div>
+<!-- end copyright -->
+
 
 <div th:replace="~{fragments::script}"></div>
-
+<script>
+    function showAlert() {
+        var userRole = document.getElementById("userRole").value;
+        if (userRole == 'USER') {
+            alert("Product added to cart successfully!");
+        }
+    }
+</script>
 </body>
 </html>
+

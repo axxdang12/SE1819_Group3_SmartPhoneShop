@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments::header}">
+
 </head>
 <body class="img js-fullheight" style="background-image: url(https://cdn.wallpapersafari.com/70/14/kISu7N.jpg);">
 <!--PreLoader-->
@@ -17,10 +18,10 @@
             <div class="col-md-6 col-lg-4">
                 <div class="login-wrap p-0">
                     <h3 class="mb-4 text-center">Have an account?</h3>
-                    <div th:if = "${param.error}" th:text = "${message}" class="alert alert-danger text-center">
+                    <div th:if="${param.error}" class="alert alert-danger text-center">
                         Invalid username or password
                     </div>
-                    <div th:if = "${param.logout}" class="alert alert-success text-center">
+                    <div th:if="${param.logout}" class="alert alert-success text-center">
                         You have been logged out!
                     </div>
                     <form th:action="@{/do-login}" class="signin-form" method="POST">
@@ -41,7 +42,7 @@
                                 <a th:href="@{/register}" style="color: #fff">Register here</a>
                             </div>
                             <div class="w-50 text-md-right">
-                                <a href="#" style="color: #fff">Forgot Password</a>
+                                <a th:href="@{/forgot-password}" style="color: #fff">Forgot Password</a>
                             </div>
                         </div>
                     </form>

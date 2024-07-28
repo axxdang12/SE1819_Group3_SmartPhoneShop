@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentManagement::header}">
+
+</head>
+
+
+<!--PreLoader-->
+<div th:replace="~{fragmentManagement::loader}">
+
+</div>
+<!--PreLoader Ends-->
+<nav th:replace="~{fragmentManagement::navbar}" >
+
+</nav>
+<body>
+<div class="container tm-mt-big tm-mb-big">
+  <div class="row">
+    <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+      <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+        <div class="row">
+          <div class="col-12">
+            <h2 class="tm-block-title d-inline-block">Add Product</h2>
+          </div>
+          <div class="col-12">
+            <h2 class="tm-block-title d-inline-block" style="color:#ffc107;" th:text="${mess}"></h2>
+          </div>
+        </div>
+        <div class="row tm-edit-product-row">
+          <div class="col-xl-12 col-lg-12 col-md-12">
+            <form th:action="@{/addProduct}" method="post" class="tm-edit-product-form">
+              <div class="form-group mb-3">
+                <label for="name">Product Name
+                </label>
+                <input  name="name" type="text" value="" class="form-control validate" required/>
+              </div>
+              <div class="form-group mb-3">
+                <label for="name">CPU
+                </label>
+                <input id="name" name="cpu" type="text" value="" class="form-control validate" required />
+              </div>
+              <div class="form-group mb-3">
+                <label for="name">Memory</label>
+                <select class="custom-select tm-select-accounts" name="memory"  >
+                  <option value="32" selected>32GB</option>
+
+                  <option value="64" >64GB</option>
+
+                  <option value="128">128GB</option>
+                  <option value="256">256GB</option>
+                  <option value="256">512GB</option>
+
+                </select>
+              </div>
+
+<!--              <div class="form-group mb-3">-->
+<!--                <label for="name">Category</label>-->
+<!--                <select class="custom-select tm-select-accounts" name="category">-->
+
+<!--                  <option th:each="category : ${listCategory}"-->
+<!--                          th:value="${category.categoryId}"-->
+<!--                          th:text="${category.categoryName}">-->
+<!--                  </option>-->
+<!--                </select>-->
+<!--              </div>-->
+              <div class="row">
+                 <div class="form-group mb-3 col-xs-12 col-sm-6">
+                 <label for="expire_date">Date
+                 </label>
+                 <input id="expire_date" name="date" type="date" value=""
+                 class="form-control validate" data-large-mode="true" required />
+                 </div>
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label>Sim</label>
+                  <select class="custom-select tm-select-accounts" name="sim">
+
+                    <option value="2 Sim" selected>2 Sim</option>
+                    <option value="1 Sim, 1 e-sim">1 Sim, 1 e-sim</option>
+
+                  </select>
+                </div>
+
+
+
+
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label >Price
+                  </label>
+
+                  <input  name="price" id="price" min="0" type="number" value="" class="form-control validate" required />
+                </div>
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label >Ram
+                  </label>
+                  <select class="custom-select tm-select-accounts" name="ram">
+                    <option value="8" selected>8GB</option>
+                    <option value="16" >16GB</option>
+                    <option value="32">32GB</option>
+
+                  </select>
+                </div>
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label >Display
+                  </label>
+                  <input  name="dis"  id="dis"  min="0" type="number" value="" class="form-control validate" required />
+                </div>
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label >Origin
+                  </label>
+                  <input  name="origin" type="text" value="" class="form-control validate" required />
+                </div>
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label >Brand</label>
+                  <select class="custom-select tm-select-accounts" name="brand">
+
+                    <option th:each="brand : ${listBrand}"
+                            th:value="${brand.brandId}"
+                            th:text="${brand.brandName}">
+                    </option>
+                  </select>
+                </div>
+<!--                <div class="form-group mb-3 col-xs-12 col-sm-6">-->
+<!--                  <label for="stock">Picture ID-->
+<!--                  </label>-->
+<!--                  <input name="pid" type="text" value="" class="form-control validate" />-->
+<!--                </div>-->
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label >Picture Main
+                  </label>
+                  <input  name="pm" type="text" value="" class="form-control validate" required />
+                </div>
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label >Picture Font
+                  </label>
+                  <input  name="pf" type="text" value="" class="form-control validate" required />
+                </div>
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label >Picture Back
+                  </label>
+                  <input  name="pb" type="text" value="" class="form-control validate" required />
+                </div>
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label>Picture Side
+                  </label>
+                  <input  name="ps" type="text" value="" class="form-control validate" required />
+                </div>
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label>Camera</label>
+                  <input
+                          name="camera"
+                          id="camera"
+                          type="number"
+                          value=""
+                          class="form-control validate"
+                          min="0"
+                          required
+                  />
+                  <span id="cameraError" style="color: red; display: none;">Giá trị không hợp lệ. Vui lòng nhập một số không âm.</span>
+                </div>
+
+                <div class="form-group mb-3 col-xs-12 col-sm-6">
+                  <label >Status
+                  </label>
+                  <select class="custom-select tm-select-accounts" name="status" required>
+                    <option value="1" selected>In stock</option>
+                    <option value="0" >Out stock</option>
+
+
+                  </select>
+                </div>
+              </div>
+          </div>
+               <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Now</button>
+                </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer th:replace="~{fragmentManagement::footer}" >
+  </footer>
+
+
+ </body>
+
+<div th:replace="~{fragmentManagement::js}">
+
+</div>
+
+<script>
+
+</script>
+</html>

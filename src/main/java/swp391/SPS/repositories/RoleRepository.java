@@ -4,9 +4,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import swp391.SPS.entities.Role;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
-  Optional<Role> findByRoleName(String roleName);
+  Role findByRoleName(String name);
+  List<Role> findAll();
 }

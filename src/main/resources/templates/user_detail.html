@@ -6,44 +6,23 @@
 	<!--PreLoader-->
 	<div th:replace="~{fragments::loader}"></div>
 	<!--PreLoader Ends-->
-	
+
 	<!-- header -->
-	<div th:replace="~{fragments::headerNav}"></div>
+	<div th:replace="~{fragments::headerNavAdmin}"></div>
 	<!-- end header -->
 
-	<!-- search area -->
-	<div class="search-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="close-btn"><i class="fas fa-window-close"></i></span>
-					<div class="search-bar">
-						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end search arewa -->
-	
 	<!-- breadcrumb-section -->
 	<div class="breadcrumb-section breadcrumb-bg">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<!--<p>Fresh and Organic</p>-->
 						<h1>User Detail</h1>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end breadcrumb section -->
 
 	<!-- cart -->
 	<div class="cart-section mt-150 mb-150">
@@ -54,8 +33,10 @@
 						<table class="cart-table">
 							<thead class="cart-table-head">
 								<tr class="table-head-row">
-									<th class="product-id">User ID</th>
+<!--									<th class="product-id">User ID</th>-->
 									<th class="product-name">User Name</th>
+									<th class="product-name">First Name</th>
+									<th class="product-name">Last Name</th>
 									<th class="product-email">Email</th>
 									<th class="product-address">Address</th>
 									<th class="product-gender">Gender</th>
@@ -64,12 +45,14 @@
 							</thead>
 							<tbody>
 								<tr class="table-body-row">
-									<td class="product-id">1</td>
-									<td class="product-name">User A</td>
-									<td class="product-email">userA@example.com</td>
-									<td class="product-address">123 Main St, Cityville</td>
-									<td class="product-gender">Male</td>
-									<td class="product-phone">123-456-7890</td>
+<!--									<td class="product-id" th:text="${userdtl.userDetailId}">1</td>-->
+									<td class="product-name" th:text="${user.username}">User A</td>
+									<td class="product-name" th:text="${userdtl.firstName}">User A</td>
+									<td class="product-name" th:text="${userdtl.lastName}">User A</td>
+									<td class="product-email" th:text="${user.email}">userA@example.com</td>
+									<td class="product-address" th:text="${userdtl.address}">123 Main St, Cityville</td>
+									<td class="product-gender" th:text="${userdtl.gender}">Male</td>
+									<td class="product-phone" th:text="${userdtl.phoneNumber}">123-456-7890</td>
 								</tr>
 								</tr>
 							</tbody>

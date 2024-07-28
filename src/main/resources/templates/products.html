@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentManagement::header}">
+
+</head>
+<style>
+    td{
+      text-align: center;
+    }
+    .action-links .stock i {
+
+    cursor: pointer; /* Change the cursor to pointer on hover */
+}
+</style>
+
+
+<body id="reportsPage">
+<!--PreLoader-->
+<div th:replace="~{fragmentManagement::loader}"></div>
+<!--PreLoader Ends-->
+<nav th:replace="~{fragmentManagement::navbar}" ></nav>
+<div style="display: flex; margin: 18px 0px -46px 96px;">
+    <form id="search-form" class="search-bar" method="get">
+        <input type="search" name="keyword" required pattern=".*\S.*" style="background-color: #4E657A;color: white;"  >
+        <button class="search-btn" id="search-button" type="submit">
+            <span>Search</span>
+        </button>
+    </form>
+    <div class="selectdiv">
+        <label>
+            <select id="statusSelect">
+                <option value="-1"> All </option>
+                <option value="1">In stock</option>
+                <option value="0">Out stock</option>
+            </select>
+        </label>
+    </div>
+
+
+</div>
+
+<div th:if="${message}" class="alert alert-success mt-5"  role="alert">
+    <p style="text-align: center;
+    font-size: larger;" th:text="${message}"></p>
+</div>
+<div class="container mt-5">
+    <div class="row tm-content-row">
+        <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+
+            <div class="tm-bg-primary-dark tm-block tm-block-products">
+
+                <div class="tm-product-table-container">
+                    <table class="table table-hover tm-table-small tm-product-table">
+                        <thead>
+                        <tr style="text-align: center;">
+
+
+                            <th scope="col">PRODUCT NAME</th>
+                            <th scope="col">Ram</th>
+                            <th scope="col">Memory</th>
+                            <th scope="col">Origin</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tableee">
+                        <tr th:each="phone: ${listPhone}">
+<!--                            <td class="tm-product-name" th:text="${item.index + 1}"></td>-->
+                            <td th:text="${phone.productName}"></td>
+                            <td th:text="${phone.ram} + 'GB'"></td>
+                            <td th:text="${#numbers.formatDecimal(phone.memory, 0, 'COMMA', 0,'POINT')} + 'GB'"></td>
+                            <td th:text="${phone.origin}"></td>
+                            <td th:text="${#numbers.formatDecimal(phone.price, 1, 'COMMA', 2, 'POINT')} + ' $'"></td>
+
+                            <td>
+                                <a th:href="@{/edit-product(id=${phone.phoneId})}" class="btn btn-link" style="color: white;">Edit</a>
+
+                            </td>
+
+                            <td class="action-links">
+                                <a  th:if="${phone.status}" href="#" onclick="changeStatus(this); return false;" class="stock active" style="color: green;" th:data-id="${phone.phoneId}" >
+                                    <i class="fas fa-check-circle" data-toggle="tooltip" title="In Stock"></i>
+                                </a>
+                                <a th:if="!${phone.status}" href="#" onclick="changeStatus(this); return false;" class="stock inactive" style="color: gray;" th:data-id="${phone.phoneId}" >
+                                    <i class="fas fa-times-circle" data-toggle="tooltip" title="Out of Stock"></i>
+                                </a>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                    </table>
+                </div>
+
+                <div class="containerrr">
+                    <ul class="pagination" id="page">
+                        <li>
+                            <a href="#" th:id="page-link-prev" data-page="prev">Prev</a>
+                        </li>
+                        <li th:each="pageNumber : ${#numbers.sequence(1, totalPage)}">
+                            <a href="#"
+                               th:id="'page-link-' + ${pageNumber}"
+                               th:data-page="${pageNumber}"
+                               th:text="${pageNumber}"
+                               th:class="${currentPage == pageNumber} ? active"></a>
+                        </li>
+                        <li>
+                            <a href="#" th:id="page-link-next" data-page="next">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+                <h2 class="tm-block-title">Brand</h2>
+                <div class="tm-product-table-container">
+                    <table class="table tm-table-small tm-product-table">
+                        <tbody>
+                        <tr th:each = "brand: ${listBrand}" >
+                            <td class="tm-product-name" th:text="${brand.brandName}"></td>
+                            <td class="text-center">
+                                <a th:href="@{/edit-brand(id=${brand.brandId})}" class="btn btn-link" style="color: white;">Edit</a>
+
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <button class="btn btn-primary btn-block text-uppercase mb-3">
+                    <a th:href="@{/add-brand}" style="color: white;">Add new brand</a>
+
+                </button>
+                <button class="btn btn-primary btn-block text-uppercase mb-3">
+                    <a th:href="@{/add-product}" style="color: white;">Add new product</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragmentManagement::footer}" >
+</footer>
+
+<div th:replace="~{fragmentManagement::js}">
+
+</div>
+<script th:src="@{/js/CRUD.js}"></script>
+</body>
+</html>

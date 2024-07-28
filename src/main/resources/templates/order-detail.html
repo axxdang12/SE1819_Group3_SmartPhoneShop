@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragmentManagement::header}">
+
+</head>
+
+<body id="reportsPage">
+
+<div class="" id="home">
+    <nav th:replace="~{fragmentManagement::navbar}" >
+
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p class="text-white mt-5 mb-5">Welcome back, <b>Admin</b></p>
+            </div>
+        </div>
+        <!-- row -->
+        <div class="row tm-content-row">
+            <div class="col-12 col-lg-6">
+                <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                    <h2 class="tm-block-title">User Details</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Phone Number</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Replace with actual user data -->
+                        <tr th:each="user : ${userByOrderId}">
+                            <td th:text="${user.userDetail.firstName}"></td>
+                            <td th:text="${user.userDetail.lastName}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.userDetail.address}"></td>
+                            <td th:text="${user.userDetail.phoneNumber}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+                    <h2 class="tm-block-title">Orders Details</h2>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Product Image</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Iterate over order items -->
+                        <tr th:each="item : ${listItemByO}">
+                            <td><img th:src="@{${item.phone.picture.main}}" alt="" style="width: 100px;"></td>
+                            <td class="product-name" th:text="${item.phone.productName + ' - ' + item.phone.ram + 'GB/' + #numbers.formatDecimal(item.phone.memory, 0, 'COMMA', 0,'POINT') + 'GB' +' - '+ item.phone.origin}"></td>
+                            <td class="product-price" th:text="${#numbers.formatDecimal(item.phone.price, 1, 'COMMA', 2, 'POINT') + ' $'}"></td>
+                            <td th:text="${item.quantity}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="~{fragmentManagement::footer}" >
+    </footer>
+</div>
+
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <!-- https://jquery.com/download/ -->
+    <script th:src="@{/js/moment.min.js}"></script>
+    <!-- https://momentjs.com/ -->
+    <script th:src="@{/js/Chart.min.js}"></script>
+    <!-- http://www.chartjs.org/docs/latest/ -->
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- https://getbootstrap.com/ -->
+    <script th:src="@{/js/tooplate-scripts.js}"></script>
+<script>
+    Chart.defaults.global.defaultFontColor = 'white';
+    let ctxLine,
+        ctxBar,
+        ctxPie,
+        optionsLine,
+        optionsBar,
+        optionsPie,
+        configLine,
+        configBar,
+        configPie,
+        lineChart;
+    barChart, pieChart;
+    // DOM is ready
+    $(function () {
+        drawLineChart(); // Line Chart
+        drawBarChart(); // Bar Chart
+        drawPieChart(); // Pie Chart
+
+        $(window).resize(function () {
+            updateLineChart();
+            updateBarChart();
+        });
+    })
+</script>
+</body>
+
+</html>

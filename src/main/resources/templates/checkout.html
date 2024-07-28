@@ -6,31 +6,16 @@
 	<!--PreLoader-->
 	<div th:replace="~{fragments::loader}"></div>
 	<!--PreLoader Ends-->
-	
+
 	<!-- header -->
 	<div th:replace="~{fragments::headerNav}">
 	</div>
 	<!-- end header -->
 
 	<!-- search area -->
-	<div class="search-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="close-btn"><i class="fas fa-window-close"></i></span>
-					<div class="search-bar">
-						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end search arewa -->
-	
+	<div th:replace="~{fragments::search}"></div>
+	<!-- end search area -->
+
 	<!-- breadcrumb-section -->
 	<div class="breadcrumb-section breadcrumb-bg">
 		<div class="container">
@@ -65,13 +50,29 @@
 						    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 						      <div class="card-body">
 						        <div class="billing-address-form">
-						        	<form action="index.html">
-						        		<p><input type="text" placeholder="First Name"></p>
-						        		<p><input type="text" placeholder="Last Name"></p>
-						        		<p><input type="email" placeholder="Email"></p>
-						        		<p><input type="text" placeholder="Address"></p>
-						        		<p><input type="tel" placeholder="Phone"></p>
-						        	</form>
+									<form th:action="@{/checkout/update}" th:object="${profileDto}" method="POST">
+										<div class="form-group">
+											<label class="form-label">First Name</label>
+											<input type="text" class="form-control" th:field="*{firstName}" placeholder="First Name">
+											<div class="invalid-feedback d-block" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+										</div>
+										<div class="form-group">
+											<label class="form-label">Last Name</label>
+											<input type="text" class="form-control" th:field="*{lastName}" placeholder="Last Name">
+											<div class="invalid-feedback d-block" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+										</div>
+										<div class="form-group">
+											<label class="form-label">Address</label>
+											<input type="text" class="form-control" th:field="*{address}" placeholder="Address">
+											<div class="invalid-feedback d-block" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+										</div>
+										<div class="form-group">
+											<label class="form-label">Phone Number</label>
+											<input type="tel" class="form-control" th:field="*{phoneNumber}" placeholder="Phone Number">
+											<div class="invalid-feedback d-block" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
+										</div>
+										<button type="submit" class="btn btn-primary" id="bt" onclick="confirmSave(event)">Save changes</button>&nbsp;
+									</form>
 						        </div>
 						      </div>
 						    </div>
@@ -87,7 +88,7 @@
 							<thead>
 								<tr>
 									<th>Your order Details</th>
-									<th>Price</th>
+									<th>Price of all products</th>
 								</tr>
 							</thead>
 							<tbody class="order-details-body">
@@ -95,55 +96,58 @@
 									<td>Product</td>
 									<td>Total</td>
 								</tr>
-								<tr>
-									<td>Iphone</td>
-									<td>$85.00</td>
-								</tr>
-								<tr>
-									<td>Samsung</td>
-									<td>$70.00</td>
-								</tr>
-								<tr>
-									<td>Huawei</td>
-									<td>$35.00</td>
+								<tr th:each="items : ${listPByC}" th:if="${items.phone.status}">
+									<td th:text="${items.phone.productName + ' - ' + items.phone.ram + 'GB/' + #numbers.formatDecimal(items.phone.memory, 0, 'COMMA', 0,'POINT') + 'GB' +' - '+ items.phone.origin}"></td>
+									<td th:text="${#numbers.formatDecimal(items.total, 1, 'COMMA', 2, 'POINT') + ' $'}" ></td>
 								</tr>
 							</tbody>
 							<tbody class="checkout-details">
 								<tr>
-									<td>Subtotal</td>
-									<td>$190</td>
-								</tr>
-								<tr>
-									<td>Shipping</td>
-									<td>$50</td>
-								</tr>
-								<tr>
 									<td>Total</td>
-									<td>$240</td>
+									<td th:text="${#numbers.formatDecimal(cartTotal, 1, 'COMMA', 2, 'POINT') + ' $'} " ></td>
 								</tr>
 							</tbody>
 						</table>
-						<a href="#" class="boxed-btn">Place Order</a>
+						<a th:class="${isProfileComplete == false ? 'btn btn-secondary btn-lg disabled' : 'boxed-btn'}" role="button" th:aria-disabled="${isProfileComplete==false}" th:href="@{/place-order}" th:if="${cartTotal > 0}" onclick="return validateAndConfirmOrder()">Place Order</a>
+						<p th:if="${cartTotal == 0}" style="padding-right: 145px;font-weight: bold;padding-top: 30px;">Your cart is empty or have Inactive Product so you cannot Place Order.</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end check out section -->
-
-	<!-- logo carousel -->
-	
-	<!-- end logo carousel -->
 
 	<!-- footer -->
 	<div th:replace="~{fragments::footer}"></div>
 	<!-- end footer -->
-	
+
 	<!-- copyright -->
 	<div th:replace="~{fragments::copyright}"></div>
 	<!-- end copyright -->
 
-		<div th:replace="~{fragments::script}"></div>
+	<div th:replace="~{fragments::script}"></div>
+
+	<script>
+		function validateAndConfirmOrder() {
+        var firstName = document.getElementById('firstName').value.trim();
+        var lastName = document.getElementById('lastName').value.trim();
+        var address = document.getElementById('address').value.trim();
+        var phoneNumber = document.getElementById('phoneNumber').value.trim();
+
+        if (firstName === '' || lastName === '' || address === '' || phoneNumber === '') {
+            alert('Please enter full information to this form !!!');
+            return false;
+        }
+
+        return confirm("Are you sure you want to place order ?");
+    }
+
+		    function confirmSave(event) {
+        var result = confirm("Are you sure you want to save changes?");
+        if (!result) {
+            event.preventDefault();
+        }
+    }
+	</script>
 
 </body>
 </html>

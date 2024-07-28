@@ -13,22 +13,7 @@
 	<!-- end header -->
 
 	<!-- search area -->
-	<div class="search-area">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<span class="close-btn"><i class="fas fa-window-close"></i></span>
-					<div class="search-bar">
-						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<div th:replace="~{fragments::search}"></div>
 	<!-- end search arewa -->
 	
 	<!-- breadcrumb-section -->
@@ -37,7 +22,7 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>Smartphones and Accessories</p>
+						<p>Smartphones</p>
 						<h1>My Orders</h1>
 					</div>
 				</div>
@@ -54,44 +39,44 @@
                     <table class="table">
 						<thead>
 							<tr>
-								<th>Order ID</th>
 								<th>Order Date</th>
 								<th>Total Price</th>
 								<th>View detail</th>
+								<th>Status</th>
 								<th>Action</th>
+								<th>Feedback</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>2024/05/18</td>
-								<td>$150.00</td>
-								<td><a class="btn btn-info" th:href="@{detail}">Details</a></td>
+							<tr th:each="order: ${orderListByUid}">
+								<td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy')}"></td>
+								<td style="padding-left: 25px;" th:text="${#numbers.formatDecimal(order.totalPrice, 1, 'COMMA', 2, 'POINT') + ' $'}"></td>
+								<td><a class="btn btn-info" th:href="@{/orderDetail/{id}(id=${order.orderId})}">Details</a></td>
+								<td th:text="${order.status}"></td>
 								<td>
-									<button class="btn btn-danger cancel-order" data-order-id="1">Cancel</button>
+									<a th:if="${order.status == 'Pending'}"
+									   class="btn btn-danger cancel-order"
+									   th:href="@{cancel-order/{id}(id=${order.orderId})}"
+									   onclick="return confirmCancel()">Cancel</a>
+									<button th:unless="${order.status == 'Pending'}"
+											class="btn btn-danger"
+											disabled>Cancel</button>
 								</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>2024/05/07</td>
-								<td>$200.00</td>
-								<td><a class="btn btn-info" th:href="@{detail}">Details</a></td>
 								<td>
-									<button class="btn btn-danger cancel-order" data-order-id="2">Cancel</button>
-								</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>2024/05/01</td>
-								<td>$100.00</td>
-								<td><a class="btn btn-info" th:href="@{detail}">Details</a></td>
-								<td>
-									<button class="btn btn-danger cancel-order disabled" data-order-id="3" disabled>Cancel</button>
+									<a th:if="${order.status == 'Completed'}"
+									   class="btn btn-info"
+									   th:href="@{report/{id}(id=${order.orderId})}">Report</a>
+									<button th:unless="${order.status == 'Completed'}"
+											class="btn btn-info"
+											disabled>Report</button>
 								</td>
 							</tr>
 						</tbody>
 					</table>					
                 </div>
+				<div>
+					<p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></p>
+				</div>
             </div>
         </div>
     </div>
@@ -110,5 +95,10 @@
 	<!-- jquery -->
 	<div th:replace="~{fragments::script}"></div>
 
+	<script>
+		function confirmCancel() {
+                return confirm("Are you sure you want to cancel this order?");
+            }
+	</script>
 </body>
 </html>

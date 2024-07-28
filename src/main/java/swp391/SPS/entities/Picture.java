@@ -12,6 +12,12 @@ import lombok.*;
 @EqualsAndHashCode
 @Data
 public class Picture {
+
+    public Picture createPicture(String main, String front, String back, String site) {
+
+        return new Picture(pictureId,main,front,back,site);
+    }
+
     @Id
     @Column(name = "picture_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,5 +34,8 @@ public class Picture {
 
     @Column(name = "side")
     private String site;
+
+//    @OneToOne(mappedBy = "picture")
+//    private Phone phone;
 
 }

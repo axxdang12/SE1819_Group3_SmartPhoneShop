@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments::header}">
+    <title>Thank You</title>
+</head>
+<body>
+
+<!--PreLoader-->
+<div th:replace="~{fragments::loader}"></div>
+<!--PreLoader Ends-->
+
+<!-- header -->
+<div th:replace="~{fragments::headerNav}"></div>
+<!-- end header -->
+
+<!-- search area -->
+<div th:replace="~{fragments::search}"></div>
+<!-- end search area -->
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                    <p>Thank You</p>
+                    <h1>Feedback Submitted</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- thank you section -->
+<div class="thank-you-section mt-30 mb-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 text-center"style="margin-top: 15%; margin-bottom: 15%;">
+                <div class="thank-you-text">
+                    <h2>Thank You for Your Feedback</h2>
+                    <p>We have received your comments and will send feedback via email.</p>
+                    <a href="/" class="btn btn-primary" id="bt">Return to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end thank you section -->
+
+<!-- footer -->
+<div th:replace="~{fragments::footer}"></div>
+<!-- end footer -->
+
+<!-- copyright -->
+<div th:replace="~{fragments::copyright}"></div>
+<!-- end copyright -->
+
+<!-- jquery -->
+<div th:replace="~{fragments::script}"></div>
+</body>
+</html>

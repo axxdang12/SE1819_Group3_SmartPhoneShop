@@ -22,7 +22,7 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
     } else if (role.contains("ADMIN")) {
       response.sendRedirect("/admin-dashboard");
     } else if (role.contains("MANAGER")) {
-      response.sendRedirect("/manager-dashboard");
+      response.sendRedirect("/manager");
     }
   }
 }
