@@ -67,15 +67,17 @@ public class SingleProductController {
 
 
     @PostMapping("/cart-single/phone/{id}")
-    public String addPhoneQuantityToCart(@PathVariable("id") int id, Model model, @RequestParam("quantity") int quantity){
+    public String addPhoneQuantityToCart(@PathVariable("id") String id, Model model, @RequestParam("quantity") int quantity) throws FileNotFoundException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(id.isEmpty() || id==null)   throw new FileNotFoundException("Not Found");
+
         if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             model.addAttribute("isLogin", false);
             return "cart";
         }
         model.addAttribute("isLogin", true);
         model.addAttribute("username", authentication.getName());
-        cartItemService.addPhoneSingleToCart(authentication.getName(),id, quantity);
+        cartItemService.addPhoneSingleToCart(authentication.getName(),Integer.parseInt(id), quantity);
         Cart cart= cartService.getCart(authentication.getName());
         model.addAttribute("listPByC", cart.getItems());
         model.addAttribute("cartTotal", cart.getTotal());

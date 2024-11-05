@@ -15,7 +15,7 @@ public interface BrandRepository extends JpaRepository<Brand, Integer> {
     @Query("select new swp391.SPS.dtos.BrandRevenueDTO( b.brandName as brandName, sum(oi.total) as total ) from Brand b join Phone p on b.brandId = p.brand.brandId join OrderItem oi on oi.phone.phoneId = p.phoneId join Order o on o.orderId = oi.order.orderId where o.status = 'Completed'  group by b.brandId, b.brandName")
     List<BrandRevenueDTO> ListRevenueOfBrand();
 
-    @Query("select new swp391.SPS.dtos.BrandRevenueDTO( b.brandName as brandName, sum(oi.total) as total ) from Brand b join Phone p on b.brandId = p.brand.brandId join OrderItem oi on oi.phone.phoneId = p.phoneId join Order o on o.orderId = oi.order.orderId where o.status = 'Completed' and o.orderDate >= :start and o.orderDate <= :end group by b.brandId, b.brandName")
+    @Query("select new swp391.SPS.dtos.BrandRevenueDTO( b.brandName as brandName, sum(oi.total) as total ) from Brand b join Phone p on b.brandId = p.brand.brandId join OrderItem oi on oi.phone.phoneId = p.phoneId join Order o on o.orderId = oi.order.orderId where o.status = 'Completed' and o.orderDate >= :start and o.orderDate <= :end group by b.brandId, b.brandName order by total desc ")
     List<BrandRevenueDTO> ListRevenueOfBrandBuDate(@Param("start") LocalDate  start,@Param("end") LocalDate end);
 
 //    @Query("SELECT new co.vn.vse.common.dtos.AccountListDto(a.accountId, a.avatar, a.fullName, a.birthDate, a.phoneNumber, a.address, a.email) FROM Account a WHERE a.role.roleName = 'TEACHER'")

@@ -18,4 +18,10 @@ public interface CartItemRepository extends JpaRepository<CartItem, Integer> {
 
     @Query("SELECT ci FROM CartItem ci WHERE ci.cart.cartId = ?1 AND ci.phone.phoneId = ?2")
     CartItem listCartItemByPAC(int cartId, int phoneId);
+
+    @Query(value =  "select sum(total) from cart_item where cart_id = :cartId", nativeQuery = true)
+    Double totalCart(@Param("cartId") int cartId);
+
+//    @Query(value =  "select sum(quantity * total) from cart_item where phone_id = :phoneId and cart_id = :cartId", nativeQuery = true)
+//    Double totalItem(@Param("phoneId") int phoneId, @Param("cartId") int cartId);
 }

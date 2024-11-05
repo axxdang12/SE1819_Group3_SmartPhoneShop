@@ -59,19 +59,19 @@
                 return "redirect:/shop";
         }
 
-        @PostMapping("/cart/update-quantity/{id}")
-        public String updateQuantity(@PathVariable("id") int id, @RequestParam("quantity") int quantity, Model model) {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
-                model.addAttribute("isLogin", false);
-                return "cart";
-            }
-            model.addAttribute("isLogin", true);
-            model.addAttribute("username", authentication.getName());
-            Cart cart= cartService.getCart(authentication.getName());
-            cartItemService.updatePhoneQuantity(authentication.getName(), cart.getCartId(), id, quantity);
-            model.addAttribute("listPByC", cart.getItems());
-            model.addAttribute("cartTotal", cart.getTotal());
-            return "redirect:/cart";
-        }
+//        @PostMapping("/cart/update-quantity/{id}")
+//        public String updateQuantity(@PathVariable("id") int id, @RequestParam("quantity") int quantity, Model model) {
+//            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//            if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//                model.addAttribute("isLogin", false);
+//                return "cart";
+//            }
+//            model.addAttribute("isLogin", true);
+//            model.addAttribute("username", authentication.getName());
+//            Cart cart= cartService.getCart(authentication.getName());
+//            cartItemService.updatePhoneQuantity(authentication.getName(), cart.getCartId(), id, quantity);
+//            model.addAttribute("listPByC", cart.getItems());
+//            model.addAttribute("cartTotal", cart.getTotal());
+//            return "redirect:/cart";
+//        }
     }
