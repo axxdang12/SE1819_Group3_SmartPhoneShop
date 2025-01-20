@@ -59,6 +59,7 @@ function updateQuantity(input, phoneId) {
             if(response.cartTotal ==null){
                                      $('#totalCart').text('0.00$');
                                }else{
+                                console.log(response.cartTotal);
                                 $('#totalCart').text(response.cartTotal.toFixed(2) + ' $');
 
                                }

@@ -110,8 +110,6 @@ public class CartController {
 
             Map<String, Object> response = new HashMap<>();
             response.put("cartTotal", cartTotal);
-
-
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             e.printStackTrace(); // In ra lỗi chi tiết

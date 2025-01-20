@@ -46,8 +46,11 @@ public class ShopController {
             }
         }
         model.addAttribute("listBrand", brandService.findAllBrand());
-
+        try{
             int page = Integer.parseInt(pageNo);
+
+
+
             if(page <=0 ){
                 model.addAttribute("check", true);
                 return "shop";
@@ -108,6 +111,10 @@ public class ShopController {
             model.addAttribute("totalPage", list.getTotalPages());
             model.addAttribute("currentPage", page);
         return "shop";
+        }catch(Exception ex)
+        {
+            throw new FileNotFoundException("Not Found");
+        }
         }
 @GetMapping("/shop?minPrice=&maxPrice=")
 public String exceptionPrice() throws FileNotFoundException {
