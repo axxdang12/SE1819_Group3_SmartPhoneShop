@@ -56,4 +56,16 @@ public class User {
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Report> reports;
+
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<News> newsCreated;
+
+    @OneToMany(mappedBy = "modifyBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<News> newsModify;
+
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Discount> discountCreated;
+
+    @OneToMany(mappedBy = "modifyBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Discount> discountModify;
 }
